@@ -1,0 +1,24 @@
+/*
+
+!/.git*
+
+# Directories
+!/papers/
+/papers/*
+!/py/
+/py/*
+!/uni-hws/
+
+# Unignore
+!/**/README.org
+!/**/LICENSE
+!/**/*.ipynb
+!/**/*.org
+!/**/*.tex
+!/**/*.pdf
+!/**/*.c
+!/**/*.cs
+
+# Ignore
+/**/*.out
+/**/.ipynb_checkpoints

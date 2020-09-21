@@ -1,0 +1,168 @@
+\documentclass[professionalfont, a5paper]{article}
+
+\usepackage{
+  fullpage,
+  caption,
+  float,
+  amsmath, amssymb, amsthm,
+  tikz,
+  pgfplots,
+}
+
+\usepackage{fontspec}
+\setmainfont{XB Roya}
+\setmonofont{Iosevka}
+
+% \usepackage{xepersian}
+% \settextfont{XB Roya}
+% \setlatintextfont{Vazir}
+% \setdigitfont{XB Yas}
+
+\author{M. Yas. Davoodeh}
+\title{My basic AI notebook \\(tips that I think matter)}
+\date{\today}
+
+\newcommand{\plot}[2][5]{
+  \begin{figure}[H]\centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      % xmax=6,
+      % ymax=2,
+      samples=50,
+      grid=major,
+      % xlabel={x},
+      % ylabel={y},
+    ]
+  \addplot [
+      domain=-#1:#1,
+      samples=100,
+      color=black,
+  ]
+  {#2};
+  \end{axis}
+  \end{tikzpicture}
+  \end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Math}
+A vector is a $x\times1$ matrix.
+
+Vector $\vec{x}$ has a Weight property which indicates its travel distance (Euclidean).
+Weight of $\vec{x}$ is indicated by $\|\vec{x}\|$.
+
+Euclidean or Normal distance is calculated like below where $Ds$ is the number of dimensions:
+\begin{equation}
+  d(p, q) = d(q, p) = \sqrt{\sum_{i=1}^{Ds}(q_{i}-p_{i})^{2}}
+\end{equation}
+
+\section{Not-Math}
+\subsection{Hypothesis}
+$h_{\Theta}(x)$ is the example function for $\Theta$ parameters as in $h_{\Theta}(x) = \Theta^{T}x$.
+A good $h$ gives a correct answer $y$ for any given $x$.
+
+\subsection{Cost function}
+$J(x)$ is the difference between a guessed answer ($h_{\Theta}$) and the correct one.
+In the simplest form:
+\begin{equation}
+  J(x) = h_{\Theta}(x) - y
+\end{equation}
+
+Linear-Regression $J$ for a set like $x= \{(x_{1}, y_{1}), (x_{2}, y_{2}), \dots, (x_{m}, y_{m})\}$:
+\begin{equation}
+  J(x) = \frac{\sum_{i=1}^{m}(h_{\Theta}(x_{i}) - y_{i})^{2}}{2m}
+\end{equation}
+The power 2 prevents negative values from cancelling out the positive ones.
+Absolute function ($|x|$) can be used as well. The reason that the power 2 function is more used is that it penalizes outlier values exponentially.
+
+\subsection{Logistic/Sigmoid function}
+\begin{equation}
+  g(x) = \frac{L}{1+e^{-k(x-x_{0})}}
+\end{equation}
+\setlength{\leftskip}{1cm}
+Where
+
+\setlength{\leftskip}{2cm}
+    $x_{0}$ = the $x$ value of the sigmoid's midpoint (default=$0$),
+
+    $L$ = the curve's maximum value (default=$1$),
+
+    $k$ = the logistic growth rate or steepness of the curve (default=$1$).
+
+\setlength{\leftskip}{0cm}
+\plot{1/(1+e^-x)}
+
+\subsection{ReLU}
+Rectified Linear Unit
+\begin{equation}
+  \sigma(x) = R(x) = max(0, x)
+\end{equation}
+\plot{max(0, x)}
+
+\section{Normalization}
+Normalization aims to reduce processing required or simplifying values.
+\begin{equation}
+  s = \max(x) - \min(x) \quad\text{OR}\quad s = \underbrace{\sigma(x)}_{\text{std}}
+\end{equation}
+
+\subsection{Feature Scaling}
+By dividing a constant, $s$, to $x$ in order to make the change range closer to $-1 \leq x \leq 1$, we scale the features.
+\begin{equation}
+  x' = \frac{x}{s}
+\end{equation}
+To rescale a range between an arbitrary set of values $[a, b]$, the formula becomes:
+\begin{equation}
+  x' = \frac{(x-\min(x))(b-a)}{s}
+\end{equation}
+
+\subsection{Mean Noramlization}
+\begin{equation}
+  x' = \frac{x - \overbrace{\mu}^{\bar{x}}}{s}
+\end{equation}
+
+\subsection{Making decision based on decision boundary}
+For any given decision boundary $\vec{d}$, there is a perpendicular vector, $\vec{w}$, to it from the origin ($(0,0)$).
+
+To determine if unknown vector $\vec{u}$ if over $\vec{d}$ or not we check if $\vec{u}\cdot\vec{w}+bias>0$ or not.
+
+If $\vec{u}\cdot\vec{w}+bias > 0$, $\vec{u}$ is over $\vec{d}$.\\
+else If $\vec{u}\cdot\vec{w}+bias < 0$, $\vec{u}$ is not over $\vec{d}$.\\
+else If $\vec{u}\cdot\vec{w}+bias = 0$, $\vec{u}$ is on the decision boundary $\vec{d}$.
+
+
+% \subsection{Reinforment Learning}
+% Abbreviations:
+
+% $s$ State of software
+
+% $a$ Action
+
+% $P_{a}(s, s')$ Policy action for state $s$ to another state
+
+% $R_{a}(s, s')$ Reward function for state $s$ to another state, can be positive, negative or null
+
+% $T_{a}(s, s')$ Transition function for decision making and carrying out the task from $s$ to $s'$
+
+% $Q$ Bellman equation:
+% \begin{equation}
+%   Q(s) = sumR(s) + \gamma \times maxR(s')
+% \end{equation}
+% \setlength{\leftskip}{1cm}
+% Where
+
+% \setlength{\leftskip}{2cm}
+%     $sumR(s)$ is the sum of rewards up to the $s$ state.
+
+%     $\gamma$ = the chances,
+
+%     $maxR(s')$ = the highest value reward for an state that can be reached via $P_{a}(s, s')$
+
+% \setlength{\leftskip}{0cm}
+
+\end{document}
+
+% Local Variables:
+% TeX-engine: xetex
+% End:
