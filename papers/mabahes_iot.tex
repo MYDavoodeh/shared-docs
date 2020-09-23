@@ -1,0 +1,78 @@
+\documentclass[a4paper, margin=1in]{article}
+
+\usepackage[backend=biber, sorting=none]{biblatex}
+\begin{filecontents}{\jobname.bib}
+@misc{wp:iot,
+  author          = "Wikipedia",
+  title           = "Internet of things",
+  url             =
+                  "https://en.wikipedia.org/wiki/Internet_of_things&oldid=979730325",
+}
+\end{filecontents}
+\addbibresource{\jobname.bib}
+
+\usepackage{
+  fullpage,
+  titling,
+}
+
+\usepackage{xepersian}
+\settextfont{XB Roya}
+\setlatintextfont{Vazir}
+\setdigitfont{XB Yas}
+\setmonofont{Iosevka}
+
+\author{محمدیاسین داوده}
+\title{مقدمه‌ای کلی بر اینترنت اشیا}
+\date{\today}
+
+\begin{document}
+\begin{titlingpage}
+\maketitle
+
+% فارسی
+\begin{abstract}
+  اینترنت اشیا\LTRfootnote{The Internet of Things (IoT)} از فناوری‌های نوظهور انقلابی است که به سرعت در حال توسعه و تحول بخشیدن به زندگی ماست.
+  از این رو آشنایی با این انقلاب صعنتی جدید برای هر شخص لازم و با اهمیت است.
+
+  در این مطلب به جوانب کلی این فناوری پرداخته می‌شود. این جوانب عبارتند از: تعریف، معماری، مزایا و معایب، کاربردها و پیاده‌سازی اینترنت اشیا.
+\end{abstract}
+
+\tableofcontents
+\end{titlingpage}
+
+\section{تعریف}
+اینترنت اشیا شبکه‌ای از «اشیا» است که به نرم‌افزار، سنسور و دیگر فناوری‌های
+مرتبط جهت برقراری ارتباط و تبادل داده با دیگر دستگاه‌های روی اینترنت مجهز شده‌اند.
+
+این اشیا می‌توانند از وسایل خانگی، کشاورزی گرفته تا پوشاک را شامل باشند. از این فناوری در زمینه‌هایی مانند، خانه‌های هوشمند، اتوماسیون، یادگیری ماشین، جمع‌آوری داده و دیگر زمینه‌ها استفاده می‌شود.
+
+\section{معماری}
+% TODO معماری چهارلایه؟
+
+\section{مزایا و معایب}
+
+نگرانی‌هایی دربارهٔ این فناوری، به خصوص در حوزه‌های امنیت و حریم خصوصی وجود دارد.
+% TODO
+
+\section{کاربردها}
+اینترنت اشیا کاربردهای بی‌شماری دارد.
+کاربردهای این فناوری را می‌توان به چهار بخش مصرف‌کننده، تجاری، صعنتی و زیرساختی تقسیم کرد.
+
+\subsection{مصرف‌کننده}
+
+\subsection{تجاری}
+
+\subsection{صنعتی}
+
+\subsection{زیرساختی}
+
+\section{پیاده‌سازی}
+
+\nocite{wp:iot}
+\newpage
+\section*{مراجع}
+\begin{latin}
+    \printbibliography[heading=none] %[title={مراجع}]
+\end{latin}
+\end{document}
