@@ -5,12 +5,14 @@
   titling,
   amsmath, amssymb, amsthm,
 }
+
 \usepackage[bottom]{footmisc}
 % Disable footnote mark for \footnotetext
 \makeatletter
 \def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
 \makeatother
 \newcommand{\reminder}[1]{{\let\thefootnote\relax\footnotetext{* #1}}}
+
 
 \usepackage{xepersian}
 \settextfont{XB Roya}
@@ -22,8 +24,8 @@
 \title{گسسته}
 \date{\today}
 
-\newcommand{\T}{$\mathbb{T}$}
-\newcommand{\F}{$\mathbb{F}$}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\F}{\mathbb{F}}
 \newcommand{\reft}[1]{~(جدول~\ref{tb:#1})}
 
 \begin{document}
@@ -68,14 +70,22 @@
 \begin{table}[h]\centering
   \begin{LTR}
     \begin{tabular}{c|c}
-      $p$ & $\lnot{}p$ \\
+      $p$ & $\lnot p$ \\
       \hline
-      \T & \F\\
-      \F & \T\\
+      $\T$ & $\F$\\
+      $\F$ & $\T$\\
     \end{tabular}
   \end{LTR}
   \caption{جدول رابط‌های اصلی گزاره‌ای و نمادهای آن‌ها}\label{tb:not}
 \end{table}
+
+
+با توجه به جدول مقادیر~(\ref{tb:not}) می‌توان نتیجه گرفت:
+
+\begin{equation}
+\lnot(\lnot p) \quad \overbrace{\equiv}^{\text{هم ارزی*}} \quad p
+\end{equation}
+\reminder{هرگاه دو گزاره مرکب --- صرف نظر از ارزش مؤلفه‌های آن‌ها --- ارزش‌های یکسان داشته باشند از لحاظ منطقی هم‌ارز هستند که آنرا با نماد $\equiv$ نشان می‌دهیم.}
 
 \subsubsection{ترکیب عطفی (And)}
 اگر $p$ و $q$ دو گزاره باشند و بخواهیم از صحت هر دو اطمینان حاصل کنیم از ترکیب عطفی ($p \land q$) استفاده می‌کنیم.\reft{and}
@@ -85,10 +95,10 @@
     \begin{tabular}{c c|c}
       $p$ & $q$ & $p \land q$ \\
       \hline
-      \T & \T & \T \\
-      \T & \F & \F \\
-      \F & \T & \F \\
-      \F & \F & \F \\
+      $\T$ & $\T$ & $\T$ \\
+      $\T$ & $\F$ & $\F$ \\
+      $\F$ & $\T$ & $\F$ \\
+      $\F$ & $\F$ & $\F$ \\
     \end{tabular}
   \end{LTR}
   \caption{جدول مقادیر ترکیب عطفی}\label{tb:and}
@@ -102,10 +112,10 @@
     \begin{tabular}{c c|c}
       $p$ & $q$ & $p \lor q$ \\
       \hline
-      \T & \T & \T \\
-      \T & \F & \T \\
-      \F & \T & \T \\
-      \F & \F & \F \\
+      $\T$ & $\T$ & $\T$ \\
+      $\T$ & $\F$ & $\T$ \\
+      $\F$ & $\T$ & $\T$ \\
+      $\F$ & $\F$ & $\F$ \\
     \end{tabular}
   \end{LTR}
   \caption{جدول مقادیر ترکیب فصلی}\label{tb:or}
@@ -119,10 +129,10 @@
     \begin{tabular}{c c|c}
       $p$ & $q$ & $p \oplus q$ \\
       \hline
-      \T & \T & \F \\
-      \T & \F & \T \\
-      \F & \T & \T \\
-      \F & \F & \F \\
+      $\T$ & $\T$ & $\F$ \\
+      $\T$ & $\F$ & $\T$ \\
+      $\F$ & $\T$ & $\T$ \\
+      $\F$ & $\F$ & $\F$ \\
     \end{tabular}
   \end{LTR}
   \caption{جدول مقادیر یای انحصاری}\label{tb:xor}
@@ -142,10 +152,10 @@
     \begin{tabular}{c c|c}
       $p$ & $q$ & $p \Rightarrow q$ \\
       \hline
-      \T & \T & \T \\
-      \T & \F & \F \\
-      \F & \T & \T \\
-      \F & \F & \T \\
+      $\T$ & $\T$ & $\T$ \\
+      $\T$ & $\F$ & $\F$ \\
+      $\F$ & $\T$ & $\T$ \\
+      $\F$ & $\F$ & $\T$ \\
     \end{tabular}
   \end{LTR}
   \caption{جدول مقادیر ترکیب شرطی}\label{tb:imp}
@@ -154,7 +164,7 @@
 با توجه به جدول مقادیر~(\ref{tb:imp}) می‌توان نتیجه گرفت:
 
 \begin{equation}
-\lnot p \lor q \quad \overbrace{\equiv}^{\text{هم ارزی*}} \quad p \Rightarrow q
+\lnot p \lor q \quad \equiv \quad p \Rightarrow q
 \end{equation}
 \reminder{هرگاه دو گزاره مرکب --- صرف نظر از ارزش مؤلفه‌های آن‌ها --- ارزش‌های یکسان داشته باشند از لحاظ منطقی هم‌ارز هستند که آنرا با نماد $\equiv$ نشان می‌دهیم.}
 
@@ -166,10 +176,10 @@
     \begin{tabular}{c c|c c||c}
       $p$ & $q$ & $p \Rightarrow q$ & $q \Rightarrow p$ & $p \Leftrightarrow q$ \\
       \hline
-      \T & \T & \T & \T & \T \\
-      \T & \F & \F & \T & \F \\
-      \F & \T & \T & \F & \F \\
-      \F & \F & \T & \T & \T \\
+      $\T$ & $\T$ & $\T$ & $\T$ & $\T$ \\
+      $\T$ & $\F$ & $\F$ & $\T$ & $\F$ \\
+      $\F$ & $\T$ & $\T$ & $\F$ & $\F$ \\
+      $\F$ & $\F$ & $\T$ & $\T$ & $\T$ \\
     \end{tabular}
   \end{LTR}
   \caption{جدول مقادیر ترکیب دوشرطی}\label{tb:imi}
@@ -180,5 +190,46 @@
 \begin{equation}
 p \Leftrightarrow q \quad \equiv \quad (p \Rightarrow q) \land (q \Rightarrow p) \quad \equiv \quad (\lnot p \lor q) \land (\lnot q \lor p)
 \end{equation}
+
+\subsection{خواص گزاره‌ها}
+گزاره‌ها خواصی دارند که به شرح زیر است:
+
+\begin{equation}
+  \text{خودتوانی}\begin{cases}
+    p \lor p \quad \equiv \quad p \\
+    p \land p \quad \equiv \quad p
+  \end{cases}
+\end{equation}
+\begin{equation}
+  \text{جذبی}\begin{cases}
+    p \lor (p \land q) \quad \equiv \quad p \\
+    p \land (p \lor q) \quad \equiv \quad p
+  \end{cases}
+\end{equation}
+\begin{equation}
+  \text{جابه‌جایی}\begin{cases}
+    p \lor q \quad \equiv \quad q \lor p \\
+    p \land q \quad \equiv \quad q \land p
+  \end{cases}
+\end{equation}
+\begin{equation}
+  \text{شرکت‌پذیری}\begin{cases}
+    p \lor (q \lor r) \quad \equiv \quad (p \lor q) \lor r \\
+    p \land (q \land r) \quad \equiv \quad (p \land q) \land r
+  \end{cases}
+\end{equation}
+\begin{equation}
+  \text{متمم}\begin{cases}
+    p \lor \lnot p \quad \equiv \quad \T \\
+    p \land \lnot p \quad \equiv \quad \F
+  \end{cases}
+\end{equation}
+\begin{equation}
+  \text{قانون دمورگان (\lr{De Morgan})}\begin{cases}
+    \lnot(p \lor q) \quad \equiv \quad \lnot p \land \lnot q \\
+    \lnot(p \land q) \quad \equiv \quad \lnot p \lor \lnot q
+  \end{cases}
+\end{equation}
+
 
 \end{document}
