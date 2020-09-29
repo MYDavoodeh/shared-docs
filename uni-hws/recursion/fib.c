@@ -18,7 +18,6 @@ int main(int argc, char *argv[]) {
   }
 
   int input = atoi(argv[1]);
-
   printf("fib(%d) = %llu\n", input, fib(input));
   return 0;
 }
