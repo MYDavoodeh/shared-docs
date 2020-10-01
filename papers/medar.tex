@@ -1,0 +1,76 @@
+\documentclass[a5paper]{article}
+\usepackage[pass]{geometry}
+
+\usepackage{
+  fullpage,
+  titling,
+  amsmath, amssymb, amsthm,
+}
+
+\usepackage{xepersian}
+\settextfont{XB Roya}
+\setlatintextfont{Vazir}
+\setdigitfont{XB Yas}
+\setmonofont{Iosevka}
+
+\author{محمدیاسین داوده}
+\title{مدار}
+\date{\today}
+
+\begin{document}
+\begin{titlingpage}
+\maketitle
+
+% فارسی
+% \begin{abstract}
+% \end{abstract}
+
+\tableofcontents
+\end{titlingpage}
+
+% فارسی
+\section{اعداد، مبناها، مکمل و کدها}
+\subsection{مبناها}
+یک عدد با $n$ عدد، عدد صحیح و $m$ عدد اعشار را می‌توان به صورت زیر نوشت:
+
+\begin{equation}
+  a = \underbrace{a_{n-1}a_{n-2} \ldots a_2a_1a_0}_{\text{$n$ عدد صحیح}}.\underbrace{a_{-1}a_{-2} \ldots a_{-m}}_{\text{$m$ عدد اعشار}}
+\end{equation}
+
+هر عدد در مبنای $n$ شامل $n$ رقم یکتا از ۰ تا $n$ است.
+هنگامی که مبنا از ۱۰ بالاتر می‌رود ارقام بالاتر از ۹ را با حروف الفبای انگلیسی نمایش می‌دهیم.
+مثلاً در مبنایی شانزدهی\LTRfootnote{Hexadecimal} مجموعه ارقام به این شکل است:\\
+$\{0,1,2,3,4,5,6,7,8,9,A,B,C,D,F\}$
+
+برای تبدیل عددی از مبنای $r$ به مبنای ده‌دهی\LTRfootnote{Decimal} کافیست هر رقم را در
+ارزش مکانی خودش ضرب کنیم و حاصل را با هم جمع کنیم:
+
+\begin{equation}
+  a = a_{n-1} \times r^{n-1} + \ldots + a_{0} \times r^{0} + a_{-1} \times r^{-1} + \ldots + a_{-m} \times r^{-m}
+\end{equation}
+
+بزرگترین عدد $n$رقمی در مبنای $r$ همواره برابر با $\overbrace{(r-1)(r-1)\ldots(r-1)}^{\text{$n$ رقم}}$ است.
+به طور مثال در مبنای ده‌دهی $999\ldots999$ و در مبنای شانزدهی $FFF\ldots{}FFF$ بزرگترین عدد است.
+مقدار این عدد به صورت زیر به دست می‌آید:
+
+\begin{equation}
+\begin{split}
+  (r-1) \times r^{n-1} + \ldots + (r-1) \times r^{0} = (r-1)(r^{n-1} + \ldots + r^{0})\\ \stackrel{\text{تصاعد هندسی}}{=} (r-1)(\frac{r^{n}-1}{r-1}) = r^{n} -1
+\end{split}
+\end{equation}
+
+\section{جبر بول، ساده‌ساز، EPI و PI}
+
+\section{گیت‌ها، منطق سه حالته، هازاد و تکنولوژی‌های ساخت تراشه}
+
+\section{مدارات ترکیبی}
+
+\section{لچ و فلیپ فلاپ}
+
+\section{تحلیل مدارات ترتیبی سنکرون، میلی و مور و شمارنده و ثبات}
+
+\section{طراحی مدارات ترتیبی سنکرون و کاهش حالت}
+
+\section{سنتز مدار}
+
+\end{document}
