@@ -45,19 +45,22 @@ $\{0,1,2,3,4,5,6,7,8,9,A,B,C,D,F\}$
 برای تبدیل عددی از مبنای $r$ به مبنای ده‌دهی\LTRfootnote{Decimal} کافیست هر رقم را در
 ارزش مکانی خودش ضرب کنیم و حاصل را با هم جمع کنیم:
 
-\begin{equation}
-  a = a_{n-1} \times r^{n-1} + \ldots + a_{0} \times r^{0} + a_{-1} \times r^{-1} + \ldots + a_{-m} \times r^{-m}
-\end{equation}
+\begin{equation}\begin{split}
+  a = a_{n-1} \times r^{n-1} + \ldots + a_{0} \times r^{0} + a_{-1} \times r^{-1} + \ldots + a_{-m} \times r^{-m}\\
+  = \sum_{i=-m}^{n-1}(a_{i} \times r^{i})
+\end{split}\end{equation}
 
 بزرگترین عدد $n$رقمی در مبنای $r$ همواره برابر با $\overbrace{(r-1)(r-1)\ldots(r-1)}^{\text{$n$ رقم}}$ است.
 به طور مثال در مبنای ده‌دهی $999\ldots999$ و در مبنای شانزدهی $FFF\ldots{}FFF$ بزرگترین عدد است.
 مقدار این عدد به صورت زیر به دست می‌آید:
 
-\begin{equation}
-\begin{split}
-  (r-1) \times r^{n-1} + \ldots + (r-1) \times r^{0} = (r-1)(r^{n-1} + \ldots + r^{0})\\ \stackrel{\text{تصاعد هندسی}}{=} (r-1)(\frac{r^{n}-1}{r-1}) = r^{n} -1
-\end{split}
-\end{equation}
+\begin{equation}\begin{split}
+  \sum_{i=0}^{n-1}\big((r-1) \times r^{i}\big) = &(r-1)\sum_{i=0}^{n-1}(r^{i})\\
+  \stackrel{\text{تصاعد هندسی}}{=} &(r-1)(\frac{r^{n}-1}{r-1}) = r^{n} -1
+\end{split}\end{equation}
+
+برای تبدیل قسمت صحیح عدد $(a)_{10}$ به مبنای $r$ از تقسیم متوالی و یادداشت باقیمانده به ترتیب برعکس به دست آمده استفاده می‌کنیم.
+برای تبدیل قسمت اعشاری عدد $(a)_{10}$ به مبنای $r$ از ضرب متوالی و یادداشت صورت حاصل استفاده می‌کنیم.
 
 \section{جبر بول، ساده‌ساز، EPI و PI}
 
