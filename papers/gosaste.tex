@@ -192,6 +192,9 @@
 p \Leftrightarrow q \quad \equiv \quad (p \Rightarrow q) \land (q \Rightarrow p) \quad \equiv \quad (\lnot p \lor q) \land (\lnot q \lor p)
 \end{equation}
 
+گزاره راستگو گزاره‌ای است که همواره برابر با $\T$ باشد.
+گزاره‌ای که همواره $\F$ است را گزاره متناقض گویند.
+
 \subsection{خواص گزاره‌ها}
 گزاره‌ها خواصی دارند که به شرح زیر است:
 
@@ -220,6 +223,12 @@ p \Leftrightarrow q \quad \equiv \quad (p \Rightarrow q) \land (q \Rightarrow p)
   \end{cases}
 \end{equation}
 \begin{equation}
+  \text{توزیع‌پذیری}\begin{cases}
+    p \lor (q \land r) \quad \equiv \quad (p \land q) \lor (p \land r) \\
+    p \land (q \lor r) \quad \equiv \quad (q \lor q) \land p (p \lor r)
+  \end{cases}
+\end{equation}
+\begin{equation}
   \text{متمم}\begin{cases}
     p \lor \lnot p \quad \equiv \quad \T \\
     p \land \lnot p \quad \equiv \quad \F
@@ -229,6 +238,14 @@ p \Leftrightarrow q \quad \equiv \quad (p \Rightarrow q) \land (q \Rightarrow p)
   \text{قانون دمورگان (\lr{De Morgan})}\begin{cases}
     \lnot(p \lor q) \quad \equiv \quad \lnot p \land \lnot q \\
     \lnot(p \land q) \quad \equiv \quad \lnot p \lor \lnot q
+  \end{cases}
+\end{equation}
+\begin{equation}
+  \text{قانون همانی}\begin{cases}
+    (p \land \T) \equiv p \\
+    (p \land \F) \equiv \F \\
+    (p \lor \T) \equiv \T \\
+    (p \lor \F) \equiv p
   \end{cases}
 \end{equation}
 
