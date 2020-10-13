@@ -1,0 +1,366 @@
+\documentclass[a4paper]{article}
+\usepackage[pass]{geometry}
+
+\usepackage[backend=biber, sorting=none]{biblatex}
+\begin{filecontents}{\jobname.bib}
+@misc{tp:dep_tags,
+  author          = {{Tutorials Point}},
+  title           = {HTML5 - Deprecated Tags \& Attributes},
+  url             =
+                  {https://www.tutorialspoint.com/html5/html5_deprecated_tags.htm},
+}
+
+@misc{w3:tags,
+  author          = {{W3Schools}},
+  title           = {HTML Element Reference},
+  url             = {https://www.w3schools.com/TAGs/},
+}
+
+@misc{wp:eclipse,
+  author          = {{Wikipedia}},
+  title           = {Eclipse (software)},
+  url             =
+                  {https://en.wikipedia.org/w/index.php?title=Eclipse_(software)&oldid=980854952},
+}
+
+@misc{wp:emacs,
+  author          = {{Wikipedia}},
+  title           = {Emacs},
+  url             =
+                  {https://en.wikipedia.org/w/index.php?title=Emacs&oldid=981929369},
+}
+
+@misc{wp:paradigm,
+  author          = {{Wikipedia}},
+  title           = {Programming paradigm},
+  url             = {https://en.wikipedia.org/wiki/Programming_paradigm}
+}
+
+@misc{wp:tiobe,
+  author          = {{Wikipedia}},
+  title           = {TIOBE index},
+  url             =
+                  {https://en.wikipedia.org/w/index.php?title=TIOBE_index&oldid=969960211},
+}
+
+@misc{wp:vim,
+  author          = {{Wikipedia}},
+  title           = {Vim (text editor)},
+  url             =
+                  {https://en.wikipedia.org/w/index.php?title=Vim_(text_editor)&oldid=980814646},
+}
+
+@misc{wp:vs,
+  author          = {{Wikipedia}},
+  title           = {Microsoft Visual Studio},
+  url             =
+                  {https://en.wikipedia.org/w/index.php?title=Microsoft_Visual_Studio&oldid=981161119},
+}
+\end{filecontents}
+\addbibresource{\jobname.bib}
+
+\usepackage{
+  fullpage,
+  hyperref,
+  titling,
+  amsmath, amssymb, amsthm,
+  multicol,
+}
+
+\usepackage{xepersian}
+\settextfont{XB Roya}
+\setlatintextfont{XB Roya}
+% \setdigitfont{XB Yas}
+\setmonofont{Iosevka}
+
+\author{محمدیاسین داوده\\\small @Davoodeh}
+\title{گردآوری شماره ۱ مرتبط با درس وب}
+\date{\today}
+
+\begin{document}
+\begin{titlingpage}
+\maketitle
+
+% فارسی
+% \begin{abstract}
+%   گزارش جلسه اول درس برنامه‌نویسی وب
+% \end{abstract}
+
+\tableofcontents
+\end{titlingpage}
+
+% فارسی
+\section{پارادایم‌های مختلف برنامه‌نویسی}
+پارادایم‌ها یا الگو‌های برنامه‌نویسی روشی برای دسته‌بندی زبان‌های برنامه‌نویسی هستند.
+
+زبان‌ها بیشتر بر اساس سینتکس، دستور زبان، طرزکار، نحوه اجرا، اثرات جانبی (\lr{Side effect}) و\ldots{} دسته‌بندی می‌شوند.
+
+\subsection{انواع پارادایم}
+به طور کلی این دسته‌بندی به صورت زیر انجام می‌شود:
+\begin{itemize}
+  \item دستوری (\lr{Imperative}): نحوه‌ای از برنامه‌نویسی است که در آن برنامه‌نویس به ماشین
+    دستور می‌دهد که چه کاری و به چه نحوی انجام دهد. این کار به دو صورت زیر انجام می‌شود:
+  \begin{itemize}
+    \item رویه‌ای (\lr{Procedural}): عملیات‌ها به وسیلهٔ حوزه‌ها (Scope)، بلاک‌ها (Block) و رویه‌ها شرح پیدا می‌کنند و روی ساختمان‌های داده پیاده می‌شوند (مثلاً \lr{C}).
+    \item شئ‌گرایی (\lr{Object Oriented}): رویه‌ها به ساختارها منطقی به نام «شئ» به همراه ساختمان داده مرتبط دسته‌بندی می‌شوند که می‌توانند بازتولید شوند و مستقل از یکدیگر فعالیت کنند (مثلاً \lr{C++}).
+  \end{itemize}
+  \item اعلانی (\lr{Declarative}): پارادایمی است که در آن به جای چگونگی، ویژگی‌ها و منطق هدف یا نتیجه مطلوب شرح داده می‌شود.
+  \begin{itemize}
+    \item تابعی (\lr{Functional}): در این پارادایم برنامه‌ها به وسیله توابع ساخته و اجرا می‌شوند. توابعی که ساختاری درختی از عباراتی دارند که هرکدام مقداری را برمی‌گرداند.
+    تعریف تابع در این پارادایم بیشتر شبیه به تعریف تابع به شکل ریاضی است.
+    این در حالی است که در پارادایم دستوری حالت «وضعیت برنامه» تغییر می‌یابد (مثلاً لیسپ).
+    در این الگو توابع «شهروندان درجه-یک»\LTRfootnote{``First-class citizen''} هستند. به این معنی که مانند هر نوع دادهٔ دیگری می‌توان آنها را نامگذاری کرد، پاس داد یا بازگرداند.
+    این الگو هدف بر حذف اثر جانبی (اثر گذاری توابع بر روی داده‌های غیرمحلی) دارد.
+    \item منطق (\lr{Logic}): برنامه‌نویسی منطق بر بیان مسئله به صورت جوابی به یک سؤال یا منطقی توصیف شده تأکید می‌کند (مثلاً \lr{Prolog}).
+    \item ریاضی (\lr{Mathematical}): برنامه‌نویسی است که در آن جواب مطلوب به صورت راه‌حلی برای یک مسئلهٔ بهینه‌سازی شرح داده می‌شود.
+  \end{itemize}
+\end{itemize}
+
+\subsection{پارادایم‌های آینده}
+پارادایم‌های آینده زیرشاخه‌هایی از پارادایم‌های پیشتر توصیف شده هستند.
+به نقل از ویکی‌پدیا\cite{wp:paradigm} پارادایم‌های آینده به شرح زیر هستند:
+\begin{itemize}
+  \item ادبی (\lr{Literate}): الگویی که در آن برنامه‌نویسی به صورت شرح منطق در زبانی طبیعی (مانند پارسی) --- نه لزوماً، در کنار کد منبع زبانی صوری دیگر (مانند لیسپ) --- انجام می‌شود.\footnote{الگوی برنامه‌نویسی ادبی اولین بار توسط دونالد کنوث (\lr{Donald E. Knuth}) در سال ۱۹۸۱ مطرح شد. وی پایه‌گذار رشتهٔ تحلیل الگوریتم، زبان ادبی CWEB و سیستم‌های حروف‌چینی \TeX (ابزار تهیه همین \lr{PDF}) و فراقلم‌ها است.} این امکان را می‌دهد که به جای برنامه‌نویسی از دید یک کامپیوتر به صورت طبیعی و انسانی برنامه نوشته شود.
+  \TeX، \lr{WEB}، \lr{Org-Mode} ایمکس، دفتر \lr{iPython}، دفتر \lr{Wolfram} و CoffeeScript از مهمترین ابزارها و زبان‌های برنامه‌نویسی این پارادایم هستند.
+  \item تابعی
+  \item سمبلی (\lr{Symbolic}): در این گونه از زبان‌های برنامه‌نویسی برنامه‌ها می‌توانند
+    کامپوننت و اجزای زبان و خود برنامه را مانند داده‌های عادی --- حتی در حین اجرا (Runtime) --- ویرایش کنند.
+    این ویژگی (برخورد با کد به عنوان داده) را هم‌تمثیلی\LTRfootnote{Homoiconicity} می‌گویند. به طور مثال لیسپ از این رو هم‌تمثیلی است چرا که مفسر به نحوی کد برنامه را به عنوان یک نوع داده لیست دریافت می‌کند و در حین اجرا مانند هر لیست دیگری می‌تواند آنرا ویرایش کند. به نحوی برنامه خودش را «می‌خواند» و «می‌آموزد» چکار کند.
+    این ویژگی کمک بسیاری به برنامه‌های خودنویسنده، تولید\LTRfootnote{Synthesize} کد، توسعه هوش مصنوعی، پردازش زبان‌های طبیعی (NLP) و ساخت زبان می‌کند.
+    ویژگی که در آن زبانی برنامهٔ خود را بنویسد را فرابرنامه‌نویسی\LTRfootnote{Metaprogramming} و زبان‌های نویسندهٔ چنین برنامه‌هایی را فرازبان\LTRfootnote{Metalanguage} می‌گویند.
+    لیسپ و پرولاگ از مهمترین زبان‌های این گروه هستند و پشتیبانی کاملی از سمبل‌ها دارند.
+\end{itemize}
+
+\section{شاخص TIOBE}
+شاخص جامعه برنامه‌نویسی TIOBE شاخصی است که محبوبیت زبان‌های برنامه‌نویسی را بررسی می‌کند.
+این شاخص توسط کمپانی هلندی TIOBE\footnote{مخفف نام کمدی ۱۸۹۵ «اهمیت جدی بودن» (\lr{``The Importance of Being Earnest''})} محاسبه می‌شود.
+
+این شاخص بر اساس پرسوجوهای موتورهای جستوجویی مانند گوگل، گوگل بلاگ، \lr{MSN}، یاهو!، بایدو، ویکی‌پدیا و یوتیوب،
+به صورت ماهانه محاسبه می‌شود.
+
+اطلاعات ماهانه رایگان هستند اما اطلاعات با قدمت بیشتر به فروش می‌رسند.\cite{wp:tiobe}
+
+\section{مقایسه \lr{IDE}ها و ویرایشگرهای مختلف}
+
+\subsection{تعاریف}
+خط بین ویرایشگرها و \lr{IDE}ها کمرنگ است. از آنجایی که بسیاری ویرایشگرها امکان توسعه
+و شخصی‌سازی قوی را فراهم می‌کنند و دیدگاه‌های متفاوتی در این باره وجود دارد تفکیک
+کردن این ابزارها دشوار است.
+به طور کل این تعاریف به شرح زیر است:
+
+\subsubsection{ویرایشگرها}
+ویرایشگر متن\LTRfootnote{(Plain) Text Editor} ویرایشگری ساده و معمولاً مینیمال است
+که جهت ویرایش متون ساده استفاده می‌شود. \lr{ED}، \lr{Pico} و \lr{Notepad} از این دسته ویرایشگرها هستند.
+
+ویرایشگر کد، ویرایشگر متنی است که (معمولاً به صورت پیش‌فرض) به قابلیت‌های ساده و پایه
+مرتبط با کدنویسی مجهز شده‌است. این قابلیت‌ها معمولاً به هایلایت متن و تشخیص زبان ختم می‌شود.
+معمولاً این ویرایشگرها از زبان و فرمت‌های بسیاری پشتیبانی نمی‌کنند.
+
+\subsubsection{IDE}
+از سوی دیگر IDE\LTRfootnote{Integrated Development Environment} یا «محیط یکپارچهٔ توسعه» معمولاً بسته‌ای نرم‌افزاری است که با
+ابزارهای بسیاری همراه است. یکی از این ابزار‌ها یک ویرایشگر متن است.
+غالباً از زبان‌های مختلفی پشتیبانی می‌کنند و حجم زیادی
+دارند. علاوه بر زبان‌های مختلف از سایر فناوری‌های مرتبط مانند فایل‌های تنظیمات\LTRfootnote{Configuration Files}، سیستم‌های کنترل نسخه\LTRfootnote{Version Control System} و ابزارهای بصری‌تری پشتیبانی می‌کنند.
+علاوه بر این معمولاً \lr{IDE}ها رابط‌های GUI و \lr{Wrapper}های شخصی‌سازی‌شده خود را برای ابزاری مرتبط ارائه می‌کنند که تجربه متفاوت‌تر و عموماً ساده‌تری را برای کاربران تازه‌کار فراهم می‌کند.
+
+\subsection{ویژگی‌های ابزارهای توسعه}
+\subsubsection{توسعه‌پذیری}
+ویرایشگری که قابلیت توسعه‌پذیری را دارد می‌تواند توسط کاربر به وسیلهٔ افزونه‌ها توسعه داده شود.
+
+\subsubsection{چند نشانگری}
+با ویژگی چند نشانگری کاربر در لحظه می‌تواند نقاط مختلفی از متن را ویرایش کند.
+
+\subsubsection{پشتیبانی از LSP}
+پروتکل سرور زبان یا LSP\LTRfootnote{Language Server Protocol} پروتکلی \textit{متن‌باز و آزاد} (\lr{FOSS}\LTRfootnote{Free and Open-Source Software}) است که به ابزارهای ثانوی
+و ویرایشگرها امکان برقراری ارتباط به صورت استاندارد شده را می‌دهد. به این طریق
+می‌توان از یک سرور دیباگ، Completion، فرمت متن و... استفاده کرد و از طریق ویرایشگرهای
+مختلف به آن وصل شد و خروجی‌های یکسانی را در ویرایشگرهای مختلف گرفت.
+
+\subsubsection{جستوجو، پیمایش و فرمت هوشمند}
+جستوجو، پیمایش و فرمت هوشمند دو ویژگی هستند که مانند دیگر ویژگی‌ها هم به کمک
+ابزارهای صورت داخلی و هم به صورت خارجی (معمولاً روی \lr{LSP}) انجام می‌شود.
+
+جستوجوی هوشمند به کاربر این امکان را می‌دهد که متن را پردازش کرده به طور هوشمند
+مقاصد مورد نظر خود را پیدا کند. به طور مثال برای رفتن به محل تعریف یک تابع به جستوجوی هوشمند احتیاج خواهید داشت.
+
+پیمایش هوشمند به کاربر امکان پرش به مکان‌های جستوجوشده یا زیر نشانگر را می‌دهد.
+
+در آخر، فرمت هوشمند به کاربر کمک می‌کند که کد خود را به صورت زیباتر، خواناتر یا
+مرسوم‌تر فرمت کند. مرسوم است که این ویژگی هنگام ذخیره (معمولاً به طور خودکار) فراخوانی شود.
+
+% فارسی
+\subsubsection{Auto-completion}
+IntelliSense یا Auto-completion قابلیتی را به ویرایشگر می‌دهد که بتواند به طور خودکار کلمات و کدهای
+کاربر را کامل کند. اکثر \lr{IDE}ها با نوعی از این ویژگی به صورت از پیش نصب شده
+همراه هستند. گاهی این ویژگی داخلی نیست و به وسیلهٔ یکپارچگی با ابزارهای ثانوی، غالباً روی LSP، انجام می‌شود.
+
+معمول است که این ویژگی با دیگر ابزارهای رابط همراه شود و در زیر نشانگر کاربر
+پنجرهٔ کوچکی باز شود که در آن پیشنهادات Auto-completion در آن مشخص است.
+
+\subsubsection{Auto-refactor}
+ویژگی Auto-refactor این امکان را به کاربر می‌دهد که با حداقل زحمت نام‌ها و رفرنس‌های
+متعدد را ویرایش کند.
+به طور مثال نام متغیر یا تابعی را در چندین فایل به طور همزمان عوض کند.
+
+\subsubsection{یکپارچگی با عیب‌یاب}
+عیب‌یاب‌ها ابزارهایی هستند که در پیدا کردن و رفع مشکلات کد و نرم‌افزارها به کار
+می‌آیند. ابزارهای قوی‌تر از عیب‌های ثانوی یا داخلی پشتیبانی می‌کند.
+پشتیبانی از عیب‌های ثانوی غالباً توسط LSP انجام می‌شود.
+
+\subsubsection{یکپارچگی با ابزارهای ثالث}
+انتظار می‌رود که یک ابزار توسعه قدرتمند با ابزارهای رایج ثالث یکپارچی داشته باشد؛
+به نحوی که بتوان از دستورات ابزارها بدون خروج از ابزار استفاده کرد یا بتوان با آن
+اطلاعاتی اضافی و به طور یکپارچه با دیگر ویژگی‌های ابزار گرفت.
+
+به طور مثال یکپارچگی با سیستم‌های کنترل نسخه (VCS) یا فایل سیستم از مهمترین این یکپارچگی هستند.
+
+\subsection{معرفی کلی و تجربه‌های شخصی حول ابزارهای مختلف}
+\subsubsection{\lr{GNU Emacs}}
+ایمکس خانواده‌ای از ویرایشگرها است. مهمترین و اصلی‌ترین عضو این خانواده گنو ایمکس است.
+ابزار \lr{GNU EMACS (Editor MACroS)} از قدیمی‌ترین ابزارهای تحت توسعهٔ متن‌باز و آزاد (FOSS) است.
+توسعه ایمکس اصلی در اواسط دهه ۷۰ میلادی آغاز شد و  در سال ۱۹۸۴
+توسط ریچارد استالمن\LTRfootnote{Richard M. Stallman}، بنیان‌گذار FSF\footnote{بنیادنرم‌افزارهای آزاد \lr{(Free Software Foundation)}} با لیسپ و C بازنویسی شد.
+شرح این ابزار «ویرایشگر توسعه‌پذیر، قابل شخصی‌سازی و خود-مستندساز و نمایشگر بلادرنگ»
+است.
+
+حدود هفتاد درصد ایمکس با نسخه‌ای از لیسپ به نام Emacs-Lisp (الیسپ) نوشته شده است.
+گاهی ایمکس را نه یک ویرایشگر بلکه یک مفسر الیسپ می‌دانند که با توجه به کاربردها و
+شخصی‌سازی‌پذیری بالای آن صحیح است. ایمکس را می‌توان با الیسپ به هر صورت ارتقا داد.
+از این رو است که ایمکس از اکثر (اگر نه همهٔ) زبان‌ها و ابزارها پشتیبانی می‌کند.
+علاوه بر این، ایمکس از رابط‌های گرافیکی و شخصی‌سازی شده نیز پشتیبانی می‌کند از همین جهت می‌توان آنرا
+IDE هم حساب کرد.
+ایمکس را به حدی می‌توان توسعه داد که به طور کل می‌تواند جایگزین تمام ابزارهای یک
+سیستم‌عامل (به استثنای کرنل و \lr{Init}) شده و به عنوان سیستم‌عامل\LTRfootnote{Emacs as Operating System (EOS)} کار کند. این
+توسعه‌پذیری راحت به علت ساختار منعطف زبان لیسپ و قدمت زیاد این ابزار است.
+
+به علت تعدد بسته‌ها و افزونه‌های ایمکس این ابزار به یک پکیج‌منیجر داخلی نیز مجهز است.
+
+ایمکس و VI از مهمترین ویرایشگرهای سیستم‌عامل‌های خانواده یونیکس\LTRfootnote{Unix-based} هستند. البته با توجه به توسعه‌پذیری ایمکس، ایمکس می‌تواند از بسته یا شبیه‌ساز بسیار قدرتمند \lr{EVIL} (\lr{Extended VI Layout}) در خود استفاده کند که کارکرد VI را در ایمکس شبیه‌سازی می‌کند.
+هر دوی این ویرایشگرها از طریق خط فرمان نیز قابل استفاده‌اند.\cite{wp:emacs}
+
+\subsubsection{VI}
+ویرایشگر VI (وی‌آی، وی یا \textit{سیکس}) از دیگر ویرایشگرهای قدیمی است. این ابزار
+مینیمال‌تر از دیگر ابزارهاست. نسخهٔ محبوب‌تر این ابزار فورک ویم (\lr{Vim}\LTRfootnote{VI improved}) است.
+این ابزار توسط Vim-Script توسعه می‌یابد و رابط اصلی آن خط فرمان است.
+
+به صورت پیش‌فرض این ابزار ویژگی‌های زیادی ندارد. مهمترین علت محبوبیت این ابزار سرعت بالا، طراحی مینیمالیستیک و کلیدهای پیشفرض (\lr{Key Bindings}) و طراحی لایه لایه آن است.
+این طراحی به همراه کلیدهای پیش‌فرض به شما این ویژگی را می‌دهد که متن را «به سرعت فکر» ویرایش کنید، بدون آنکه دستان خود را از کلیدهای ردیف خانه کیبورد بردارید.
+
+به طور خلاصه این ویرایشگر چند حالت دارد. مهمترین آنها حالت \lr{Insert} و \lr{Normal} است که در کلی‌ترین تعریف به ترتیب حالات ویرایش و پیمایش متن هستند.
+هنگامی که در حالت ویرایش هستید ویرایشگر به طور عادی کلیدهای شما را وارد صفحه می‌کند.
+هنگامی که در حالت پیمایش متن هستید کلیدها به صورت دستوری خوانده می‌شوند.
+کلیدهای پیشفرض پیمایشی این ابزار \lr{\texttt{hjkl}} هستند که به ترتیب از چپ به راست حرکت‌های «چپ»، «پایین»، «بالا» و «راست» را انجام می‌دهند. بنابرین بدون برداشتن دست خود
+از ردیف خانه کیبورد می‌توانید در متن حرکت کنید.\footnote{حرکات و حالات نام‌برده شده از ساده‌ترین حرکات قابل پیداسازی هستند و ویژگی‌ها و دستورات این ویرایشگر به این موارد ختم نمی‌شود.}
+
+به علت محبوبیت و برتری نسبی این حالات شبیه‌سازی VI در بسیاری دیگر ویرایشگرها نیز
+انجام می‌شود. همچنین ویرایشگر پیش‌فرض بسیاری از ابزارها و توزیع‌های سیستم‌عامل‌های خانواده یونیکس نسخه‌ای از VI است.\cite{wp:vim}
+
+\subsubsection{Eclipse}
+ابزار اکلیسپ خانواده‌ای از \lr{IDE}ها هستند که توسط IBM نوشته شده و اکنون توسط بنیاد
+اکلیپس نگه‌داری شده و توسعه می‌یابد. این ابزار به زبان جاوا نوشته شده و معمولاً برای
+توسعهٔ جاوا به کار می‌رود.
+این ابزار نیز متن‌باز و آزاد (FOSS) می‌باشد و از از طریق افزونه‌های مخصوصی قابل توسعه است.
+به علت سیستم‌افزونه قوی این ابزار نیز از لیست بلندی از زبان‌ها و کلیدهای VI پشتیبانی می‌کند.\cite{wp:eclipse}
+
+\subsubsection*{Notepad++}
+ابزار Notepad++ ابزاری متن‌باز و آزاد (FOSS) است. این ویرایشگر مینیمال مانند دیگر
+ویرایشگرهای این دسته رابطی ساده و عام دارد و ویژیگی‌های پایه‌ای مانند هایلایت و
+Auto-completion محدود ارائه می‌کند و توسعه‌پذیری نسبتاً کمی دارد.
+
+این ابزار جایگزینی برای دیگر ویرایشگرهای این گروه مانند \lr{Geany}, \lr{Kate}, \lr{Gedit} و\ldots{} سیستم‌های یونیکس پایه در سیستم‌عامل خصوصی\LTRfootnote{Proprietary} مایکروسافت ویندوز است.
+
+\subsubsection{\lr{Microsoft Visual Studio}}
+ابزار \lr{Microsoft Visual Studio} (VS) ابزاری خصوصی است که برای
+توسعه و کار با محصولات مایکروسافت توسعه یافته و تنها روی سیستم‌عامل خصوصی
+مایکروسافت ویندوز اجرا می‌شود. این ابزار Freemium است و نسخه کامل آن هزینه دارد.
+مهمترین زبان‌های پشتیبانی شده خانوادهٔ شارپ هستند (\lr{J\#}, \lr{F\#}, \lr{C\#} و \lr{Q\#}).
+در یک کلی نگری این زبان‌ها، زبان‌های ویرایش شده برای کار با \lr{.NET Framework} هستند.\cite{wp:vs}
+
+\section{تگ‌ها و صفات منسوخ HTML5}
+زبان HTML نسخه‌های مختلف و قدمت زیادی دارد. نسخهٔ $5$ این زبان مانند نسخه‌های قبلی
+تعدادی المان و صفت را «منسوخ»\LTRfootnote{``Deprecated''} می‌خواند. المان‌ها و صفات منسوخ
+صفاتی هستند که استفاده از آنها پیشنهاد نمی‌شود و به احتمال زیاد در نسخه‌های خاص‌تر یا
+آیندهٔ HTML از کار خواهند افتاد یا از کار افتاده‌اند.
+
+بیشتر المان‌ها و صفات منسوخ شده در HTML5 در جهت مخفف‌سازی یا واگذاری کارکرد به
+فناوری CSS از کار افتاده‌اند.
+
+
+\newcommand{\dep}[2][CSS]{\item \texttt{#2} (#1)}
+\begin{multicols}{3}[المان‌های منسوخ شده (جایگزین)\cite{w3:tags, tp:dep_tags}:]
+  \begin{itemize}
+    \dep[\texttt{abbr}]{acronym}
+    \dep[\texttt{embed} یا \texttt{object}]{applet}
+    \dep{basefont}
+    \dep{big}
+    \dep{center}
+    \dep[\texttt{ul}]{dir}
+    \dep{font}
+    \dep[\rl{حذف شده}]{frame}
+    \dep[\rl{حذف شده}]{frameset}
+    \dep[\rl{حذف شده}]{noframe}
+    \dep[\texttt{input}]{isindex}
+    \dep[\texttt{del}]{s}
+    \dep[\texttt{del}]{strike}
+    \dep{tt}
+  \end{itemize}
+\end{multicols}
+
+
+\renewcommand{\dep}[2]{\item \texttt{#1} (#2)}
+\begin{multicols}{3}[صفات منسوخ شده (تگ مرتبط):]
+  \begin{itemize}
+    \dep{abbr}{\texttt{td} و \texttt{t}}
+    \dep{align}{\texttt{caption}, \texttt{iframe}, \texttt{img}, \texttt{input}, \texttt{object}, \texttt{legend}, \texttt{table}, \texttt{hr}, \texttt{div}, \texttt{h1} - \texttt{h6}, \texttt{p}, \texttt{col}, \texttt{colgroup}, \texttt{tbody}, \texttt{td}, \texttt{tfoot}, \texttt{th}, \texttt{thead} و \texttt{tr}}
+    \dep{alink}{\texttt{body}}
+    \dep{archive}{\texttt{object}}
+    \dep{axis}{\texttt{td} و \texttt{t}}
+    \dep{background}{\texttt{body}}
+    \dep{bgcolor}{\texttt{table}, \texttt{tr}, \texttt{td}, \texttt{th} و \texttt{body}}
+    \dep{border}{\texttt{table} و \texttt{object}}
+    \dep{cellpadding}{\texttt{table}}
+    \dep{cellspacing}{\texttt{table}}
+    \dep{charoff}{\texttt{col}, \texttt{colgroup}, \texttt{tbody}, \texttt{td}, \texttt{tfoot}, \texttt{th}, \texttt{thead} و \texttt{tr}}
+    \dep{charset}{\texttt{link} و \texttt{a}}
+    \dep{char}{\texttt{col}, \texttt{colgroup}, \texttt{tbody}, \texttt{td}, \texttt{tfoot}, \texttt{th}, \texttt{thead} و \texttt{tr}}
+    \dep{classid}{\texttt{object}}
+    \dep{clear}{\texttt{br}}
+    \dep{codebase}{\texttt{object}}
+    \dep{codetype}{\texttt{object}}
+    \dep{compact}{\texttt{dl}, \texttt{menu}, \texttt{ol} و \texttt{ul}}
+    \dep{coords}{\texttt{a}}
+    \dep{declare}{\texttt{object}}
+    \dep{frameborder}{\texttt{iframe}}
+    \dep{frame}{\texttt{table}}
+    \dep{hspace}{\texttt{img} و \texttt{object}}
+    \dep{link}{\texttt{body}}
+    \dep{longdesc}{\texttt{img} و \texttt{iframe}}
+    \dep{marginheight}{\texttt{iframe}}
+    \dep{marginwidth}{\texttt{iframe}}
+    \dep{name}{\texttt{img}}
+    \dep{nohref}{\texttt{area}}
+    \dep{noshade}{\texttt{hr}}
+    \dep{nowrap}{\texttt{td} و \texttt{th}}
+    \dep{profile}{\texttt{head}}
+    \dep{rev}{\texttt{link} و \texttt{a}}
+    \dep{rules}{\texttt{table}}
+    \dep{scheme}{\texttt{meta}}
+    \dep{scope}{\texttt{td}}
+    \dep{scrolling}{\texttt{iframe}}
+    \dep{shape}{\texttt{a}}
+    \dep{size}{\texttt{hr}}
+    \dep{standby}{\texttt{object}}
+    \dep{target}{\texttt{link}}
+    \dep{text}{\texttt{body}}
+    \dep{type}{\texttt{li}, \texttt{ol} و \texttt{ul}}
+    \dep{valign}{\texttt{col}, \texttt{colgroup}, \texttt{tbody}, \texttt{td}, \texttt{tfoot}, \texttt{th}, \texttt{thead} و \texttt{tr}}
+    \dep{valuetype}{\texttt{param}}
+    \dep{version}{\texttt{html}}
+    \dep{vlink}{\texttt{body}}
+    \dep{vspace}{\texttt{img} و \texttt{object}}
+    \dep{width}{\texttt{hr}, \texttt{table}, \texttt{td}, \texttt{th}, \texttt{col}, \texttt{colgroup} و \texttt{pre}}
+  \end{itemize}
+\end{multicols}
+
+\pagebreak\section*{مراجع}\begin{latin}\printbibliography[heading=none]\end{latin}
+\end{document}
