@@ -8,6 +8,7 @@
 !/py/
 /py/*
 !/uni-hws/
+/uni-hws/*
 
 # Unignore
 !/**/README.org
@@ -18,6 +19,7 @@
 !/**/*.pdf
 !/**/*.c
 !/**/*.cs
+!/**/*.py
 
 # Ignore
 /**/*.out

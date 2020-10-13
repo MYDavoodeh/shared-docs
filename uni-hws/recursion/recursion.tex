@@ -1,0 +1,69 @@
+\documentclass[a4paper]{article}
+\usepackage[pass]{geometry}
+
+\usepackage{
+  fullpage,
+  % titling,
+  caption,
+  xcolor,
+  cancel,
+}
+
+
+\usepackage[newfloat]{minted} % `newfloat` allows caption modifications
+% \usemintedstyle{monokai}
+% \definecolor{bg}{HTML}{282828} % from https://github.com
+\SetupFloatingEnvironment{listing}{name=کد}
+\newenvironment{code}[2][]{
+  \VerbatimEnvironment
+  \begin{LTR}
+    \begin{minted}[linenos, mathescape, #1]{#2}%
+    }{
+    \end{minted}
+  \end{LTR}
+}
+\newcommand{\py}[2][]{
+  \begin{LTR}
+    \inputminted[mathescape, linenos, breaklines, #1]{python}{#2.py}
+  \end{LTR}
+}
+\newcommand{\codecaption}[1][]{\captionsetup{type=listings}\captionof{listing}{#1}}
+\AtBeginEnvironment{minted}{\renewcommand{\fcolorbox}[4][]{#4}} % disables syntax error red boxes
+
+\usepackage{xepersian}
+\settextfont{XB Roya}
+\setlatintextfont{XB Roya}
+% \setdigitfont{XB Yas}
+\setmonofont{Iosevka}
+
+\author{محمدیاسین داوده}
+\title{تمرین اول ساختمان داده}
+\date{\today}
+
+\begin{document}
+% \begin{titlingpage}
+\maketitle
+% \tableofcontents
+% \end{titlingpage}
+
+\section{کدها}
+\codecaption[تابع ضرب به صورت بازگشتی]
+\py[firstline=10, lastline=14]{multiplication}
+
+\codecaption[تابع توان به صورت بازگشتی]
+\py[firstline=10, lastline=14]{power}
+
+\codecaption[تابع $\sqrt{6 + \sqrt{6 + \sqrt{6 + \ldots}}}$ به صورت بازگشتی]
+\py[firstline=10, lastline=14]{radical}
+
+\codecaption[تابع سری فیبوناچی تا $n$ به صورت بازگشتی]
+\py[firstline=10, lastline=15]{fib}
+
+\pagebreak
+\section{مقدارگیری}
+\codecaption
+\py[firstline=2, lastline=15]{t}
+
+\codecaption
+\py[firstline=2, lastline=12]{l}
+\end{document}
