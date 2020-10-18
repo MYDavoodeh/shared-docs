@@ -1,4 +1,4 @@
-/*
+*
 
 !/.git*
 
@@ -11,16 +11,16 @@
 /uni-hws/*
 
 # Unignore
-!/**/README.org
-!/**/LICENSE
-!/**/*.ipynb
-!/**/*.org
-!/**/*.tex
-!/**/*.pdf
-!/**/*.c
-!/**/*.cs
-!/**/*.py
+!*/README.org
+!*/LICENSE
+!*/*.c
+!*/*.cs
+!*.ipynb
+!*.org
+!*.pdf
+!*.py
+!*.tex
 
 # Ignore
-/**/*.out
-/**/.ipynb_checkpoints
+*/*.out
+*/.ipynb_checkpoints

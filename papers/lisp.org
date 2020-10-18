@@ -1,0 +1,403 @@
+# -*- org-latex-default-figure-position: H; org-latex-caption-above: (table src-block); -*-
+#+TITLE: Lisp notebook
+#+AUTHOR: M. Yas. Davoodeh
+#+EMAIL: MYDavoodeh@gmail.com
+# #+LATEX_CLASS_OPTIONS: [a5paper]
+# #+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setdigitfont{XB Yas}
+# #+LANGUAGE: fa
+#+LATEX_HEADER: \setmainfont{XB Roya}\setmonofont{Iosevka}
+
+# TODO determine where to make results verbatim automatically.
+# TODO put titles in a titling.
+# TODO make RESULTS more visually appealing.
+# TODO add bibliography
+
+
+* Basics
+# Quick note for ~Babel~ / ~Org-mode~: To write a block of ~SRC~, type =<s= and press ~TAB~.
+Throughout the document:
+- Tor stands for operator and rand stands for operand.
+
+#+CAPTION: General syntax of Lisps
+#+BEGIN_SRC lisp
+(tor rand rand rand ...)
+#+END_SRC
+
+='= or =quote= marks code as a data and keeps it from evaluation.
+#+CAPTION: =quote= example
+#+BEGIN_SRC lisp
+'(x y z)
+(quote (x y z))
+#+END_SRC
+
+To evaluate any lisp give it to =eval= function
+#+CAPTION: =eval= example
+#+BEGIN_SRC lisp :exports both
+(setq x '(+ 5 3)) ; the value is literal list (+ 5 3) not 8
+(eval x) ; it becomes 8 in here
+#+END_SRC
+
+#+RESULTS:
+: 8
+
+#+CAPTION: Comments in Lisps
+#+BEGIN_SRC lisp
+;;;; Describe program with four ;;;;
+;; Basic comment (or ;;;)
+;; Indented comment
+;;; (message "Hello") ; After code comment
+#+END_SRC
+
+#+CAPTION: Function syntax
+#+BEGIN_SRC lisp
+(defun name (input1 input2)
+  command1
+  command2)
+#+END_SRC
+
+In Scheme you just define it in one of the ways below.
+The first one changes to the second.
+#+CAPTION: Scheme equivalent for function definition
+#+BEGIN_SRC scheme
+(define (name input1 input2)
+  command1
+  command2)
+(define name (lambda (input1 input2)
+                     command1
+                     command2))
+#+END_SRC
+
+** Variables
+Setting and assigning values in Scheme family is solely done with =define=.
+
+*** Declaration
+There is no need to declare variables until compiled.
+#+CAPTION: Defining a global variable
+#+BEGIN_SRC lisp
+(defvar name 'value)
+#+END_SRC
+
+#+CAPTION: Use =let= to create a local scope for a variable.
+#+BEGIN_SRC lisp
+(let ((var val) var2 (var3 val3) var4 ...)
+  command
+  command2)
+#+END_SRC
+
+*** Assign value
+#+CAPTION: Assigning a value =5= to symbol =x=
+#+BEGIN_SRC lisp
+(set 'x 5)
+#+END_SRC
+
+=setq= stands for setting a _Quoted_ symbol.
+:#+CAPTION: Manipulating variable values
+#+BEGIN_SRC lisp :exports both
+(setq x 5)
+(setq c 'd)
+(set c 10)
+d
+#+END_SRC
+
+#+RESULTS:
+: 10
+
+#+CAPTION: =set!= replaces =setq= in Scheme
+#+BEGIN_SRC scheme :exports both
+(define value 0)
+(set! value 1)
+value
+#+END_SRC
+
+#+RESULTS:
+: 1
+
+** Compilation
+Compilation needs variable declaration
+#+CAPTION: Compiling a function to increase speed
+#+BEGIN_SRC lisp
+(compile 'functionname)
+#+END_SRC
+
+** Control constructs
+*** =if=
+#+CAPTION: =if= syntax
+#+BEGIN_SRC lisp
+(if (criteria)
+  ;; To make a clause (for example for true condition of if) use progn or let (or begin in Scheme)
+  true-command
+  else-command1
+  else-command2
+  else-command...)
+#+END_SRC
+
+*** Loops
+**** =do=
+#+CAPTION: =do= syntax
+#+BEGIN_SRC lisp
+(do (step) (condition) code)
+(do ((var init-val (step)) (var2 init-val2 (step2))) ((condition))
+    code)
+#+END_SRC
+
+** Manipulating lists and pairs
+:PROPERTIES:
+:HEADER-ARGS: :session lisp-list-session :exports both
+:END:
+
+A pair is a structure defined as below.
+Pairs can be constructed with =cons= command.
+~a~, ~car~ or the first element is the left most symbol.
+~d~, ~cdr~ (/ˈkʊdər/) is the other element.
+#+CAPTION: Ways to define a pair
+#+BEGIN_SRC lisp
+'(a . d)
+(cons 'a 'd)
+#+END_SRC
+
+#+RESULTS:
+: (A . D)
+
+A list is a list of pairs and can be defined like below
+#+CAPTION: Ways to define a list
+#+BEGIN_SRC lisp
+(list 'a 'b 'c 'd)
+'(a . (b . (c . (d))))
+'(a b c d)
+#+END_SRC
+
+#+RESULTS:
+: (A B C D)
+
+#+CAPTION: Definition of variables used in snippets below.
+#+BEGIN_SRC lisp
+(setq n 3)
+(setq mylist '(a b c d))
+#+END_SRC
+
+#+RESULTS:
+: (A B C D)
+
+Getting the first item of a list, ~a~ or ~car~ is done like below.
+#+CAPTION: =car= example
+#+BEGIN_SRC lisp
+(first mylist)
+(car mylist)
+#+END_SRC
+
+#+RESULTS:
+: A
+
+Getting the rest of objects, ~d~ or the ~cdr~.
+#+CAPTION: =cdr= example
+#+BEGIN_SRC lisp
+(rest mylist)
+(cdr mylist)
+#+END_SRC
+
+#+RESULTS:
+: (B C D)
+
+=car= and =cdr= can be chained in such logic: Remove ~c~ and ~r~;
+From right to left, do the operations left from the string.
+For example, a ~d~ in such logic is a =cdr= and an ~a~ stands for a =car=.
+Therefore a =cadr= returns the second item. ~ad~ means first do a ~d~ (=cdr=) and then do an ~a~ (=car=)
+#+CAPTION: Chaining example using =cadr=
+#+BEGIN_SRC lisp
+(cadr mylist)
+#+END_SRC
+
+#+RESULTS:
+: B
+
+Calling the nth number of input (starting from 0).
+#+CAPTION: Calling the $n$th item of a list
+#+BEGIN_SRC lisp
+(nth n mylist)
+#+END_SRC
+
+#+RESULTS:
+: D
+
+#+CAPTION: Calling the =n= th item of a list in Scheme
+#+BEGIN_SRC scheme
+(list-ref '(a b c d) 3)
+#+END_SRC
+
+#+RESULTS:
+: d
+
+#+CAPTION: Getting length of a list
+#+BEGIN_SRC lisp
+(length mylist)
+#+END_SRC
+
+#+RESULTS:
+: 4
+
+#+CAPTION: Giving a list as rands of tors
+#+BEGIN_SRC lisp
+(apply '+ '(1 2 3 4)) ; = sum()
+#+END_SRC
+
+#+RESULTS:
+: 10
+
+** IO
+*** Printing
+:PROPERTIES:
+:HEADER-ARGS: :exports both :results output
+:END:
+# http://ergoemacs.org/emacs/elisp_printing.html
+
+#+CAPTION: =print= prints lisp objects.
+#+BEGIN_SRC lisp
+(print "Hello World!")
+(print "Hello World!")
+#+END_SRC
+
+#+RESULTS:
+: 
+: "Hello World!" 
+: "Hello World!" 
+
+=print= output can be read back by =read= function.
+
+#+CAPTION: =princ= prints no newline or delimiter but =prin1= just removes newline and prints delimiter.
+#+BEGIN_SRC lisp
+(prin1 "   Hello World!")
+(princ "   Hello World!")
+(princ "Hello World!")
+(terpri) ; newline
+(princ "Hello World!")
+#+END_SRC
+
+#+RESULTS:
+: "   Hello World!"   Hello World!Hello World!
+: Hello World!
+
+#+CAPTION: =display= works just like =princ= in Scheme
+#+BEGIN_SRC scheme
+(display "Hello World!")
+(display "Hello World!")
+(newline)
+(display "Hello World!")
+#+END_SRC
+
+#+RESULTS:
+: Hello World!Hello World!
+: Hello World!
+
+#+CAPTION: =message=, an Elisp specific function to print in ~messages buffer~
+#+BEGIN_SRC elisp :exports code
+(message "Hello World!")
+#+END_SRC
+
+#+CAPTION: =insert= prints string in the current buffer.
+#+BEGIN_SRC elisp :exports code
+(insert "x")
+#+END_SRC
+
+** Functions
+:PROPERTIES:
+:HEADER-ARGS: :results output :exports both
+:END:
+# https://www.youtube.com/watch?v=fXWMSHoEhUQ&list=PLF472FC0985FF6F64&index=8
+Functions can be nested.
+Last line is the return value of a function.
+
+*** Nested functions
+#+CAPTION: Inner functions can access symbols of outer functions.
+#+BEGIN_SRC elisp
+(defun assert-equal (a b)
+  (defun print-error () ; arguments are not directly passed
+    (princ a)
+    (princ " is not equal to ")
+    (princ b)
+    (terpri))
+  (unless (= (eval a) (eval b))
+      (print-error)))
+
+(assert-equal '3 '(+ 1 2))
+(assert-equal '3 '(* 1 2))
+#+END_SRC
+
+#+RESULTS:
+: 3 is not equal to (* 1 2)
+
+#+CAPTION: Also in Scheme inner functions can access outer symbols.
+#+BEGIN_SRC scheme
+(define (circle-details r)
+  (define pi 3.1415)
+  (define (area)
+    (* pi r r))
+  (define (circum)
+    (* 2 pi r))
+  (list (area) (circum)))
+
+(circle-details 3)
+#+END_SRC
+
+#+RESULTS:
+: (28.2735 18.849)
+
+*** Returning functions
+#+BEGIN_SRC scheme
+(define (make-add-one)
+  (define (inc x)
+    (display (+ 1 x)))
+  inc)
+(define myfn (make-add-one))
+(myfn 2)
+#+END_SRC
+
+#+RESULTS:
+: 3
+
+* Examples
+:PROPERTIES:
+:header-args: :exports both
+:END:
+
+** Sum
+#+CAPTION: Sum of the number 1 to =n=.
+#+BEGIN_SRC lisp
+(defun sum (n)
+  (if (= n 1)
+    1
+    (+ n (sum (- n 1)))))
+(sum 4)
+#+END_SRC
+
+#+RESULTS:
+: 10
+
+** Map
+#+CAPTION: A replica of =map=
+#+BEGIN_SRC lisp :results verbatim
+(defun mp (fn lst)
+  (unless (null lst)
+    (cons (funcall fn (car lst)) (mp fn (cdr lst)))))
+
+(defun cube (x)
+  (* x (* x x)))
+
+(mp 'cube '(2 -3 4))
+#+END_SRC
+
+#+RESULTS:
+: (8 -27 64)
+
+#+CAPTION: A replica of =map= in Scheme
+#+BEGIN_SRC scheme :results verbatim
+(define (mp fn lst)
+  (if (nil? lst)
+      #nil
+    (cons (fn (car lst)) (mp fn (cdr lst)))))
+
+(mp abs '(2 -3 4))
+#+END_SRC
+
+#+RESULTS:
+: (2 3 4)
+
