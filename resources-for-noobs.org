@@ -1,0 +1,173 @@
+# -*- org-latex-minted-options: nil; -*-
+#+TITLE: List of useful resources for students of computer-related majors
+#+AUTHOR: M. Yas. Davoodeh
+#+EMAIL: MYDavoodeh@gmail.com
+#+LATEX_HEADER: \setmonofont{Iosevka}
+
+* Table of Contents :TOC_2:noexport:
+- [[#notes][Notes]]
+- [[#tools][Tools]]
+  - [[#must-haves][Must haves]]
+  - [[#advanced][Advanced]]
+  - [[#misc][Misc]]
+- [[#sites-to-register-in][Sites to register in]]
+- [[#youtube-channels][Youtube channels]]
+  - [[#educational][Educational]]
+  - [[#random-videos-on-topic][Random videos on topic]]
+  - [[#random-randoms][Random randoms]]
+  - [[#game-related][Game related]]
+  - [[#these-are-here-just-because-i-like-them-to-be][These are here just because I like them to be]]
+- [[#discord-servers][Discord servers]]
+- [[#books][Books]]
+- [[#practices][Practices]]
+
+* Notes
+Starred items are those which I am not personally comfortable with but I suggest them to starters, for ease of use or access.
+
+All the softwares in this list are free! Free as in freedom. FOSS!
+
+For installing applications named like ~this~ in Linux just give the name (~this~ in this example) to your Package Manager:
+
+For example to install ~this~ example in Ubuntu (and other Debian distros like Pop!-OS) run:
+#+BEGIN_SRC sh
+sudo apt install this
+#+END_SRC
+
+For installing ~this~ in Manjaro (and other Arch-based distros) run:
+#+BEGIN_SRC sh
+sudo pacman -Sy this
+#+END_SRC
+
+* Tools
+** Must haves
+Even if you don't use Linux use the tools named here since your other (smarter) classmates are probably using these
+and will hate you if you make their day harder with using some unprofessional application or format.
+
+There is no debate. It's doctor's orders.
+
+- *Linux* as your host operating system
+
+  Pros:
+  - It can run Windows applications and games.
+  - It's free (no money).
+  - It's free (as in freedom) and open-source (FOSS).
+  - It's fine tuned for students and professionals in computer field.
+  - Most of academic tools are mainly for Linux.
+  - Installing applications in it is usually as easy as pressing a button and it will be downloaded and installed automatically.
+  - It's lightweight and everything is under YOUR control. You can delete, install, customize and basically do ANYTHING. It just takes knowledge.
+    - Yes, as mentioned before, it includes running and installing Windows applications and games.
+  - Support is excellent and it can be installed on older and less powerful machines.
+  - A thriving community out there to support you online and offline.
+
+    If you don't know Linux is independent from its visuals so any version (distribution or distro for short),
+    can come with any looks! I found KDE Plasma desktop so easy to use and so similar to Windows.
+    Manjaro and Ubuntu are 2 very easy to setup and maintain distros.
+    I suggest Manjaro since you can install ANY applications in it with little effort.
+    However if you are unlucky you may get that one-in-a-million case where installing the applications is not always as easy as in Ubuntu and you wish you had Manjaro.
+    Therefore, I suggest installing [[https://manjaro.org/downloads/official/kde/][Manjaro KDE]] or [[https://kubuntu.org][Kubuntu (KDE on Ubuntu)]] for starters.
+- *[[https://www.eclipse.org][Eclipse]]: A great starter IDE for most languages (Later replaced by your IDE of choice Emacs)
+- [[https://git-scm.com/downloads][Git]] (the command line application) (~git~): It's a must have. Sooner or later you will have to learn it.
+  Do *NOT* install a GUI (Graphical User Interface) like the one
+  GitHub suggests you unless you want to regret it,
+  tell people shamefully that you don't know Git as you should and your family and friends to leave you.
+  [[https://git-scm.com/book/en/v2][Pro Git book]] is a great starting point.
+  The Farsi translation can be found on [[https://github.com/Davoodeh/progit2/releases/download/v0.5-fa/progit.html][my repository]] (not merged with the site site).
+- *[[https://onlyoffice.com][OnlyOffice]] or Libreoffice (~libreoffice~ or ~libreoffice-fresh~): Awesome free and open-source office suits (FOSS).
+  OnlyOffice has a better support and user interface comparing to Libreoffice.
+  *Even if you still use Microsoft Office get the habit of saving your files as ~.odt~ not ~.doc~ or ~.docx~.*
+  It will be easier to share them without breaking them and all applications support it.
+  (Later your office suit will render useless and replaced by LaTeX, your TeX editor and other applications/Emacs plugins.)
+- [[https://www.latex-project.org/get/][LaTeX]]: LaTeX (/latek/ is used more often comparing to /lateks/) is a typesetting program.
+  Basically will let you make any sort of paper or shape/graph without hassle or difficulties.
+  LaTeX will make typing math /super/ easy.
+  A LaTeX export of this file is made in the same folder to demonstrate its clarity and ease of use. It literally took typing one word in Emacs to make that PDF.
+  Much like Vim and Git due to its vast uses everywhere, you will, probably, eventually, have to learn it.
+  Example of LaTeX math (rendered correctly in the PDF version):
+\begin{equation}
+f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3
+\end{equation}
+
+** Advanced
+- Vim: Vim is a minimal text editor. If learned correctly it enables you the power of gods in editing.
+  You can edit as fast as you think. The learning curve is not the smoothest tho.
+  Just like LaTeX and Git, Vim key's and workflow are implemented in countless applications (like Emacs and Eclipse).
+  It's wiser to learn it faster before you have to.
+  (resources will be included later)
+# (TODO add resources)
+- Emacs (DOOM Emacs): The only application you will need for doing anything professionally. There is much depth to it and takes a lot of time to explain. For now think of it as an IDE with a lot of plugins for everything you can think of.
+  Since you learned Vim at this stage and you cannot accept anything inferior. You will want to use Doom Emacs which
+  is a configuration of Doom for noobs in Emacs and Vimers.
+  Emacs pretty much supports EVERY language, has excellent support and is itself programmable.
+
+** Misc
+- Firefox (~firefox~): Free and open-source (FOSS) browser
+- VLC (~vlc~): FOSS media player
+- [[https://cmder.net][Cmder]]: Helps you feel in ease using command line interface (CLI) in Windows till you get your Linux installed.
+
+* Sites to register in
+- [[https://sololearn.com][SoloLearn]]: A powerful cross-platform application for practicing and communicating
+- [[https://github.com][GitHub]]: A place to share your codes (owned by Microsoft tho and if you are Iranian your account will shut down anytime soon so good luck).
+- [[https://gitlab.com][GitLab]]: Like GitHub (but already shut down Iranian accounts)
+- [[https://youtube.com][YouTube]]: Google's video platform
+- [[https://medium.com][Medium]]: A lot of useful computer articles. You can use the account on sites like TowardsDataScience.
+- [[https://discord.com][Discord]]: Family friendly version of IRC. Join any server and ask noobish questions about anything
+- *[[https://trello.com][Trello]]: Manage your life (Later replaced by your planner of choice Org-Mode in Emacs)
+
+* Youtube channels
+** Educational
+- [[https://www.youtube.com/c/3blue1brown][3Blue1Brown]]: The best math channel with animations and clear explanation
+- [[https://www.youtube.com/c/mitocw][MIT OpenCourseWare]]: [[https://www.youtube.com/watch?v=-J_xL4IGhJA&list=PLE18841CABEA24090][Have you watched your SICP today?]]
+- [[https://www.youtube.com/c/sentdex][sentdex]]: One man army of all tutorials
+- [[https://www.youtube.com/teded][TED-Ed]]: Lessons worth hearing
+- [[https://www.youtube.com/c/StefanMischook][Stefan Mischook]]: That one nice old teacher in school who gives real life tips on the major.
+- [[https://www.youtube.com/user/ajbalaam][Andy Balaam]]: Cool humble tutorials -- Scheme course is top-notch
+
+- [[https://www.youtube.com/c/zachstar][Zach Star]]: I also thought I don't get math.
+
+- [[https://www.youtube.com/c/TheLinuxExperiment][The Linux Experiment]]: High quality serious news, discussions and educational videos on Linux, freedom and open-source
+- [[https://www.youtube.com/c/DistroTube][DistroTube]]: Learn about Linux, freedom and productivity. Yes, they lied to you all along
+- [[https://www.youtube.com/c/LukeSmithxyz][Luke Smith]]: Boomer makes you love freedom and get back to life then makes you hate it instantly.
+- [[https://www.youtube.com/c/LearnLinuxtv][LearnLinuxTV]]: Dedicated to Linux and tools that will make your life easier
+
+** Random videos on topic
+- [[https://www.youtube.com/user/Computerphile][Computerphile]]: More hardcore subjects on computer theory
+- [[https://www.youtube.com/user/numberphile][Numberphile]]: Answering questions you never thought existed
+
+- [[https://www.youtube.com/c/CodeBullet][Code Bullet]]: Get interested in AI with project on games and random applications nobody asked for.
+- [[https://www.youtube.com/c/TheCodingTrain][The Coding Train]]: Sober Code Bullet actually teaching stuff
+- [[https://www.youtube.com/c/Jabrils][Jabrils]]: Does cool things with AI
+- [[https://www.youtube.com/user/carykh][carykh]]: Random computer projects
+- [[https://www.youtube.com/c/SirajRaval][Siraj Raval]]: Indian Jabrils
+
+** Random randoms
+- [[https://www.youtube.com/c/TechLead][TechLead]]: Fun sublimes for nerds
+- [[https://www.youtube.com/c/TheVerge][The Verge]]: Commercial break for nerds. Talks about what phone not to buy next.
+- [[https://www.youtube.com/c/Lazygamereviews][LGR]]: Oldschool vibes about gaming and computers.
+- [[https://www.youtube.com/c/DIYPerks][DIY Perks]]: Thinker and create with computers (and other than computers)
+- [[https://www.youtube.com/c/theHacksmith][the Hacksmith]]: Yes, engineering can be cool
+
+** Game related
+- [[https://www.youtube.com/c/AIGamesSeries][AI and Games]]: Technical talks about AI and Games
+- [[https://www.youtube.com/c/Raycevick][Raycevick]]: Philosophical and in-depth talks about games and gaming
+- [[https://www.youtube.com/c/IndigoGamingChannel][Indigo Gaming]]: Raycevick with much more budget focusing on documentaries
+- [[https://www.youtube.com/c/MarkBrownGMT][Game Maker's Toolkit]]: Talks in depth about making games both technically and other ways.
+- [[https://www.youtube.com/c/kliksphilip][kliksphilip]]: kliksphilip talking about life, Youtube, being productive and philosophy even some juggling.
+- [[https://www.youtube.com/user/2kliksphilip][2kliksphilip]]: 2kliksphilip focuses more on gaming and computers in general.
+- [[https://www.youtube.com/user/3kliksphilip][3kliksphilip]]: 3kliksphilip is for VALVe employees to take notes on how to make their games better.
+- [[https://www.youtube.com/c/CodeParade][CodeParade]]: A freelancer programmer/game-developer
+- [[https://www.youtube.com/user/ThinMatrix][ThinMatrix]]: A freelancer game-developer talking about development and being productive
+- [[https://www.youtube.com/c/Hopsonn/videos][Hopson]]: Random computer/game-development videos
+- [[https://www.youtube.com/user/videogamedunkey][videogamedunkey]]: The ultimate game critic
+- [[https://www.youtube.com/c/GirlfriendReviews][Girlfriend Reviews]]: Game reviews for starters
+
+** These are here just because I like them to be
+- [[https://www.youtube.com/user/TheWarOwl][TheWarOwl]]: The guy who teached you how to play CSGO talks about life, competition, games and CSGO
+- [[https://www.youtube.com/c/Langfocus][Langfocus]]: Your way to go if you are interested in languages or NLP
+- [[https://www.youtube.com/channel/UC5zrM68ebPkljMeeZhIWHFQ][Pro Guides CSGO Tips, Tricks and Guides]]
+- [[https://www.youtube.com/channel/UCi24k820MXfmgNGM0q9p8Kw][SlavTek]]: Cheeki breeki tek channel of Boris
+- [[https://www.youtube.com/c/BananaGaming][BananaGaming]]: Learn how to config CSGO and get notified about updates.
+- [[https://www.youtube.com/user/jeffw8nc][HOUNGOUNGAGNE]]: How to be humble and good at the same time (especially in CSGO)
+
+* Discord servers
+* Books
+* Practices
