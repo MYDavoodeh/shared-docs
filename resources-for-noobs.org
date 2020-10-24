@@ -4,12 +4,15 @@
 #+EMAIL: MYDavoodeh@gmail.com
 #+LATEX_HEADER: \setmonofont{Iosevka}
 
-* Table of Contents :TOC_2:noexport:
+* Contents :TOC_3:noexport:
 - [[#notes][Notes]]
+  - [[#terminology][Terminology]]
 - [[#tools][Tools]]
   - [[#must-haves][Must haves]]
   - [[#advanced][Advanced]]
   - [[#misc][Misc]]
+    - [[#personal-choices][Personal choices]]
+    - [[#suggested-languages][Suggested languages]]
 - [[#sites-to-register-in][Sites to register in]]
 - [[#youtube-channels][Youtube channels]]
   - [[#educational][Educational]]
@@ -19,7 +22,13 @@
   - [[#these-are-here-just-because-i-like-them-to-be][These are here just because I like them to be]]
 - [[#discord-servers][Discord servers]]
 - [[#books][Books]]
+  - [[#absolute-noob-level][Absolute noob level]]
+  - [[#beginner][Beginner]]
+- [[#roadmaps][Roadmaps]]
 - [[#practices][Practices]]
+  - [[#typing][Typing]]
+    - [[#websites][Websites]]
+    - [[#software][Software]]
 
 * Notes
 Starred items are those which I am not personally comfortable with but I suggest them to starters, for ease of use or access.
@@ -37,6 +46,13 @@ For installing ~this~ in Manjaro (and other Arch-based distros) run:
 #+BEGIN_SRC sh
 sudo pacman -Sy this
 #+END_SRC
+
+** Terminology
+- Noob: you.
+- GUI: Graphical User Interface. Clicky clicky icons.
+- CLI: Command Line Interface. Basically typing and letter focused interfaces.
+- FOSS/Libre: Free (as in Freedom) and open-source software. Software that you can easily download, manipulate, redistribute without getting sued or spied on.
+- Cross-platform: Software that can be on multiple platforms (Windows, Linux, Androids, etc).
 
 * Tools
 ** Must haves
@@ -66,13 +82,12 @@ There is no debate. It's doctor's orders.
     However if you are unlucky you may get that one-in-a-million case where installing the applications is not always as easy as in Ubuntu and you wish you had Manjaro.
     Therefore, I suggest installing [[https://manjaro.org/downloads/official/kde/][Manjaro KDE]] or [[https://kubuntu.org][Kubuntu (KDE on Ubuntu)]] for starters.
 - *[[https://www.eclipse.org][Eclipse]]: A great starter IDE for most languages (Later replaced by your IDE of choice Emacs)
-- [[https://git-scm.com/downloads][Git]] (the command line application) (~git~): It's a must have. Sooner or later you will have to learn it.
-  Do *NOT* install a GUI (Graphical User Interface) like the one
-  GitHub suggests you unless you want to regret it,
-  tell people shamefully that you don't know Git as you should and your family and friends to leave you.
+- [[https://git-scm.com/downloads][Git]] (CLI version) (~git~): It's a must have. Sooner or later you will have to learn it.
+  Do *NOT* install a GUI like the one GitHub suggests you unless you want to regret it,
+  tell people shamefully that you don't know Git as you should and have your family and friends to leave you.
   [[https://git-scm.com/book/en/v2][Pro Git book]] is a great starting point.
   The Farsi translation can be found on [[https://github.com/Davoodeh/progit2/releases/download/v0.5-fa/progit.html][my repository]] (not merged with the site site).
-- *[[https://onlyoffice.com][OnlyOffice]] or Libreoffice (~libreoffice~ or ~libreoffice-fresh~): Awesome free and open-source office suits (FOSS).
+- *[[https://onlyoffice.com][OnlyOffice]] or Libreoffice (~libreoffice~ or ~libreoffice-fresh~): Awesome FOSS office suits.
   OnlyOffice has a better support and user interface comparing to Libreoffice.
   *Even if you still use Microsoft Office get the habit of saving your files as ~.odt~ not ~.doc~ or ~.docx~.*
   It will be easier to share them without breaking them and all applications support it.
@@ -80,29 +95,65 @@ There is no debate. It's doctor's orders.
 - [[https://www.latex-project.org/get/][LaTeX]]: LaTeX (/latek/ is used more often comparing to /lateks/) is a typesetting program.
   Basically will let you make any sort of paper or shape/graph without hassle or difficulties.
   LaTeX will make typing math /super/ easy.
-  A LaTeX export of this file is made in the same folder to demonstrate its clarity and ease of use. It literally took typing one word in Emacs to make that PDF.
+  A LaTeX export of this file is made in the same folder to demonstrate its clarity and ease of use. It literally took typing one word in Emacs to make that [[file:resources-for-noobs.pdf][PDF]].
   Much like Vim and Git due to its vast uses everywhere, you will, probably, eventually, have to learn it.
-  Example of LaTeX math (rendered correctly in the PDF version):
-\begin{equation}
-f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3
-\end{equation}
+  Example of LaTeX math (rendered correctly in [[file:resources-for-noobs.pdf][the PDF version]]): \[ f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3 \]
 
 ** Advanced
 - Vim: Vim is a minimal text editor. If learned correctly it enables you the power of gods in editing.
   You can edit as fast as you think. The learning curve is not the smoothest tho.
   Just like LaTeX and Git, Vim key's and workflow are implemented in countless applications (like Emacs and Eclipse).
   It's wiser to learn it faster before you have to.
-  (resources will be included later)
-# (TODO add resources)
 - Emacs (DOOM Emacs): The only application you will need for doing anything professionally. There is much depth to it and takes a lot of time to explain. For now think of it as an IDE with a lot of plugins for everything you can think of.
   Since you learned Vim at this stage and you cannot accept anything inferior. You will want to use Doom Emacs which
   is a configuration of Doom for noobs in Emacs and Vimers.
   Emacs pretty much supports EVERY language, has excellent support and is itself programmable.
 
 ** Misc
-- Firefox (~firefox~): Free and open-source (FOSS) browser
-- VLC (~vlc~): FOSS media player
-- [[https://cmder.net][Cmder]]: Helps you feel in ease using command line interface (CLI) in Windows till you get your Linux installed.
+*** Personal choices
+Most Linux newbies feel rather confused once they see the /countless/ number of software available.
+Here are my personal choices
+
+- Firefox (~firefox~): FOSS browser
+- VLC (~vlc~) or MPV (~mpv~): FOSS media player. MPV is more minimal comparing to VLC.
+- Aria2 (~aria2~) with or without [[https://persepolisdm.github.io/][Persepolis]] (~persepolis~): Simply the best CLI download manager. [[https://persepolisdm.github.io/][Persepolis]] is a modern, cross-platform FOSS GUI for Aria2
+- *Kate (~kate~) and *Geany (~geany~): Best FOSS text editors for your pre-Vim/Emacs primitive life
+- *Okular (~okular~) or Zathura: Okular is everything you want from a reader in one package. An overkill like other KDE applications. On the other hand Zathura is a sleek Vim-like reader.
+  (Later noting features of Okular will render useless comparing to Org-mode's Org-noter mode in Emacs)
+- *[[https://www.gnu.org/software/octave/index][Octave]] (~octave~): For when you grew tired of the basic BC. FOSS programming language for doing your math homeworks.
+  (Some prefer Python; Either ways both of them will later be replaced by Emacs Calc-mode)
+- [[https://www.tableplus.io/download][Tableplus]] (~tableplus~): FOSS GUI
+- *[[https://jupyter.org/install.html][JupyterLab]] (~jupyterlab~): A multi-language GUI literate-programming tool for having your code along your explanations just like a notebook.
+  (Later replace by Org-mode in Emacs or Emacs' iPython-mode)
+- [[https://gimp.org][GIMP]] (~gimp~): Easy to use, FOSS Image manipulation tool. It's lightweight and has plenty of tutorials.
+- Zsh (~zsh~): An actual useful, convenient, normal shell featuring one of the best shell management frameworks, [[https://github.com/ohmyzsh/ohmyzsh][Oh My Zsh]]!
+- Draw.io: Perfect easy, on-the-fly graph/figure generator. It's not a replacement for LaTeX, PlantUML or GIMP but super easy to use.
+- [[https://cmder.net][Cmder]]: Helps you feel in ease using CLI in Windows till you get your Linux installed.
+- DWM (or any tiling window manager): If you don't know what's a window manager it's a good sign that it's too soon to install one.
+
+*** Suggested languages
+There are plenty of languages out there. Thousands and thousands. Which one to learn?
+These are ones that you will need 100% no matter what you do.
+
+All items in the list are here because you /will/ use these languages sooner or later, they are just simply superior or they have countless children and dialects.
+It's true, other languages like Php or Java are super popular and professionally useful but there are paths in which an student does not necessarily need to know them.
+It's best to delay the effort until you are 100% sure you want/have to know them.
+Besides, once you know C, it's easy to learn most other languages in a week or two.
+With all being said, if you wait long enough, everything will be replaced by a version of JS, C, Python or Lisp. (it's me calling it, the end of 2020)
+
+- C: Yes, I'm sorry. C. Big old daddy. Always the top language.
+  Since most of the programs and other languages are written in C (like Python), you must know the basics at the very least.
+- Python: Fun language (for the first 3 months). Has plenty of packages, community support and code pre-written.
+- JavaScript: Unfortunately it's everywhere. You need it because you don't want to learn 900 languages to do different things with.
+- Shell: The language of Linux. If your answer to any of the questions ahead is yes, you need to learn this:
+  Want to write programs and don't 10000 hours experience in Java? Want to work remote connect to another system?
+  Work with your computer without a monitor? Want everything automated? Want your desktop to look like [[https://www.reddit.com/r/unixporn/][/r/unixporn]]?
+- Lisp: Essential for configuring your Emacs, suitable for writing fast code and driving yourself crazy.
+  (It's basically the coke of the languages. Nothing else will ever hit harder. You WILL come back.)
+- LaTeX: I promise you, you don't want to draw graphs or write math without LaTeX ever again. No need to mention managing bibliographies or Table of Contents.
+  Software like Org-mode will help you not to learn LaTeX but for fine tuning and practical use it's necessary to do so.
+- PlantUML: Save time and get extra credit from teachers. Although your graphs usually just add to confusion instead of taking it away,
+  for some reason they are so credible in teachers opinion whether they help or not.
 
 * Sites to register in
 - [[https://sololearn.com][SoloLearn]]: A powerful cross-platform application for practicing and communicating
@@ -111,10 +162,13 @@ f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3
 - [[https://youtube.com][YouTube]]: Google's video platform
 - [[https://medium.com][Medium]]: A lot of useful computer articles. You can use the account on sites like TowardsDataScience.
 - [[https://discord.com][Discord]]: Family friendly version of IRC. Join any server and ask noobish questions about anything
-- *[[https://trello.com][Trello]]: Manage your life (Later replaced by your planner of choice Org-Mode in Emacs)
+- [[https://reddit.com][Reddit]]: A hub for any community. Noob friendly and great for asking questions or finding resources.
+- *[[https://trello.com][Trello]]: Manage your life (Later replaced by your planner of choice Org-mode in Emacs)
 
 * Youtube channels
 ** Educational
+These Youtube channels are serious, educational and have awesome quality.
+
 - [[https://www.youtube.com/c/3blue1brown][3Blue1Brown]]: The best math channel with animations and clear explanation
 - [[https://www.youtube.com/c/mitocw][MIT OpenCourseWare]]: [[https://www.youtube.com/watch?v=-J_xL4IGhJA&list=PLE18841CABEA24090][Have you watched your SICP today?]]
 - [[https://www.youtube.com/c/sentdex][sentdex]]: One man army of all tutorials
@@ -124,14 +178,17 @@ f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3
 
 - [[https://www.youtube.com/c/zachstar][Zach Star]]: I also thought I don't get math.
 
+- [[https://www.youtube.com/user/Computerphile][Computerphile]]: More hardcore subjects on computer theory
+- [[https://www.youtube.com/user/numberphile][Numberphile]]: Answering questions you never thought existed
+
 - [[https://www.youtube.com/c/TheLinuxExperiment][The Linux Experiment]]: High quality serious news, discussions and educational videos on Linux, freedom and open-source
 - [[https://www.youtube.com/c/DistroTube][DistroTube]]: Learn about Linux, freedom and productivity. Yes, they lied to you all along
 - [[https://www.youtube.com/c/LukeSmithxyz][Luke Smith]]: Boomer makes you love freedom and get back to life then makes you hate it instantly.
 - [[https://www.youtube.com/c/LearnLinuxtv][LearnLinuxTV]]: Dedicated to Linux and tools that will make your life easier
 
 ** Random videos on topic
-- [[https://www.youtube.com/user/Computerphile][Computerphile]]: More hardcore subjects on computer theory
-- [[https://www.youtube.com/user/numberphile][Numberphile]]: Answering questions you never thought existed
+These educational channels are less structured and more broad or general.
+Awesome for taking ideas or finding answers to your obscure questions.
 
 - [[https://www.youtube.com/c/CodeBullet][Code Bullet]]: Get interested in AI with project on games and random applications nobody asked for.
 - [[https://www.youtube.com/c/TheCodingTrain][The Coding Train]]: Sober Code Bullet actually teaching stuff
@@ -140,6 +197,9 @@ f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3
 - [[https://www.youtube.com/c/SirajRaval][Siraj Raval]]: Indian Jabrils
 
 ** Random randoms
+Channels in this group are mostly "commercial" or not educational.
+The creators of this group just put up their own content (again, great for taking ideas or insights).
+
 - [[https://www.youtube.com/c/TechLead][TechLead]]: Fun sublimes for nerds
 - [[https://www.youtube.com/c/TheVerge][The Verge]]: Commercial break for nerds. Talks about what phone not to buy next.
 - [[https://www.youtube.com/c/Lazygamereviews][LGR]]: Oldschool vibes about gaming and computers.
@@ -147,6 +207,9 @@ f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3
 - [[https://www.youtube.com/c/theHacksmith][the Hacksmith]]: Yes, engineering can be cool
 
 ** Game related
+The channels below are directed toward Video Games and Games.
+Some of them are a bit casual but most of them are also technically valuable and educational.
+
 - [[https://www.youtube.com/c/AIGamesSeries][AI and Games]]: Technical talks about AI and Games
 - [[https://www.youtube.com/c/Raycevick][Raycevick]]: Philosophical and in-depth talks about games and gaming
 - [[https://www.youtube.com/c/IndigoGamingChannel][Indigo Gaming]]: Raycevick with much more budget focusing on documentaries
@@ -161,6 +224,11 @@ f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3
 - [[https://www.youtube.com/c/GirlfriendReviews][Girlfriend Reviews]]: Game reviews for starters
 
 ** These are here just because I like them to be
+Other channels that I follow. Not strictly educational in computers majors but still educational.
+All about CSGO, languages and technology.
+I particularly love CSGO because it gives you a one-in-a-kind in game developer console, has extensive mechanics and a lot of unique features.
+Awesome for learning how to play games, work in a team and experiment with software both at the same time.
+
 - [[https://www.youtube.com/user/TheWarOwl][TheWarOwl]]: The guy who teached you how to play CSGO talks about life, competition, games and CSGO
 - [[https://www.youtube.com/c/Langfocus][Langfocus]]: Your way to go if you are interested in languages or NLP
 - [[https://www.youtube.com/channel/UC5zrM68ebPkljMeeZhIWHFQ][Pro Guides CSGO Tips, Tricks and Guides]]
@@ -169,5 +237,34 @@ f(x) = \sum_{i=0}^{\infty}\int^a_b \frac{1}{3}x_i^3
 - [[https://www.youtube.com/user/jeffw8nc][HOUNGOUNGAGNE]]: How to be humble and good at the same time (especially in CSGO)
 
 * Discord servers
+- [[https://discord.com/invite/qvGgnVx][Doom Emacs]]: Noob friendly lounge for all sort of related (sometimes unrelated) topics
+
 * Books
+** Absolute noob level
+- /The study of Language/ by George Yule: Best all-in-one introduction book to (mostly natural) languages.
+** Beginner
+- /An Introduction to Formal Languages and Automata/ by Linz Peter: One in a kind practice book for your Language (with capital L) knowledge.
+- [[https://mitpress.mit.edu/sites/default/files/sicp/index.html][The MIT SICP (/Structure and Interpretation of Computer Programs/) by Harold Abelson and Gerald Jay Sussman with Julie Sussman]]: An
+  awesome free of charge, noob friendly tour on computer science and programs in Lisp. [[https://www.youtube.com/watch?v=-J_xL4IGhJA&list=PLE18841CABEA24090][Video course is on MIT OpenCourseWare]].
+- /Artificial Intelligence: A Modern Approach/ by Stuart Russell and Peter Norvig: A good starting point for theory of AI.
+  At least it's fun in history chapter.
+
+* Roadmaps
 * Practices
+** Typing
+If you type a source code with numbers and symbols in it (something like C++) in less than 100WPM then you need to practice typing.
+If your type speed in such text is less than your handwritten speed you should /seriously/ consider practicing before entering the uni.
+
+*** Websites
+- [[https://www.typingclub.com/][TypingClub]]: Zero-to-hero typing course. Try starting from level 1 and focus on achieving "silver stars" in every level.
+  I suggest not to go ahead if you cannot achieve silver stars.
+- [[https://www.keybr.com/][KeyBR]]: Best to go site for practicing your weaknesses and learning the hard way
+- [[https://10fastfingers.com/][10FastFingers.com]]: Time to test your skills.
+  Also you can practice there to be one of those cheap typists who only learn typical words and struggle with numbers for their whole life.
+
+*** Software
+- [[https://klavaro.sourceforge.io/en/][Klavaro]]: Pick up every language or layout fast and easily with Klavaro. Maybe not the best for practicing, but for learning new layout outs it's the best.
+  It's also a FOSS cross-platform application.
+- [[https://rapidtyping.com/downloads.html][RapidTyping]]: The middle ground. Perfect for beginners, extensive practices and countless layouts but not the best in any of the fields individually.
+  Freeware - Windows only (can be run on Linux via Wine)
+
