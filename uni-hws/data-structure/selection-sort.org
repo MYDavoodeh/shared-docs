@@ -1,0 +1,62 @@
+:PROPERTIES:
+:header-args: :results verbatim :exports both :wrap SRC text
+:END:
+#+TITLE: تمرین دوم درس ساختمان داده
+#+AUTHOR: محمدیاسین داوده
+#+OPTIONS: toc:nil
+#+LANGUAGE: fa
+#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
+#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
+#+LATEX_HEADER: \usepackage{nopageno}
+
+* پایتون
+
+#+CAPTION: تابع مرتب‌سازی انتخابی در پایتون
+#+BEGIN_SRC python :results none :exports code :session py
+def selection(ls):
+    "Sort LS with selection sort."
+    for i in range(0, len(ls)):
+        i_min = i
+        for j in range(i+1, len(ls)):
+            if ls[j] < ls[i_min]:
+                i_min = j
+        ls[i], ls[i_min] = ls[i_min], ls[i]
+    return ls
+#+END_SRC
+
+#+CAPTION: فراخوانی تابع
+#+BEGIN_SRC python :session py
+selection([10, 2, 70, 15, 19])
+#+END_SRC
+
+#+RESULTS:
+#+begin_SRC text
+[2, 10, 15, 19, 70]
+#+end_SRC
+
+* الیسپ
+
+#+CAPTION: تابع مرتب‌سازی انتخابی در الیسپ
+#+BEGIN_SRC elisp :results none :exports code :session el
+(defun selection (ls)
+  "Sort LS with selection sort."
+  (setq len (- (length ls) 1))
+  (dolist (i (number-sequence 0 len))
+          (setq i_min i)
+          (dolist (j (number-sequence (+ i 1) len))
+                  (if (< (nth j ls) (nth i_min ls))
+                    (setq i_min j)))
+          (rotatef (nth i ls) (nth i_min ls)))
+  ls)
+#+END_SRC
+
+#+CAPTION: فراخوانی تابع
+#+BEGIN_SRC elisp :session el
+(selection '(10 2 70 15 19))
+#+END_SRC
+
+#+RESULTS:
+#+begin_SRC text
+(("yta" "yt -x -f bestaudio/best") ("yt" "youtube-dl --add-metadata -i") ("yd" "youtube-dl -f '\\''bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio'\\'' --merge-output-format mp4") ("xr" "sudo xbps-remove -R") ("xi" "sudo xbps-install") ("x" "sxiv -ft *") ("weath" "less -S /home/yas/.local/share/weatherreport") ("vimdiff" "nvim -d") ("ver" "pacman -Qe") ("upg" "sudo pacman -Syu --noconfirm --overwrite /usr/lib/python3.8/site-packages/\\* && yay -Syu --noconfirm --overwrite /usr/lib/python3.8/site-packages/\\*") ("upc" "sudo pacman -Syu; pkill -RTMIN+8 i3blocks") ("tmux" "tmux -f ~/.config/tmux.conf") ("sxiv" "sxiv -a") ("surf" "tabbed -r 2 surf -pe '\\'\\") ("shfmt" "shfmt -i=4 -ci") ("sdn" "sudo shutdown -h now") ("screenkey" "screenkey --mods-mode emacs --font-color red --font monospace") ("rm" "rm -vI") ("ref" "shortcuts >/dev/null; source /home/yas/.config/shortcutrc ; source /home/yas/.config/zshnameddirrc") ("p" "sudo pacman") ("mv" "mv -iv") ("mkd" "mkdir -pv") ("magit" "d emacs -f magit-status ; exit") ("lsp" "pacman -Qett --color=always | less") ("ls" "ls -hN --color=auto --group-directories-first") ("live" "detach surf https://csgostats.gg/player/76561198304537083#/live;exit") ("lg" " lg") ("keynav" "keynav '\\''loadconfig ~/.config/keynav/keynavrc'\\") ("grep" "grep --color=auto") ("ffmpeg" "ffmpeg -hide_banner") ("et" "emacs -t") ("ec" "emacsclient -t") ("e" "editor ; exit") ("diff" "diff -W $(( $(tput cols) - 2 ))") ("cp" "cp -iv") ("ccat" "highlight --out-format=ansi") ("cb" "xclip -selection clipboard") ("calcurse" "calcurse -D ~/.config/calcurse") ("aria2c" "aria2c -c -j 1 -Z -P -s 16 -x 16") ("SS" "sudo systemctl"))
+#+end_SRC

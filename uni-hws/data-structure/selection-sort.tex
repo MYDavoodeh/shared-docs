@@ -1,0 +1,95 @@
+% Created 2020-10-31 Sat 21:04
+% Intended LaTeX compiler: xelatex
+\documentclass[a4paper]{article}
+
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[newfloat]{minted}
+\usepackage{fontspec, xpatch, fullpage, caption, float, xcolor, titling}
+\usepackage[pass]{geometry}
+\xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
+\usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+\SetupFloatingEnvironment{listing}{name=کد}
+\usepackage{nopageno}
+\author{محمدیاسین داوده}
+\date{\today}
+\title{تمرین دوم درس ساختمان داده}
+\hypersetup{
+ pdfauthor={محمدیاسین داوده},
+ pdftitle={تمرین دوم درس ساختمان داده},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.4)}, 
+ pdflang={Farsi}}
+\begin{document}
+
+\maketitle
+
+\section{پایتون}
+\label{sec:orgada9229}
+
+\begin{listing}[htbp]
+\caption{تابع مرتب‌سازی انتخابی در پایتون}
+\begin{minted}[linenos,mathescape]{python}
+def selection(ls):
+    "Sort LS with selection sort."
+    for i in range(0, len(ls)):
+        i_min = i
+        for j in range(i+1, len(ls)):
+            if ls[j] < ls[i_min]:
+                i_min = j
+        ls[i], ls[i_min] = ls[i_min], ls[i]
+    return ls
+\end{minted}
+\end{listing}
+
+\begin{listing}[htbp]
+\caption{فراخوانی تابع}
+\begin{minted}[linenos,mathescape]{python}
+selection([10, 2, 70, 15, 19])
+\end{minted}
+\end{listing}
+
+\begin{minted}[linenos,mathescape]{text}
+[2, 10, 15, 19, 70]
+\end{minted}
+
+\section{الیسپ}
+\label{sec:org9352cb1}
+
+\begin{listing}[htbp]
+\caption{تابع مرتب‌سازی انتخابی در الیسپ}
+\begin{minted}[linenos,mathescape]{elisp}
+(defun selection (ls)
+  "Sort LS with selection sort."
+  (setq len (- (length ls) 1))
+  (dolist (i (number-sequence 0 len))
+          (setq i_min i)
+          (dolist (j (number-sequence (+ i 1) len))
+                  (if (< (nth j ls) (nth i_min ls))
+                    (setq i_min j)))
+          (rotatef (nth i ls) (nth i_min ls)))
+  ls)
+\end{minted}
+\end{listing}
+
+\begin{listing}[htbp]
+\caption{فراخوانی تابع}
+\begin{minted}[linenos,mathescape]{elisp}
+(selection '(10 2 70 15 19))
+\end{minted}
+\end{listing}
+
+\begin{minted}[linenos,mathescape]{text}
+(2 10 15 19 70)
+\end{minted}
+\end{document}

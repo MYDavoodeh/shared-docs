@@ -1,0 +1,47 @@
+# -*- org-latex-default-figure-position: H; -*-
+# Remove <?php?> from (org-babel-execute:php) in order to run codes.
+#+TITLE: گردآوری شماره ۲ مرتبط با درس وب
+#+AUTHOR: محمدیاسین داوده
+#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setdigitfont{XB Yas}\setmonofont{Iosevka}
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
+#+LANGUAGE: fa
+
+* مقایسه ="= و ='=
+='= مقادیر را همانگونه که هستند چاپ می‌کند (به استثنای ~\'~).
+
+#+BEGIN_SRC php :results output :exports both
+<?php
+$num = "1";
+$nums = "123";
+print("$nums \n");
+print("\"{$num}s \n");
+print('$nums \n');
+print('\'{$num}s \n');
+#+END_SRC
+
+#+RESULTS:
+: 123
+: "1s
+: $nums \n'{$num}s \n
+
+="= حروف خاص را قبول می‌کند و آنها را پردازش می‌کند. این حروف، ~\"~ و ~$~ و حروف رایج ~\n~, ~\t~ و غیره هستند.
+برای ایزوله کردن ~$~ در چنین رشته‌هایی از ~{}~ استفاده می‌کنیم.
+
+در مواقع خیلی خاص ممکن است ='= سریعتر از ="= باشد چرا که حروف خاص کمتری را قبول می‌کند.
+
+* مقایسه =print= و =echo=
+1. =echo= مقدار بازگشتی ندارد در حالی که =print= مقدار ~1~ را برمی‌گرداند.
+2. =echo= چند ورودی می‌پذیرد در حالی که دیگری اینطور نیست.
+3. =echo= سریع‌تر است.
+
+* تفاوت زبان برنامه‌نویسی و اسکریپت‌نویسی
+زبان‌های اسکریپتی زبان‌هایی هستند که از اسکریپت‌ها پشتیبانی می‌کنند.
+اسکریپت برنامه‌ای مخصوص محیطی خاص است که برای اتوماسیون وظایف دیگر برنامه‌ها یا انسان‌ها به کار می‌رود. این در حالی است که زبان‌های برنامه‌نویسی معمولاً برای محاسبهٔ خروجی‌ها یا محاسبات به کار می‌روند.
+
+زبان‌های اسکریپتی معمولاً تفسیر می‌شوند و به همین دلیل
+معمولاً کندتر هستند و مانند برنامه‌های ترجمه‌ای درجا تمام بررسی نمی‌شوند و ممکن است  میزبان خطاهای نهفتهٔ بیشتری باشند. همچنین این برنامه‌ها وابسته به مفسر هستند.
+مزیت زبان‌های اسکریپتی تعامل بالای آنها با کاربر است.
+
+\lr{C}, \lr{C++}, \lr{Java} و \lr{Pascal} برنامه‌نویسی و
+\lr{JavaScript}, \lr{Ruby}, \lr{Shell}, \lr{Perl}, \lr{Php} و \lr{Python} اسکریپتی هستند.

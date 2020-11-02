@@ -1,26 +1,17 @@
-*
+.ipynb_checkpoints
 
-!/.git*
+# General
+*.log
+*.out
+*.tmp
 
-# Directories
-!/papers/
-/papers/*
-!/py/
-/py/*
-!/uni-hws/
-/uni-hws/*
-
-# Unignore
-!*/README.org
-!*/LICENSE
-!*/*.c
-!*/*.cs
-!*.ipynb
-!*.org
-!*.pdf
-!*.py
-!*.tex
-
-# Ignore
-*/*.out
-*/.ipynb_checkpoints
+# TeX
+.auctex-auto
+_minted-*
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.synctex.gz
+*.toc

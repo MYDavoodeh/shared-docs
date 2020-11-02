@@ -1,0 +1,65 @@
+:PROPERTIES:
+:HEADER-ARGS: :engine mysql :database HW :session sql
+:END:
+#+TITLE: جدول Person
+#+AUTHOR: محمدیاسین داوده
+#+OPTIONS: toc:nil
+#+LANGUAGE: fa
+#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
+#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
+#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
+
+جدولی برای نگه‌داری اطلاعات افراد مختلف
+
+#+CAPTION: ساخت جدول
+#+BEGIN_SRC sql :results none
+DROP TABLE persons;
+CREATE TABLE persons
+(
+    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    national_id CHAR(10) UNIQUE,
+    fname VARCHAR(20),
+    lname VARCHAR(20),
+    eye_color CHAR(2),
+    bd DATE,
+    postal_code CHAR(10), -- hazfe address con az postal_code qaabele xaandan ast
+
+    CONSTRAINT pk_person PRIMARY KEY (id)
+);
+#+END_SRC
+
+#+CAPTION: پر کردن
+#+BEGIN_SRC sql :results none
+TRUNCATE TABLE persons;
+INSERT INTO persons
+       (national_id, fname, lname, eye_color, bd, postal_code)
+       VALUES
+       ("1924567890", "Ali", "Alipour", "BR", "2000-12-31", "1234567890"),
+       ("2924567890", "Faride", "Elaahipour", "BL", "1981-12-31", "1234567890");
+#+END_SRC
+
+#+CAPTION: کوئری‌ها
+#+BEGIN_SRC sql :exports both
+SELECT * from persons;
+#+END_SRC
+
+#+RESULTS:
+|---|
+
+#+BEGIN_SRC plantuml :file .person-class.png
+class Person{
+    - id: uint16
+    - national_id: String
+    - fname: String
+    - lname: String
+    - eye_color: String
+    - bd: Date
+    - postal_code: String
+}
+#+END_SRC
+
+#+CAPTION: کلاس دیاگرام
+#+RESULTS:
+[[file:.person-class.png]]
+

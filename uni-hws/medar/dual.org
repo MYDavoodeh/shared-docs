@@ -1,0 +1,25 @@
+#+TITLE: خوددوگانگی $a \oplus b \oplus c$
+#+AUTHOR: محمدیاسین داوده
+#+OPTIONS: toc:nil
+#+LANGUAGE: fa
+#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+#+LATEX_HEADER: \usepackage{nopageno}
+خوددوگانگی $a \oplus b \oplus c$ را ثابت کنید.
+\begin{align*}
+f = a \oplus b \oplus c = (\overline{(\overline{a} \cdot b + a \cdot \overline{b})} \cdot c) &+ ((\overline{a} \cdot b + a \cdot \overline{b}) \cdot \overline{c}) \\
+f' = (\overline{((\overline{a} + b) \cdot (a + \overline{b}))} + c) &\cdot \: (((\overline{a} + b) \cdot (a + \overline{b})) + \overline{c})
+\end{align*}
+#+LATEX: \begin{LTR}
+| $a$ | $b$ | $c$ | $a \oplus b$ | $f$ | $f'$ |
+|-----+-----+-----+---------+-----+------|
+|   / |     |   > |         |   < |      |
+|   0 |   0 |   0 |       0 |   0 |    0 |
+|   0 |   0 |   1 |       0 |   1 |    1 |
+|   0 |   1 |   0 |       1 |   1 |    1 |
+|   0 |   1 |   1 |       1 |   0 |    0 |
+|   1 |   0 |   0 |       1 |   1 |    1 |
+|   1 |   0 |   1 |       1 |   0 |    0 |
+|   1 |   1 |   0 |       0 |   0 |    0 |
+|   1 |   1 |   1 |       0 |   1 |    1 |
+#+TBLFM: $4=xor($1,$2);:: $5=xor($3,$4);:: $6=and(or(not(and(or(not($1),$2),or($1,not($2)))),$3),or(and(or(not($1),$2),or($1,not($2))),not($3)));
+#+LATEX: \end{LTR}

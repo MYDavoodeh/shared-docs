@@ -1,0 +1,90 @@
+% Created 2020-11-01 Sun 06:11
+% Intended LaTeX compiler: xelatex
+\documentclass[a4paper]{article}
+
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[newfloat]{minted}
+\usepackage{fontspec, xpatch, fullpage, caption, float, xcolor, titling}
+\usepackage[pass]{geometry}
+\usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+\xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
+\xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
+\SetupFloatingEnvironment{listing}{name=کد}
+\author{محمدیاسین داوده}
+\date{\today}
+\title{جدول Person}
+\hypersetup{
+ pdfauthor={محمدیاسین داوده},
+ pdftitle={جدول Person},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.4)}, 
+ pdflang={Farsi}}
+\begin{document}
+
+\maketitle
+جدولی برای نگه‌داری اطلاعات افراد مختلف
+
+\begin{listing}[htbp]
+\caption{ساخت جدول}
+\begin{minted}[linenos,mathescape]{sql}
+DROP TABLE persons;
+CREATE TABLE persons
+(
+    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    national_id CHAR(10) UNIQUE,
+    fname VARCHAR(20),
+    lname VARCHAR(20),
+    eye_color CHAR(2),
+    bd DATE,
+    postal_code CHAR(10), -- hazfe address con az postal_code qaabele xaandan ast
+
+    CONSTRAINT pk_person PRIMARY KEY (id)
+);
+\end{minted}
+\end{listing}
+
+\begin{listing}[htbp]
+\caption{پر کردن}
+\begin{minted}[linenos,mathescape]{sql}
+TRUNCATE TABLE persons;
+INSERT INTO persons
+       (national_id, fname, lname, eye_color, bd, postal_code)
+       VALUES
+       ("1924567890", "Ali", "Alipour", "BR", "2000-12-31", "1234567890"),
+       ("2924567890", "Faride", "Elaahipour", "BL", "1981-12-31", "1234567890");
+\end{minted}
+\end{listing}
+
+\begin{listing}[htbp]
+\caption{کوئری‌ها}
+\begin{minted}[linenos,mathescape]{sql}
+SELECT * from persons;
+\end{minted}
+\end{listing}
+
+\begin{center}
+\begin{tabular}{rrlllrr}
+id & national\textsubscript{id} & fname & lname & eye\textsubscript{color} & bd & postal\textsubscript{code}\\
+\hline
+1 & 1924567890 & Ali & Alipour & BR & 2000-12-31 & 1234567890\\
+2 & 2924567890 & Faride & Elaahipour & BL & 1981-12-31 & 1234567890\\
+\end{tabular}
+\end{center}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{/tmp/babel-2SrNmG/plantuml-rVo7OK.png}
+\caption{کلاس دیاگرام}
+\end{figure}
+\end{document}

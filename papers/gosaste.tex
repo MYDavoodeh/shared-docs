@@ -1,201 +1,195 @@
-\documentclass[a5paper]{article}
+% Created 2020-11-02 Mon 03:21
+% Intended LaTeX compiler: xelatex
+\documentclass[a4paper]{article}
+
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[newfloat]{minted}
+\usepackage{fontspec, xpatch, fullpage, caption, float, xcolor, titling}
 \usepackage[pass]{geometry}
-
-\usepackage{
-  fullpage,
-  hyperref,
-  titling,
-  amsmath, amssymb, amsthm,
-}
-
-\usepackage[bottom]{footmisc}
-% Disable footnote mark for \footnotetext
-\makeatletter
-\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
-\makeatother
-\newcommand{\reminder}[1]{{\let\thefootnote\relax\footnotetext{* #1}}}
-
-\usepackage{xepersian}
-\settextfont{XB Roya}
-\setlatintextfont{XB Roya}
-% \setdigitfont{XB Yas}
-\setmonofont{Iosevka}
-
-\author{محمدیاسین داوده}
-\title{گسسته}
+\usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}\setmathdigitfont{XB Roya}
+\usepackage[bottom]{footmisc} \makeatletter\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}\makeatother \newcommand{\reminder}[1]{{\let\thefootnote\relax\footnotetext{* #1}}}
+\captionsetup[table]{name=جدول}
 \date{\today}
-
-\newcommand{\T}{\mathbb{T}}
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\reft}[1]{~(جدول~\ref{tb:#1})}
-
+\title{ریاضیات گسسته}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={ریاضیات گسسته},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.4)}, 
+ pdflang={English}}
 \begin{document}
-\begin{titlingpage}
+
 \maketitle
-
-% فارسی
-% \begin{abstract}
-% \end{abstract}
-
 \tableofcontents
-\end{titlingpage}
+
+
 
 \section{منطق و گزاره}
-
-گزاره\LTRfootnote{Statement} یک جمله خبری است که یا درست است و یا نادرست. امکان  درستی و نادرستی همزمان یک گزاره وجود ندارد.
+\label{sec:org1cc5f2e}
+گزاره یا Statement یک جمله خبری است که یا درست است و یا نادرست. امکان  درستی و نادرستی همزمان یک گزاره وجود ندارد.
 
 \subsection{رابط‌های اولیه و جدول درستی}
-تعداد ترکیب‌های جدول درستی برای $n$ گزارهٔ مبنا معادل $2^{n}$ است.
+\label{sec:org0867b55}
+تعداد ترکیب‌های جدول درستی برای \(n\) گزارهٔ مبنا معادل \(2^{n}\) است.
 
-رابط‌های گزاره‌ای\reft{tools} ابزارهایی برای ایجاد گزاره‌های ترکیبی بکار می‌روند.
-
-
-\begin{table}[ht]\centering
-  \begin{tabular}{c c c}
-    نام & نماد & مفهوم \\
-    \hline
-    نقیض (Not) & $\lnot$ یا $\sim$ & چنین نیست \\
-    ترکیب عطفی (And) & $\land$ & $p$ و $q$ \\
-    ترکیب فصلی (Or) & $\lor$ & $p$ یا $q$ \\
-    یای مانع جمع (\lr{Exclusive or}) & $\oplus$ & فقط $p$ یا فقط $q$ \\
-    ترکیب شرطی (الزام) & $\Rightarrow$ & اگر $p$ آنگاه $q$ \\
-    ترکیب دوشرطی & $\Leftrightarrow$ & $p$ اگر و فقط اگر $q$ \\
-  \end{tabular}
-  \caption{جدول رابط‌های اصلی گزاره‌ای و نمادهای آن‌ها}\label{tb:tools}
+رابط‌های گزاره‌ای (\ref{tb:tools}) ابزارهایی برای ایجاد گزاره‌های ترکیبی بکار می‌روند.
+\begin{table}[htbp]
+\caption{\label{tb:tools}جدول رابط‌های اصلی گزاره‌ای و نمادهای آن‌ها}
+\centering
+\begin{tabular}{ccc}
+نام & نماد & مفهوم\\
+\hline
+نقیض (Not) & \(\lnot\), \(\sim\), بار بالای متغیر، \('\) بعد از متغیر یا \(!\) & چنین نیست\\
+ترکیب عطفی (And) & \(\land\) یا \(\cdot\) & \(p\) و \(q\)\\
+ترکیب فصلی (Or) & \(\lor\) یا \(+\) & \(p\) یا \(q\)\\
+یای مانع جمع (\lr{Exclusive or / Aut}) & \(\veebar\) یا \(\oplus\) & فقط \(p\) یا فقط \(q\)\\
+ترکیب شرطی (الزام) & \(\Rightarrow\) & اگر \(p\) آنگاه \(q\)\\
+ترکیب دوشرطی & \(\Leftrightarrow\) & \(p\) اگر و فقط اگر \(q\)\\
+\end{tabular}
 \end{table}
 
 \subsubsection{نقیض (Not)}
-اگر $p$ یک گزاره باشد، نقیض آن را به صورت $\lnot{}p$ یا $\sim{}p$ نشان می‌دهیم.\reft{not}
-این گزاره زمانی درست است که $p$ نادرست باشد.
+\label{sec:orga8afac8}
 
-\begin{table}[ht]\centering
-  \begin{LTR}
-    \begin{tabular}{c|c}
-      $p$ & $\lnot p$ \\
-      \hline
-      $\T$ & $\F$\\
-      $\F$ & $\T$\\
-    \end{tabular}
-  \end{LTR}
-  \caption{جدول رابط‌های اصلی گزاره‌ای و نمادهای آن‌ها}\label{tb:not}
+اگر \(p\) یک گزاره باشد، نقیض آن را به صورت \(\lnot p\) نشان می‌دهیم.
+این گزاره زمانی درست است که \(p\) نادرست باشد.
+
+\begin{table}[htbp]
+\caption{\label{tb:not}جدول رابط‌های اصلی گزاره‌ای و نمادهای آن‌ها}
+\centering
+\begin{tabular}{c|c}
+\(p\) & \(\lnot p\)\\
+\hline
+0 & 1\\
+1 & 0\\
+\end{tabular}
 \end{table}
 
-
-با توجه به جدول مقادیر~(\ref{tb:not}) می‌توان نتیجه گرفت:
+با توجه به جدول \ref{tb:not} می‌توان نتیجه گرفت هردو هم‌ارز\footnote{هرگاه دو گزاره مرکب --- صرف نظر از ارزش مؤلفه‌های آن‌ها --- ارزش‌های یکسان داشته باشند از لحاظ منطقی هم‌ارز هستند که آنرا با نماد \(\equiv\) نشان می‌دهیم.} هستند:
 
 \begin{equation}
 \lnot(\lnot p) \quad \overbrace{\equiv}^{\text{هم ارزی*}} \quad p
 \end{equation}
-\reminder{هرگاه دو گزاره مرکب --- صرف نظر از ارزش مؤلفه‌های آن‌ها --- ارزش‌های یکسان داشته باشند از لحاظ منطقی هم‌ارز هستند که آنرا با نماد $\equiv$ نشان می‌دهیم.}
 
 \subsubsection{ترکیب عطفی (And)}
-اگر $p$ و $q$ دو گزاره باشند و بخواهیم از صحت هر دو اطمینان حاصل کنیم از ترکیب عطفی ($p \land q$) استفاده می‌کنیم.\reft{and}
+\label{sec:org8eb1e74}
+اگر \(p\) و \(q\) دو گزاره باشند و بخواهیم از صحت هر دو اطمینان حاصل کنیم از ترکیب عطفی (\(p \land q\)) استفاده می‌کنیم (جدول \ref{tb:and}).
 
-\begin{table}[ht]\centering
-  \begin{LTR}
-    \begin{tabular}{c c|c}
-      $p$ & $q$ & $p \land q$ \\
-      \hline
-      $\T$ & $\T$ & $\T$ \\
-      $\T$ & $\F$ & $\F$ \\
-      $\F$ & $\T$ & $\F$ \\
-      $\F$ & $\F$ & $\F$ \\
-    \end{tabular}
-  \end{LTR}
-  \caption{جدول مقادیر ترکیب عطفی}\label{tb:and}
+\begin{table}[htbp]
+\caption{\label{tb:and}جدول مقادیر ترکیب عطفی}
+\centering
+\begin{tabular}{cc|c}
+\(p\) & \(q\) & \(p \land q\)\\
+\hline
+1 & 1 & 1\\
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 0\\
+\end{tabular}
 \end{table}
 
 \subsubsection{ترکیب فصلی (Or)}
-اگر $p$ و $q$ دو گزاره باشند و بخواهیم از صحت یکی از آنها اطمینان حاصل کنیم از ترکیب فصلی ($p \lor q$) استفاده می‌کنیم.\reft{or}
+\label{sec:org567e61f}
+اگر \(p\) و \(q\) دو گزاره باشند و بخواهیم از صحت یکی از آنها اطمینان حاصل کنیم از ترکیب فصلی (\(p \lor q\)) استفاده می‌کنیم (جدول \ref{tb:or}).
 
-\begin{table}[ht]\centering
-  \begin{LTR}
-    \begin{tabular}{c c|c}
-      $p$ & $q$ & $p \lor q$ \\
-      \hline
-      $\T$ & $\T$ & $\T$ \\
-      $\T$ & $\F$ & $\T$ \\
-      $\F$ & $\T$ & $\T$ \\
-      $\F$ & $\F$ & $\F$ \\
-    \end{tabular}
-  \end{LTR}
-  \caption{جدول مقادیر ترکیب فصلی}\label{tb:or}
+\begin{table}[htbp]
+\caption{\label{tb:or}جدول مقادیر ترکیب فصلی}
+\centering
+\begin{tabular}{cc|c}
+\(p\) & \(q\) & \(p \lor q\)\\
+\hline
+1 & 1 & 1\\
+1 & 0 & 1\\
+0 & 1 & 1\\
+0 & 0 & 0\\
+\end{tabular}
 \end{table}
 
-\subsubsection{یای مانع جمع (انحصاری) (\lr{Exclusive or})}
-اگر $p$ و $q$ دو گزاره باشند و بخواهیم از صحت \textbf{فقط یکی} از آنها اطمینان حاصل کنیم از یای انحصاری\LTRfootnote{Exclusive or (Xor)} ($p \oplus q$) استفاده می‌کنیم.\reft{xor}
+\subsubsection{یای مانع جمع (انحصاری) (\lr{Exclusive or / Aut})}
+\label{sec:orgedfc68c}
+اگر \(p\) و \(q\) دو گزاره باشند و بخواهیم از صحت \textbf{فقط یکی} از آنها اطمینان حاصل کنیم از یای انحصاری (\(p \oplus q\)) استفاده می‌کنیم (جدول \ref{tb:xor})
 
-\begin{table}[ht]\centering
-  \begin{LTR}
-    \begin{tabular}{c c|c}
-      $p$ & $q$ & $p \oplus q$ \\
-      \hline
-      $\T$ & $\T$ & $\F$ \\
-      $\T$ & $\F$ & $\T$ \\
-      $\F$ & $\T$ & $\T$ \\
-      $\F$ & $\F$ & $\F$ \\
-    \end{tabular}
-  \end{LTR}
-  \caption{جدول مقادیر یای انحصاری}\label{tb:xor}
+\begin{table}[htbp]
+\caption{\label{tb:xor}جدول مقادیر یای انحصاری}
+\centering
+\begin{tabular}{cc|c}
+\(p\) & \(q\) & \(p \oplus q\)\\
+\hline
+1 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1\\
+0 & 0 & 0\\
+\end{tabular}
 \end{table}
 
 \subsubsection{ترکیب شرطی}
-هرگاه بخواهیم از گزاره $p$ گزاره $q$ را نتیجه بگیریم، از ترکیب شرطی استفاده می‌کنیم\reft{imp}. برای بیان آن می‌نویسیم $p \Rightarrow q$ که به شکل‌های زیر می‌تواند خوانده شود:
+\label{sec:org6e20e9f}
+هرگاه بخواهیم از گزاره \(p\) گزاره \(q\) را نتیجه بگیریم، از ترکیب شرطی استفاده می‌کنیم (جدول \ref{tb:imp}). برای بیان آن می‌نویسیم \(p \Rightarrow q\) که به شکل‌های زیر می‌تواند خوانده شود:
 \begin{itemize}
-  \item اگر $p$ آنگاه $q$.
-  \item $p$، $q$ را نتیجه می‌دهد.
-  \item $q$ از $p$ نتیجه می‌دهد.
+\item اگر \(p\) آنگاه \(q\).
+\item \(p\), \(q\) را نتیجه می‌دهد.
+\item \(q\) از \(p\) نتیجه می‌دهد.
 \end{itemize}
-در عبارت $p \Rightarrow q$، $p$ مقدم و $q$ تالی است.
+در عبارت \$p \(\Rightarrow\) q\$، \(p\) مقدم و \(q\) تالی است.
 
-\begin{table}[ht]\centering
-  \begin{LTR}
-    \begin{tabular}{c c|c}
-      $p$ & $q$ & $p \Rightarrow q$ \\
-      \hline
-      $\T$ & $\T$ & $\T$ \\
-      $\T$ & $\F$ & $\F$ \\
-      $\F$ & $\T$ & $\T$ \\
-      $\F$ & $\F$ & $\T$ \\
-    \end{tabular}
-  \end{LTR}
-  \caption{جدول مقادیر ترکیب شرطی}\label{tb:imp}
+\begin{table}[htbp]
+\caption{\label{tb:imp}جدول مقادیر ترکیب شرطی}
+\centering
+\begin{tabular}{cc|c}
+\(p\) & \(q\) & \(p \Rightarrow q\)\\
+\hline
+1 & 1 & 1\\
+1 & 0 & 0\\
+0 & 1 & 1\\
+0 & 0 & 1\\
+\end{tabular}
 \end{table}
 
-با توجه به جدول مقادیر~(\ref{tb:imp}) می‌توان نتیجه گرفت:
+با توجه به جدول مقادیر (جدول \ref{tb:imp}) می‌توان نتیجه گرفت:
 
 \begin{equation}
 \lnot p \lor q \quad \equiv \quad p \Rightarrow q
 \end{equation}
-\reminder{هرگاه دو گزاره مرکب --- صرف نظر از ارزش مؤلفه‌های آن‌ها --- ارزش‌های یکسان داشته باشند از لحاظ منطقی هم‌ارز هستند که آنرا با نماد $\equiv$ نشان می‌دهیم.}
 
 \subsubsection{ترکیب دوشرطی}
-اگر بخواهیم از گزاره $p$ گزاره $q$ را نتیجه بگیریم و از گزاره $q$ گزاره $p$ را، می‌نویسیم $p \Leftrightarrow q$\reft{imi}.
+\label{sec:org6c1bab4}
+اگر بخواهیم از گزاره \(p\) گزاره \(q\) را نتیجه بگیریم و از گزاره \(q\) گزاره \(p\) را، می‌نویسیم \(p \Leftrightarrow q\) (جدول \ref{tb:imi}).
 
-\begin{table}[ht]\centering
-  \begin{LTR}
-    \begin{tabular}{c c|c c||c}
-      $p$ & $q$ & $p \Rightarrow q$ & $q \Rightarrow p$ & $p \Leftrightarrow q$ \\
-      \hline
-      $\T$ & $\T$ & $\T$ & $\T$ & $\T$ \\
-      $\T$ & $\F$ & $\F$ & $\T$ & $\F$ \\
-      $\F$ & $\T$ & $\T$ & $\F$ & $\F$ \\
-      $\F$ & $\F$ & $\T$ & $\T$ & $\T$ \\
-    \end{tabular}
-  \end{LTR}
-  \caption{جدول مقادیر ترکیب دوشرطی}\label{tb:imi}
+\begin{table}[htbp]
+\caption{\label{tb:imi}جدول مقادیر ترکیب دوشرطی}
+\centering
+\begin{tabular}{cc|cc|c}
+\(p\) & \(q\) & \(p \Rightarrow q\) & \(q \Rightarrow p\) & \(p \Leftrightarrow q\)\\
+\hline
+1 & 1 & 1 & 1 & 1\\
+1 & 0 & 0 & 1 & 0\\
+0 & 1 & 1 & 0 & 0\\
+0 & 0 & 1 & 1 & 1\\
+\end{tabular}
 \end{table}
 
-با توجه به جدول مقادیر~(\ref{tb:imi}) می‌توان نتیجه گرفت:
+با توجه به جدول مقادیر (\ref{tb:imi}) می‌توان نتیجه گرفت:
 
 \begin{equation}
 p \Leftrightarrow q \quad \equiv \quad (p \Rightarrow q) \land (q \Rightarrow p) \quad \equiv \quad (\lnot p \lor q) \land (\lnot q \lor p)
 \end{equation}
 
-گزاره راستگو گزاره‌ای است که همواره برابر با $\T$ باشد.
-گزاره‌ای که همواره $\F$ است را گزاره متناقض گویند.
+گزاره راستگو گزاره‌ای است که همواره برابر با \(1\) باشد.
+گزاره‌ای که همواره \(0\) است را گزاره متناقض گویند.
 
-\subsection{خواص گزاره‌ها}
+\subsubsection{خواص گزاره‌ها}
+\label{sec:org4280232}
 گزاره‌ها خواصی دارند که به شرح زیر است:
 
 \begin{equation}
@@ -230,8 +224,8 @@ p \Leftrightarrow q \quad \equiv \quad (p \Rightarrow q) \land (q \Rightarrow p)
 \end{equation}
 \begin{equation}
   \text{متمم}\begin{cases}
-    p \lor \lnot p \quad \equiv \quad \T \\
-    p \land \lnot p \quad \equiv \quad \F
+    p \lor \lnot p \quad \equiv \quad 1 \\
+    p \land \lnot p \quad \equiv \quad 0
   \end{cases}
 \end{equation}
 \begin{equation}
@@ -242,12 +236,10 @@ p \Leftrightarrow q \quad \equiv \quad (p \Rightarrow q) \land (q \Rightarrow p)
 \end{equation}
 \begin{equation}
   \text{قانون همانی}\begin{cases}
-    (p \land \T) \equiv p \\
-    (p \land \F) \equiv \F \\
-    (p \lor \T) \equiv \T \\
-    (p \lor \F) \equiv p
+    (p \land 1) \equiv p \\
+    (p \land 0) \equiv 0 \\
+    (p \lor 1) \equiv 1 \\
+    (p \lor 0) \equiv p
   \end{cases}
 \end{equation}
-
-
 \end{document}

@@ -3,15 +3,23 @@
 #+AUTHOR: M. Yas. Davoodeh
 #+EMAIL: MYDavoodeh@gmail.com
 # #+LATEX_CLASS_OPTIONS: [a5paper]
+#+LATEX_HEADER: \usepackage{fontspec}\setmainfont{XB Roya}\setmonofont{Iosevka}
 # #+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setdigitfont{XB Yas}
 # #+LANGUAGE: fa
-#+LATEX_HEADER: \setmainfont{XB Roya}\setmonofont{Iosevka}
 
 # TODO determine where to make results verbatim automatically.
 # TODO put titles in a titling.
 # TODO make RESULTS more visually appealing.
 # TODO add bibliography
 
+#+BEGIN_SRC plantuml
+@startuml
+bob -> alis
+@enduml
+#+END_SRC
+
+#+RESULTS:
+[[file:/tmp/babel-6yz9zz/plantuml-6q4ywZ.png]]
 
 * Basics
 # Quick note for ~Babel~ / ~Org-mode~: To write a block of ~SRC~, type =<s= and press ~TAB~.
@@ -150,53 +158,53 @@ Pairs can be constructed with =cons= command.
 ~a~, ~car~ or the first element is the left most symbol.
 ~d~, ~cdr~ (/ˈkʊdər/) is the other element.
 #+CAPTION: Ways to define a pair
-#+BEGIN_SRC lisp
+#+BEGIN_SRC elisp
 '(a . d)
 (cons 'a 'd)
 #+END_SRC
 
 #+RESULTS:
-: (A . D)
+: (a . d)
 
 A list is a list of pairs and can be defined like below
 #+CAPTION: Ways to define a list
-#+BEGIN_SRC lisp
+#+BEGIN_SRC elisp :results verbatim
 (list 'a 'b 'c 'd)
 '(a . (b . (c . (d))))
 '(a b c d)
 #+END_SRC
 
 #+RESULTS:
-: (A B C D)
+: (a b c d)
 
 #+CAPTION: Definition of variables used in snippets below.
-#+BEGIN_SRC lisp
+#+BEGIN_SRC elisp :results verbatim
 (setq n 3)
 (setq mylist '(a b c d))
 #+END_SRC
 
 #+RESULTS:
-: (A B C D)
+: (a b c d)
 
 Getting the first item of a list, ~a~ or ~car~ is done like below.
 #+CAPTION: =car= example
-#+BEGIN_SRC lisp
+#+BEGIN_SRC elisp
 (first mylist)
 (car mylist)
 #+END_SRC
 
 #+RESULTS:
-: A
+: a
 
 Getting the rest of objects, ~d~ or the ~cdr~.
 #+CAPTION: =cdr= example
-#+BEGIN_SRC lisp
+#+BEGIN_SRC elisp :results verbatim
 (rest mylist)
 (cdr mylist)
 #+END_SRC
 
 #+RESULTS:
-: (B C D)
+: (b c d)
 
 =car= and =cdr= can be chained in such logic: Remove ~c~ and ~r~;
 From right to left, do the operations left from the string.

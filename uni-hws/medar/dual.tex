@@ -1,0 +1,55 @@
+% Created 2020-11-01 Sun 01:34
+% Intended LaTeX compiler: xelatex
+\documentclass[a4paper]{article}
+
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[newfloat]{minted}
+\usepackage{fontspec, xpatch, fullpage, caption, float, xcolor, titling}
+\usepackage[pass]{geometry}
+\usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+\usepackage{nopageno}
+\author{محمدیاسین داوده}
+\date{\today}
+\title{خوددوگانگی \(a \oplus b \oplus c\)}
+\hypersetup{
+ pdfauthor={محمدیاسین داوده},
+ pdftitle={خوددوگانگی \(a \oplus b \oplus c\)},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.4)}, 
+ pdflang={Farsi}}
+\begin{document}
+
+\maketitle
+خوددوگانگی \(a \oplus b \oplus c\) را ثابت کنید.
+\begin{align*}
+f = a \oplus b \oplus c = (\overline{(\overline{a} \cdot b + a \cdot \overline{b})} \cdot c) &+ ((\overline{a} \cdot b + a \cdot \overline{b}) \cdot \overline{c}) \\
+f' = (\overline{((\overline{a} + b) \cdot (a + \overline{b}))} + c) &\cdot \: (((\overline{a} + b) \cdot (a + \overline{b})) + \overline{c})
+\end{align*}
+\begin{LTR}
+\begin{center}
+\begin{tabular}{rrr|r|rr}
+\(a\) & \(b\) & \(c\) & \(a \oplus b\) & \(f\) & \(f'\)\\
+\hline
+0 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0 & 1 & 1\\
+0 & 1 & 0 & 1 & 1 & 1\\
+0 & 1 & 1 & 1 & 0 & 0\\
+1 & 0 & 0 & 1 & 1 & 1\\
+1 & 0 & 1 & 1 & 0 & 0\\
+1 & 1 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 0 & 1 & 1\\
+\end{tabular}
+\end{center}
+\end{LTR}
+\end{document}
