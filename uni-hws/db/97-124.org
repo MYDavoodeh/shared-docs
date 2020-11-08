@@ -1,0 +1,641 @@
+# -*- eval: (add-hook 'after-save-hook 'org-babel-tangle nil t); org-latex-default-figure-position: H; -*-
+#+TITLE: تمرین کلاسی ص ۹۷ تا ۱۲۴
+#+AUTHOR: @@latex:\rl{@@محمدیاسین داوده@@latex:}@@
+#+PROPERTY: header-args:sql :engine mysql :exports both :tangle "97-124.sql" :comments link :session sql :var db="hw_db_97124" :database sakila
+#+STARTUP: fold
+#+LANGUAGE: fa
+#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
+#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
+#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
+#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
+#+MACRO: lt @@latex:\lr{@@​~$1~​@@latex:}@@
+#+MACRO: filename (eval (concat "[[file:" (file-name-sans-extension (buffer-name)) $1 "]]"))
+
+
+* جزئیات و توضیحات
+این برگه به شامل کوئری‌های کتاب از صفحه ۹۷ تا ۱۲۴ شامل تمارین آخر فصل سه می‌باشد.[fn:org]
+[fn:org] این فایل خروجی اتوماتیک فایل {{{filename(.org)}}} است. برای اجرای تعاملی کدها ویرایش هر بخش آنرا ویرایش کنید. فایل ~.org~ با اورگ-مد ایمکس باز می‌شود. فایل حاصل دیگری که از این اورگ فایل این فایل بوجود آمده است کدهای مهم هستند که به طور اتوماتیک به {{{filename(.sql)}}} برای سورس شدن در MySQL اضافه شده‌اند.
+
+#+CAPTION: انتخاب پایگاه داده پیش از آغاز
+#+begin_src sql :results none :exports code
+USE sakila;
+#+end_src
+
+
+* تمرین‌ها
+
+#+CAPTION: تمرین ۱: کد ، نام و نام خانوادگی بازیگر به ترتیب نام خانوادگی و سپس نام
+#+begin_src sql
+SELECT actor_id,
+       first_name,
+       last_name
+  FROM actor
+ ORDER BY last_name,
+          first_name
+ LIMIT 10;
+#+end_src
+
+#+RESULTS:
+| actor_id | first_name | last_name |
+|----------+------------+-----------|
+|       58 | CHRISTIAN  | AKROYD    |
+|      182 | DEBBIE     | AKROYD    |
+|       92 | KIRSTEN    | AKROYD    |
+|      118 | CUBA       | ALLEN     |
+|      145 | KIM        | ALLEN     |
+|      194 | MERYL      | ALLEN     |
+|       76 | ANGELINA   | ASTAIRE   |
+|      112 | RUSSELL    | BACALL    |
+|      190 | AUDREY     | BAILEY    |
+|       67 | JESSICA    | BAILEY    |
+
+#+CAPTION: تمرین ۲: کد، نام و نام خانوادگی بازیگران با نام خانوادگی WILLIAMS یا DAVIS
+#+begin_src sql
+SELECT actor_id,
+       first_name,
+       last_name
+  FROM actor
+ WHERE last_name IN ('WILLIAMS', 'DAVIS');
+#+end_src
+
+#+RESULTS:
+| actor_id | first_name | last_name |
+|----------+------------+-----------|
+|        4 | JENNIFER   | DAVIS     |
+|      101 | SUSAN      | DAVIS     |
+|      110 | SUSAN      | DAVIS     |
+|       72 | SEAN       | WILLIAMS  |
+|      137 | MORGAN     | WILLIAMS  |
+|      172 | GROUCHO    | WILLIAMS  |
+
+#+CAPTION: تمرین ۳: کد مشتریانی که ۵ جولای ۲۰۰۵ فیلم کرایه کرده‌اند.
+#+begin_src sql
+SELECT DISTINCT customer_id
+  FROM rental
+ WHERE date(rental_date) = '2005-07-05';
+#+END_SRC
+
+#+RESULTS:
+| customer_id |
+|-------------|
+|           8 |
+|          37 |
+|          60 |
+|         111 |
+|         114 |
+|         138 |
+|         142 |
+|         169 |
+|         242 |
+|         295 |
+|         296 |
+|         298 |
+|         322 |
+|         348 |
+|         349 |
+|         369 |
+|         382 |
+|         397 |
+|         421 |
+|         476 |
+|         490 |
+|         520 |
+|         536 |
+|         553 |
+|         565 |
+|         586 |
+|         594 |
+
+#+CAPTION: تکمیل شدهٔ کوئری کتاب به عنوان تمرین ۴
+#+begin_src sql
+SELECT c.email,
+       r.return_date
+  FROM customer c
+ INNER JOIN rental r
+    ON c.customer_id = r.customer_id
+ WHERE date(r.rental_date) = '2005-06-14'
+ ORDER BY return_date DESC;
+#+END_SRC
+
+#+RESULTS:
+| email                                 | return_date         |
+|---------------------------------------+---------------------|
+| DANIEL.CABRAL@sakilacustomer.org      | 2005-06-23 22:00:38 |
+| TERRANCE.ROUSH@sakilacustomer.org     | 2005-06-23 21:53:46 |
+| MIRIAM.MCKINNEY@sakilacustomer.org    | 2005-06-21 17:12:08 |
+| GWENDOLYN.MAY@sakilacustomer.org      | 2005-06-20 02:40:27 |
+| JEANETTE.GREENE@sakilacustomer.org    | 2005-06-19 23:26:46 |
+| HERMAN.DEVORE@sakilacustomer.org      | 2005-06-19 03:20:09 |
+| JEFFERY.PINSON@sakilacustomer.org     | 2005-06-18 21:37:33 |
+| MATTHEW.MAHAN@sakilacustomer.org      | 2005-06-18 05:18:58 |
+| MINNIE.ROMERO@sakilacustomer.org      | 2005-06-18 01:58:34 |
+| SONIA.GREGORY@sakilacustomer.org      | 2005-06-17 21:44:11 |
+| TERRENCE.GUNDERSON@sakilacustomer.org | 2005-06-17 05:28:35 |
+| ELMER.NOE@sakilacustomer.org          | 2005-06-17 02:11:13 |
+| JOYCE.EDWARDS@sakilacustomer.org      | 2005-06-16 21:00:26 |
+| AMBER.DIXON@sakilacustomer.org        | 2005-06-16 04:02:56 |
+| CHARLES.KOWALSKI@sakilacustomer.org   | 2005-06-16 02:26:34 |
+| CATHERINE.CAMPBELL@sakilacustomer.org | 2005-06-15 20:43:03 |
+
+* کوئری‌های کتاب
+** عبارت ~SELECT~
+
+#+CAPTION: صفحه ۹۹ خروجی خالی
+#+begin_src sql :exports code
+SELECT first_name,
+       last_name
+  FROM customer
+ WHERE last_name = 'ZIEGLER';
+#+end_src
+
+#+CAPTION: صفحه ۹۹ دسته‌بندی‌ها
+#+begin_src sql
+SELECT *
+  FROM category;
+#+end_src
+
+#+RESULTS:
+| category_id | name        | last_update         |
+|-------------+-------------+---------------------|
+|           1 | Action      | 2006-02-15 04:46:27 |
+|           2 | Animation   | 2006-02-15 04:46:27 |
+|           3 | Children    | 2006-02-15 04:46:27 |
+|           4 | Classics    | 2006-02-15 04:46:27 |
+|           5 | Comedy      | 2006-02-15 04:46:27 |
+|           6 | Documentary | 2006-02-15 04:46:27 |
+|           7 | Drama       | 2006-02-15 04:46:27 |
+|           8 | Family      | 2006-02-15 04:46:27 |
+|           9 | Foreign     | 2006-02-15 04:46:27 |
+|          10 | Games       | 2006-02-15 04:46:27 |
+|          11 | Horror      | 2006-02-15 04:46:27 |
+|          12 | Music       | 2006-02-15 04:46:27 |
+|          13 | New         | 2006-02-15 04:46:27 |
+|          14 | Sci-Fi      | 2006-02-15 04:46:27 |
+|          15 | Sports      | 2006-02-15 04:46:27 |
+|          16 | Travel      | 2006-02-15 04:46:27 |
+
+#+CAPTION: صفحه ۹۹ دسته‌بندی‌ها
+#+begin_src sql
+SELECT *
+  FROM category;
+#+end_src
+
+#+RESULTS:
+| category_id | name        | last_update         |
+|-------------+-------------+---------------------|
+|           1 | Action      | 2006-02-15 04:46:27 |
+|           2 | Animation   | 2006-02-15 04:46:27 |
+|           3 | Children    | 2006-02-15 04:46:27 |
+|           4 | Classics    | 2006-02-15 04:46:27 |
+|           5 | Comedy      | 2006-02-15 04:46:27 |
+|           6 | Documentary | 2006-02-15 04:46:27 |
+|           7 | Drama       | 2006-02-15 04:46:27 |
+|           8 | Family      | 2006-02-15 04:46:27 |
+|           9 | Foreign     | 2006-02-15 04:46:27 |
+|          10 | Games       | 2006-02-15 04:46:27 |
+|          11 | Horror      | 2006-02-15 04:46:27 |
+|          12 | Music       | 2006-02-15 04:46:27 |
+|          13 | New         | 2006-02-15 04:46:27 |
+|          14 | Sci-Fi      | 2006-02-15 04:46:27 |
+|          15 | Sports      | 2006-02-15 04:46:27 |
+|          16 | Travel      | 2006-02-15 04:46:27 |
+
+#+CAPTION: صفحه ۱۰۲ زبان‌ها
+#+begin_src sql
+SELECT *
+  FROM language;
+#+end_src
+
+#+RESULTS:
+| language_id | name     | last_update         |
+|-------------+----------+---------------------|
+|           1 | English  | 2006-02-15 05:02:19 |
+|           2 | Italian  | 2006-02-15 05:02:19 |
+|           3 | Japanese | 2006-02-15 05:02:19 |
+|           4 | Mandarin | 2006-02-15 05:02:19 |
+|           5 | French   | 2006-02-15 05:02:19 |
+|           6 | German   | 2006-02-15 05:02:19 |
+
+#+CAPTION: صفحه ۱۰۲ چند فیلد از زبان‌ها
+#+begin_src sql
+SELECT language_id,
+       name,
+       last_update
+  FROM language;
+#+end_src
+
+#+RESULTS:
+| language_id | name     | last_update         |
+|-------------+----------+---------------------|
+|           1 | English  | 2006-02-15 05:02:19 |
+|           2 | Italian  | 2006-02-15 05:02:19 |
+|           3 | Japanese | 2006-02-15 05:02:19 |
+|           4 | Mandarin | 2006-02-15 05:02:19 |
+|           5 | French   | 2006-02-15 05:02:19 |
+|           6 | German   | 2006-02-15 05:02:19 |
+
+#+CAPTION: صفحه ۱۰۲ نام زبان‌ها
+#+begin_src sql
+SELECT name
+  FROM language;
+#+end_src
+
+#+RESULTS:
+| name     |
+|----------|
+| English  |
+| Italian  |
+| Japanese |
+| Mandarin |
+| French   |
+| German   |
+
+#+CAPTION: صفحه ۱۰۳
+#+begin_src sql
+SELECT language_id,
+       'COMMON' language_usage,
+       language_id * 3.1415927 lang_pi_value,
+       upper(name) language_name
+  FROM language;
+#+end_src
+
+#+RESULTS:
+| language_id | language_usage | lang_pi_value | language_name |
+|-------------+----------------+---------------+---------------|
+|           1 | COMMON         |     3.1415927 | ENGLISH       |
+|           2 | COMMON         |     6.2831854 | ITALIAN       |
+|           3 | COMMON         |     9.4247781 | JAPANESE      |
+|           4 | COMMON         |    12.5663708 | MANDARIN      |
+|           5 | COMMON         |    15.7079635 | FRENCH        |
+|           6 | COMMON         |    18.8495562 | GERMAN        |
+
+#+CAPTION: صفحه ۱۰۳
+#+begin_src sql
+SELECT version(),
+       user(),
+       database();
+#+end_src
+
+#+RESULTS:
+| version()      | user()        | database() |
+|----------------+---------------+------------|
+| 10.5.6-MariaDB | yas@localhost | sakila     |
+
+** نام مستعار
+
+#+CAPTION: صفحه ۱۰۵
+#+begin_src sql
+SELECT language_id,
+       'COMMON' AS language_usage,
+       language_id * 3.1415927 AS lang_pi_value,
+       upper(name) AS language_name
+  FROM language;
+#+end_src
+
+#+RESULTS:
+| language_id | language_usage | lang_pi_value | language_name |
+|-------------+----------------+---------------+---------------|
+|           1 | COMMON         |     3.1415927 | ENGLISH       |
+|           2 | COMMON         |     6.2831854 | ITALIAN       |
+|           3 | COMMON         |     9.4247781 | JAPANESE      |
+|           4 | COMMON         |    12.5663708 | MANDARIN      |
+|           5 | COMMON         |    15.7079635 | FRENCH        |
+|           6 | COMMON         |    18.8495562 | GERMAN        |
+
+#+CAPTION: صفحه ۱۰۶
+#+begin_src sql :exports code :results none
+SELECT actor_id
+  FROM film_actor
+ ORDER BY actor_id;
+#+end_src
+
+#+CAPTION: صفحه ۱۰۶
+#+begin_src sql :exports code
+SELECT COUNT(actor_id)
+  FROM film_actor
+ ORDER BY actor_id;
+#+end_src
+
+#+RESULTS:
+| COUNT(actor_id) |
+|-----------------|
+|            5462 |
+
+#+CAPTION: صفحه ۱۰۶
+#+begin_src sql :exports code :results none
+SELECT DISTINCT actor_id
+  FROM film_actor
+ ORDER BY actor_id;
+#+end_src
+
+** عبارت ~FROM~
+
+#+CAPTION: صفحه ۱۰۹
+#+begin_src sql
+SELECT concat(cust.last_name, ', ', cust.first_name) full_name
+  FROM (
+        SELECT first_name,
+               last_name,
+               email
+          FROM customer
+         WHERE first_name = 'JESSIE'
+       ) cust;
+#+end_src
+
+#+RESULTS:
+| full_name     |
+|---------------|
+| BANKS, JESSIE |
+| MILAM, JESSIE |
+
+*** جداول موقت
+
+#+CAPTION: صفحه ۱۱۰ جدول موقت
+#+begin_src sql
+CREATE TEMPORARY TABLE actors_j (
+    actor_id SMALLINT(5),
+    first_name VARCHAR(45),
+    last_name VARCHAR(45)
+);
+INSERT INTO actors_j SELECT actor_id,
+       first_name,
+       last_name
+  FROM actor
+ WHERE last_name LIKE 'J%';
+SELECT *
+  FROM actors_j;
+#+end_src
+
+#+RESULTS:
+| actor_id | first_name | last_name |
+|----------+------------+-----------|
+|      119 | WARREN     | JACKMAN   |
+|      131 | JANE       | JACKMAN   |
+|        8 | MATTHEW    | JOHANSSON |
+|       64 | RAY        | JOHANSSON |
+|      146 | ALBERT     | JOHANSSON |
+|       82 | WOODY      | JOLIE     |
+|       43 | KIRK       | JOVOVICH  |
+
+*** نما
+
+#+CAPTION: صفحه ۱۱۱ ساخت نما
+#+begin_src sql :exports code :results none
+DROP VIEW cust_hw;
+CREATE VIEW cust_hw AS SELECT customer_id,
+       first_name,
+       last_name,
+       active
+  FROM customer;
+#+end_src
+
+#+CAPTION: صفحه ۱۱۱ وضعیت جدول نما
+#+begin_src sql
+SELECT first_name,
+       last_name
+  FROM cust_hw
+ WHERE active=0;
+#+end_src
+
+#+RESULTS:
+| first_name | last_name |
+|------------+-----------|
+| SANDRA     | MARTIN    |
+| JUDITH     | COX       |
+| SHEILA     | WELLS     |
+| ERICA      | MATTHEWS  |
+| HEIDI      | LARSON    |
+| PENNY      | NEAL      |
+| KENNETH    | GOODEN    |
+| HARRY      | ARCE      |
+| NATHAN     | RUNYON    |
+| THEODORE   | CULP      |
+| MAURICE    | CRAWLEY   |
+| BEN        | EASTER    |
+| CHRISTIAN  | JUNG      |
+| JIMMIE     | EGGLESTON |
+| TERRANCE   | ROUSH     |
+
+*** پیوند
+
+#+CAPTION: صفحه ۱۱۱ پیوند
+#+begin_src sql
+SELECT customer.first_name,
+       customer.last_name,
+       time(rental.rental_date) rental_time
+  FROM customer
+ INNER JOIN rental
+    ON customer.customer_id = rental.customer_id
+ LIMIT 5;
+#+end_src
+
+#+RESULTS:
+| first_name | last_name | rental_time |
+|------------+-----------+-------------|
+| MARY       | SMITH     |    11:30:37 |
+| MARY       | SMITH     |    10:35:23 |
+| MARY       | SMITH     |    00:54:12 |
+| MARY       | SMITH     |    18:02:53 |
+| MARY       | SMITH     |    21:08:46 |
+
+#+CAPTION: صفحه ۱۱۴ نام مستعار
+#+begin_src sql
+SELECT c.first_name,
+       c.last_name,
+       time(r.rental_date) rental_time
+  FROM customer AS c
+ INNER JOIN rental AS r
+    ON c.customer_id = r.customer_id
+ WHERE date(r.rental_date) = '2005-06-14';
+#+end_src
+
+#+RESULTS:
+| first_name | last_name | rental_time |
+|------------+-----------+-------------|
+| CATHERINE  | CAMPBELL  |    23:17:03 |
+| JOYCE      | EDWARDS   |    23:16:26 |
+| AMBER      | DIXON     |    23:42:56 |
+| JEANETTE   | GREENE    |    23:54:46 |
+| MINNIE     | ROMERO    |    23:00:34 |
+| GWENDOLYN  | MAY       |    23:16:27 |
+| SONIA      | GREGORY   |    23:50:11 |
+| MIRIAM     | MCKINNEY  |    23:07:08 |
+| CHARLES    | KOWALSKI  |    23:54:34 |
+| DANIEL     | CABRAL    |    23:09:38 |
+| MATTHEW    | MAHAN     |    23:25:58 |
+| JEFFERY    | PINSON    |    22:53:33 |
+| HERMAN     | DEVORE    |    23:35:09 |
+| ELMER      | NOE       |    22:55:13 |
+| TERRANCE   | ROUSH     |    23:12:46 |
+| TERRENCE   | GUNDERSON |    23:47:35 |
+
+** عبارت ~WHERE~
+
+#+CAPTION: صفحه ۱۱۵
+#+begin_src sql
+SELECT title
+  FROM film
+ WHERE rating = 'G'
+   AND rental_duration >= 7;
+#+end_src
+
+#+RESULTS:
+| title                   |
+|-------------------------|
+| BLANKET BEVERLY         |
+| BORROWERS BEDAZZLED     |
+| BRIDE INTRIGUE          |
+| CATCH AMISTAD           |
+| CITIZEN SHREK           |
+| COLDBLOODED DARLING     |
+| CONTROL ANTHEM          |
+| CRUELTY UNFORGIVEN      |
+| DARN FORRESTER          |
+| DESPERATE TRAINSPOTTING |
+| DIARY PANIC             |
+| DRACULA CRYSTAL         |
+| EMPIRE MALKOVICH        |
+| FIREHOUSE VIETNAM       |
+| GILBERT PELICAN         |
+| GRADUATE LORD           |
+| GREASE YOUTH            |
+| GUN BONNIE              |
+| HOOK CHARIOTS           |
+| MARRIED GO              |
+| MENAGERIE RUSHMORE      |
+| MUSCLE BRIGHT           |
+| OPERATION OPERATION     |
+| PRIMARY GLASS           |
+| REBEL AIRPORT           |
+| SPIKING ELEMENT         |
+| TRUMAN CRAZY            |
+| WAKE JAWS               |
+| WAR NOTTING             |
+
+#+CAPTION: صفحه ۱۱۶
+#+begin_src sql
+ SELECT title
+   FROM film
+  WHERE rating = 'G'
+     OR rental_duration >= 7
+  LIMIT 5;
+#+end_src
+
+#+CAPTION: صفحه ۱۱۷
+#+begin_src sql 
+SELECT title,
+       rating,
+       rental_duration
+  FROM film
+ WHERE (rating = 'G' AND rental_duration >= 7)
+    OR (rating = 'PG-13' AND rental_duration < 4)
+ LIMIT 5;
+#+end_src
+
+#+RESULTS:
+| title               | rating | rental_duration |
+|---------------------+--------+-----------------|
+| ALABAMA DEVIL       | PG-13  |               3 |
+| BACKLASH UNDEFEATED | PG-13  |               3 |
+| BILKO ANONYMOUS     | PG-13  |               3 |
+| BLANKET BEVERLY     | G      |               7 |
+| BORROWERS BEDAZZLED | G      |               7 |
+
+** گروه‌ها
+
+#+CAPTION: صفحه ۱۱۸
+#+begin_src sql
+SELECT c.first_name,
+       c.last_name,
+       count(*)
+  FROM customer c
+ INNER JOIN rental r
+    ON c.customer_id = r.customer_id
+ GROUP BY c.first_name,
+          c.last_name
+ LIMIT 10;
+#+end_src
+
+#+RESULTS:
+| first_name | last_name | count(*) |
+|------------+-----------+----------|
+| AARON      | SELBY     |       24 |
+| ADAM       | GOOCH     |       22 |
+| ADRIAN     | CLARY     |       19 |
+| AGNES      | BISHOP    |       23 |
+| ALAN       | KAHN      |       26 |
+| ALBERT     | CROUSE    |       23 |
+| ALBERTO    | HENNING   |       21 |
+| ALEX       | GRESHAM   |       33 |
+| ALEXANDER  | FENNELL   |       36 |
+| ALFRED     | CASILLAS  |       26 |
+
+** مرتب‌سازی
+
+#+CAPTION: صفحه ۱۱۹ - ۱۲۱
+#+begin_src sql
+SELECT c.first_name,
+       c.last_name,
+       time(r.rental_date) rental_time
+  FROM customer c
+ INNER JOIN rental r
+    ON c.customer_id = r.customer_id
+ WHERE date(r.rental_date) = '2005-06-14'
+ ORDER BY c.last_name,
+          c.first_name;
+#+end_src
+
+#+RESULTS:
+| first_name | last_name | rental_time |
+|------------+-----------+-------------|
+| DANIEL     | CABRAL    |    23:09:38 |
+| CATHERINE  | CAMPBELL  |    23:17:03 |
+| HERMAN     | DEVORE    |    23:35:09 |
+| AMBER      | DIXON     |    23:42:56 |
+| JOYCE      | EDWARDS   |    23:16:26 |
+| JEANETTE   | GREENE    |    23:54:46 |
+| SONIA      | GREGORY   |    23:50:11 |
+| TERRENCE   | GUNDERSON |    23:47:35 |
+| CHARLES    | KOWALSKI  |    23:54:34 |
+| MATTHEW    | MAHAN     |    23:25:58 |
+| GWENDOLYN  | MAY       |    23:16:27 |
+| MIRIAM     | MCKINNEY  |    23:07:08 |
+| ELMER      | NOE       |    22:55:13 |
+| JEFFERY    | PINSON    |    22:53:33 |
+| MINNIE     | ROMERO    |    23:00:34 |
+| TERRANCE   | ROUSH     |    23:12:46 |
+
+#+CAPTION: صفحه ۱۲۲ و ۱۲۳
+#+begin_src sql
+SELECT c.first_name,
+       c.last_name,
+       time(r.rental_date) rental_time
+  FROM customer c
+ INNER JOIN rental r
+    ON c.customer_id = r.customer_id
+ WHERE date(r.rental_date) = '2005-06-14'
+ ORDER BY time(r.rental_date) DESC;
+ -- ORDER BY 3 DESC;
+#+end_src
+
+#+RESULTS:
+| first_name | last_name | rental_time |
+|------------+-----------+-------------|
+| JEANETTE   | GREENE    |    23:54:46 |
+| CHARLES    | KOWALSKI  |    23:54:34 |
+| SONIA      | GREGORY   |    23:50:11 |
+| TERRENCE   | GUNDERSON |    23:47:35 |
+| AMBER      | DIXON     |    23:42:56 |
+| HERMAN     | DEVORE    |    23:35:09 |
+| MATTHEW    | MAHAN     |    23:25:58 |
+| CATHERINE  | CAMPBELL  |    23:17:03 |
+| GWENDOLYN  | MAY       |    23:16:27 |
+| JOYCE      | EDWARDS   |    23:16:26 |
+| TERRANCE   | ROUSH     |    23:12:46 |
+| DANIEL     | CABRAL    |    23:09:38 |
+| MIRIAM     | MCKINNEY  |    23:07:08 |
+| MINNIE     | ROMERO    |    23:00:34 |
+| ELMER      | NOE       |    22:55:13 |
+| JEFFERY    | PINSON    |    22:53:33 |
+
