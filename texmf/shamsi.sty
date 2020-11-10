@@ -1,0 +1,37 @@
+\ProvidesPackage{shamsi}
+
+\RequirePackage{xepersian}
+\RequirePackage{graphicx}
+
+\newcommand*{\project}[1]{\gdef\@project{#1}%
+}
+\newcommand*{\@project}{Final Year Project}
+\newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}%
+}
+\newcommand*{\@supervisor}{\texttt{\string\supervisor} پر نیست.}
+
+\renewcommand*{\maketitle}{%
+\begin{titlepage}
+\IfFileExists{shamsi-logo.png}{{\raggedright%
+  \includegraphics[width=3cm]{shami-logo.png}\par
+}
+}{}
+\vspace{1cm}
+    \centering
+{\scshape\large دانشکده شهید شمسی‌پور \par}
+\vspace{1cm}
+{\scshape\Large\@project\unskip\strut\par}
+\vspace{1.5cm}
+{\huge\bfseries\@title\unskip\strut\par}
+\vspace{2cm}
+{\Large\itshape\@author\unskip\strut\par}
+\vfill
+استاد \@supervisor\unskip\strut\par
+
+\vfill
+
+{\large \@date\par}
+\end{titlepage}
+}
+
+\endinput
