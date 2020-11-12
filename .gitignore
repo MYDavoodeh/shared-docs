@@ -12,6 +12,9 @@ _minted-*
 *.bbl
 *.bcf
 *.blg
+*.fdb_latexmk
+*.fls
+*.pyg
 *.run.xml
 *.synctex.gz
 *.toc
