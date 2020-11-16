@@ -1,0 +1,240 @@
+# -*- eval: (add-hook 'after-save-hook 'org-babel-tangle nil t); org-latex-default-figure-position: H; -*-
+#+TITLE: گزارش جلسه چهارم
+* Preamble :noexport:
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+#+AUTHOR: @@latex:\rl{@@محمدیاسین داوده@@latex:}@@
+
+** TeX
+# #+OPTIONS: toc:nil;
+
+*** Persian
+#+LANGUAGE: fa
+#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+#+LATEX_HEADER: \usepackage{shamsi} \project{برنامه‌نویسی مبتنی بر وب} \supervisor{برنجی تهرانی}
+
+#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
+#+LATEX_HEADER: \captionsetup[table]{name=جدول}
+
+#+LATEX_HEADER: \setLTRbibitems
+
+**** Minted
+#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{latin}}{}{} \xapptocmd{\endverbatim}{\end{latin}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{latin}}{}{} \xapptocmd{\endminted}{\end{latin}}{}{}
+#+LATEX_HEADER: \LetLtxMacro{\oldmintinline}{\mintinline}\renewcommand{\mintinline}[3][]{\lr{\oldmintinline[#1]{#2}{#3}}}
+#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
+
+** Macros
+#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
+#+MACRO: lt @@latex:\lr{@@​~$1~​@@latex:}@@
+#+MACRO: php src_php[:exports code :results none]{$1}
+
+** Bibliography
+#+LATEX_HEADER: \def\UrlBreaks{\do\/\do-}
+
+* انواع متغیر از لحاظ حوزه
+متغیرهای Php از لحاظ حوزه سه نوع کلی دارند:
+- Local
+- Global
+- Super-global
+
+بر خلاف آنچه در دیگر زبان‌های پایه-C متغیرهای محلی با متغیرهای جهانی جایگزین نمی‌شوند.
+
+
+#+CAPTION: متغیر {{{php($a)}}} چاپ نمی‌شود.
+#+begin_src php :exports both
+<?php
+$a = 1; /* global scope */
+function test()
+{
+    echo $a; /* reference to local scope variable */
+}
+test(); /* outputs none */
+#+end_src
+
+#+RESULTS:
+
+برای استفاده از متغیرهای جهانی باید یکبار با کلید {{{php(global $var)}}} یا با استفاده
+از آرایهٔ {{{php($GLOBALS['var'])}}} آنها را فراخوانی کرد.
+
+#+CAPTION: استفاده از متغیرهای جهانی با کلمه کلیدی {{{php(global)}}}
+#+begin_src php :exports both
+<?php
+$a = 1;
+$b = 2;
+function test()
+{
+    global $a, $b;
+    $b = $a + $b;
+}
+test();
+echo $b;
+#+end_src
+
+#+RESULTS:
+: 3
+
+متغیرهای سوپرگلوبال متغیرهایی هستند که در هر حوزه‌ای و در هر فایلی موجود و مشترک هستند.
+این به آن معناست که برای آنها نیازی نیست از کلیدواژهٔ {{{php(global)}}} استفاده کرد.
+
+لیست متغیرهای سوپرگلوبال:
+- {{{php($GLOBAL)}}}
+- {{{php($_SERVER)}}}
+- {{{php($_GET)}}}
+- {{{php($_POST)}}}
+- {{{php($_FILES)}}}
+- {{{php($_COOKIE)}}}
+- {{{php($_SESSION)}}}
+- {{{php($_REQUEST)}}}
+- {{{php($_ENV)}}}
+
+* تبدیل نوع
+** کست
+کست Php مشابه C می‌باشد.
+به این صورت که برای کست نوع کست را پیش از مقدار نوشته و از آن استفاده می‌کنیم: {{{php((type) value)}}}.
+
+انواع مجاز برای کست سبک-C به شرح زیر است:
+- {{{php((int))}}}, {{{php((integer))}}}
+- {{{php((bool))}}}, {{{php((boolean))}}}
+- {{{php((float))}}}, {{{php((double))}}}, {{{php((real))}}}
+- {{{php((string))}}}
+- {{{php((array))}}}
+- {{{php((object))}}}
+- {{{php((unset))}}}
+- {{{php((binary))}}}
+
+#+begin_src php
+<?php
+$foo = 10; // integer
+$fst = (string) $foo; // string
+#+end_src
+
+** گت و ست تایپ
+تابع {{{php(gettype ( mixed $var ) : string)}}} برای گرفتن نوع داده یک متغیر استفاده می‌شود.
+رشته‌های بازگشتی این تابع به شرح زیر است:
+ - {{{php("bool")}}}
+ - {{{php("int")}}}
+ - {{{php("double")}}}
+ - {{{php("string")}}}
+ - {{{php("array")}}}
+ - {{{php("object")}}}
+ - {{{php("resource")}}}
+ - {{{php("resource (closed)")}}}
+ - {{{php("NULL")}}}
+ - {{{php("unknown type")}}}
+
+#+CAPTION: استفاده از {{{php(gettype())}}} برای گرفتن چند نوع داده
+#+begin_src php :exports both
+<?php
+$data = [1, 1., null, new stdClass(), 'foo'];
+foreach ($data as $value) {
+    echo gettype($value), " ";
+}
+#+end_src
+
+#+RESULTS:
+: integer double NULL object string
+ 
+تابع {{{php(settype ( mixed &$var \, string $type ) : bool)}}} برای تغییر نوع داده‌ها به کار می‌رود.
+
+رشته‌های مورد قبول این تابع از این قرار است:
+- {{{php("bool")}}}, {{{php("boolean")}}}
+- {{{php("int")}}}, {{{php("integer")}}}
+- {{{php("float")}}}, {{{php("double")}}}
+- {{{php("string")}}}
+- {{{php("array")}}}
+- {{{php("object")}}}
+- {{{php("null")}}}
+
+#+CAPTION: تغییر نوع داده با استفاده از {{{php(settype())}}}
+#+begin_src php :results none
+<?php
+$foo = "5bar"; // string
+$bar = true; // boolean
+
+settype($foo, "integer"); // 5 (integer)
+settype($bar, "string"); // "1" (string)
+#+end_src
+
+* تمرین
+
+#+CAPTION: فرم امتحانی
+#+begin_src html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+  </head>
+  <body>
+    <form method="post" action="back.php">
+      <input name="field" type="text"/>
+      <input type="submit"/>
+    </form>
+  </body>
+</html>
+#+end_src
+
+** ورودی از کاربر گرفته شود و فاصله چپ و راست حذف شود
+
+#+CAPTION: حذف فاصله‌های اضافی از ورودی پست
+#+begin_src php
+<?php
+echo trim($_POST['field']);
+#+end_src
+
+** بررسی مقدار پست با تابع
+
+#+CAPTION: بررسی مقدار پست با تابع
+#+begin_src php
+<?php
+function chk($var)
+{
+    if ($var == 'p@ssword') {
+        return 'Welcome';
+    }
+}
+echo chk($_POST['field']);
+#+end_src
+
+#+CAPTION: بررسی مقدار پست با تابع حالت پیشین
+#+begin_src php
+<?php
+function chk($var)
+{
+    return $var == 'p@ssword' ? 'Welcome' : '';
+}
+echo chk($_POST['field']);
+#+end_src
+
+nocite:php:var_scope,php:type,php:superglobals,php:settype,php:gettype
+#+begin_src bibtex :exports none :tangle "note-web4.bib"
+@misc{php:gettype,
+  title           = {PHP: gettype - Manual},
+  url             = {https://www.php.net/manual/en/function.gettype.php},
+}
+
+@misc{php:settype,
+  title           = {PHP: settype - Manual},
+  url             = {https://www.php.net/manual/en/function.settype.php},
+}
+
+@misc{php:superglobals,
+  title           = {PHP: Superglobals - Manual},
+  url             =
+                  {https://www.php.net/manual/en/language.variables.superglobals.php},
+}
+
+@misc{php:type,
+  title           = {PHP: Type Juggling - Manual},
+  url             =
+                  {https://www.php.net/manual/en/language.types.type-juggling.php},
+}
+
+@misc{php:var_scope,
+  title           = {PHP: Variable scope - Manual},
+  url             = {https://www.php.net/manual/en/language.variables.scope.php},
+}
+#+end_src
+[[bibliographystyle:unsrtnat]]
+bibliography:note-web4.bib

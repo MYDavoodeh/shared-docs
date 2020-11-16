@@ -1,0 +1,136 @@
+# -*- org-latex-default-figure-position: H; -*-
+#+TITLE: گردآوری شماره ۳ مرتبط با درس وب
+#+AUTHOR: @@latex:\rl{@@محمدیاسین داوده@@latex:}@@
+#+DATE: ۱۷ آبان ۱۳۹۹
+#+LATEX_HEADER: \usepackage{xepersian}\setLTRbibitems\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+#+LANGUAGE: fa
+#+LATEX_HEADER: \def\UrlBreaks{\do\/\do-}
+#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
+#+LATEX_HEADER: \LetLtxMacro{\oldmintinline}{\mintinline}\renewcommand{\mintinline}[3][]{\lr{\oldmintinline[#1]{#2}{#3}}}
+#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
+#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
+
+
+* تفاوت متد Get و Post
+- از لحاظ معنایی متد گت معمولاً برای ارسال اطلاعات برای استفادهٔ بدون ویرایش به کار می‌رود این در حالی است که
+  پست برای ارسال اطلاعات امن به کار می‌رود.
+- به طور پیش‌فرض مقادیر گت در URL نوشته می‌شوند و مقادیر پست در هدر درخواست نوشته می‌شوند.
+- حجم مورد قبول اطلاعات به سرور، کلاینت، پروکسی و غیره بستگی دارد
+  اما به طور کل اکثر سرورها تا ۸ کیلوبایت اطلاعات را از روی گت می‌پذیرند. هرچند حجم پیشنهادی اطلاعات در ۲۵۵ کیلوبایت
+  است\nbsp{}cite:w3:getwarning.
+  این در حالی است که متد پست معمولاً ۲ گیگابایت به بالا را پشتیبانی می‌کند (قابل تنظیم، به طور پیشفرض چند مگابایت). cite:w3:methods
+
+
+* تعریف تابع Php
+تابع 
+توابع در زبان Php به شکل زیر تعریف می‌شوند.
+
+#+CAPTION: شکل کلی یک تابع در Php
+#+begin_src php :results none
+<?php
+function name($arg1, $arg2, /* ..., */ $argn)
+{
+    /* code block */
+}
+#+end_src
+
+رنج مجاز کاراکترهای مورد قبول نام تابع ~[a-zA-Z0-9_\x80-\xff]~ است؛ به استثنای حرف اول که نمی‌تواند عدد باشد\nbsp{}cite:php:user_funcs.
+
+تابع می‌تواند بی‌نام به صورت ناشناس ({{{lr(Anonymous)}}}) تعریف شود.
+
+#+CAPTION: تابعی ناشناس
+#+begin_src php :results none
+<?php
+function ($arg1, $arg2, /* ..., */ $argn)
+{
+    /* code block */
+}
+#+end_src
+
+* تگ‌های جدید HTML5 
+
+#+begin_src elisp :exports none :results none
+(let (alist)
+  (dolist (i '(article aside audio canvas command datalist details embed figure footer header hgroup keygen mark meter nav output progress ruby section time video wbr))
+          (setq alist (append alist (list (list (concat "~<" (symbol-name i) ">~"))))))
+  alist)
+#+end_src
+
+#+CAPTION: تگ‌های جدید HTML5\nbsp{}cite:tp:html5_new_tags
+| تگ           |                                                    ‌توضیحات |
+|--------------+------------------------------------------------------------|
+|              |                                                        <r> |
+| ~<article>~  |   محتوایی مستقل از صفحه را نمایش می‌دهد (مثلاً یک پست بلاگ). |
+| ~<aside>~    |    محتوایی با ارتباطی کمتر به سایر محتوای صفحه در بر دارد. |
+| ~<audio>~    |                                                        صدا |
+| ~<canvas>~   |                                   برای رندر بیت‌مپ و گرافیک |
+| ~<command>~  |                     حاوی دستوری که کاربر می‌تواند صدا بزند. |
+| ~<datalist>~ |                                        برای ساختن کمبوباکس |
+| ~<details>~  |                      جزئیات و موارد اختیاری را شامل می‌شود. |
+| ~<embed>~    |             محتوا یا پلاگینی خارجی و تعاملی را در بر دارد. |
+| ~<figure>~   | برای محتواهایی با جریانی خاص و متفاوت به نسبت محتوای اصلی. |
+| ~<footer>~   |                                                       فوتر |
+| ~<header>~   |                                                        هدر |
+| ~<hgroup>~   |                                                هدر یک سکشن |
+| ~<keygen>~   |                                دکمه‌ای برای ساختن زوجی کلید |
+| ~<mark>~     |                                                    هایلایت |
+| ~<meter>~    |                                                     اندازه |
+| ~<nav>~      |                            محتوای مورد استفاده برای راهبری |
+| ~<output>~   |                                                      خروجی |
+| ~<progress>~ |                                                 نوار تکمیل |
+| ~<ruby>~     |                                       برای نشانه‌گذاری روبی |
+| ~<section>~  |                                          بخشی کلی (معنایی) |
+| ~<time>~     |                                            زمان و/یا تاریخ |
+| ~<video>~    |                                                      ویدئو |
+| ~<wbr>~      |                               امکان شکست خط را مشخص می‌کند. |
+
+علاوه بر این صفت ~type~ تگ ~<input>~ مقادیر جدیدی می‌گیرد.
+
+#+CAPTION: مقادیر جدید مورد قبول ~<input>~ در HTML5\nbsp{}cite:tp:html5_new_tags
+| نوع              |                                              توضیحات |
+|------------------+------------------------------------------------------|
+|                  |                                                  <r> |
+| ~color~          |                                             پالت رنگ |
+| ~date~           |                                                تاریخ |
+| ~datetime-local~ | نمایش تاریخ و زمان بدون هیچ نشانگری برای مناطق زمانی |
+| ~datetime~       |      نمایش تاریخ و زمان کامل شامل نشانگر مناطق زمانی |
+| ~email~          |                               ورودی باید ایمیل باشد. |
+| ~month~          |                                           انتخاب ماه |
+| ~number~         |                                           مقدار عددی |
+| ~range~          |                            مقدار عددی در یک برد مشخص |
+| ~search~         |                 مقداری برای ارائه به یک موتور جستوجو |
+| ~tel~            |                                           شماره تلفن |
+| ~time~           |         نمایش و انتخاب زمان بدون اطلاعات منطقه زمانی |
+| ~url~            |                                            ورودی URL |
+| ~week~           |                                                 هفته |
+# #+TBLFM: $1='(eval (concat "~" $1 "~"))
+
+#+begin_src bibtex :exports none :tangle "note-web3.bib"
+@misc{php:user_funcs,
+  title           = {PHP: User-defined functions - Manual },
+  url             = {https://www.php.net/manual/en/functions.user-defined.php},
+}
+
+@misc{tp:html5_new_tags,
+  title           = {HTML5 - New Tags (Elements)},
+  url             = {https://www.tutorialspoint.com/html5/html5_new_tags.htm}
+}
+
+@misc{w3:getwarning,
+  title           = {Hypertext Transfer Protocol -- HTTP/1.1},
+  note            = "(3.2.1)",
+  year            = 2004,
+  month           = 09,
+  url             =
+                  {https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.2.1},
+}
+
+@misc{w3:methods,
+  author          = {W3Schools},
+  title           = {HTTP Request Methods},
+  url             = {https://www.w3schools.com/tags/ref_httpmethods.asp},
+}
+#+end_src
+
+bibliographystyle:unsrtnat
+bibliography:note-web3.bib
