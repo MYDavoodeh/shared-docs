@@ -12,7 +12,7 @@
 *** Persian
 #+LANGUAGE: fa
 #+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
-#+LATEX_HEADER: \usepackage{shamsi} \project{برنامه‌نویسی مبتنی بر وب} \supervisor{برنجی تهرانی}
+#+LATEX_HEADER: \usepackage{titlingpage1} \project{گزارشات مرتبط با درس آزمایشگاه پایگاه داده} \supervisor{بابک فرهادی}
 
 #+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
 #+LATEX_HEADER: \captionsetup[table]{name=جدول}

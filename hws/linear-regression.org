@@ -1,0 +1,205 @@
+#+TITLE: Linear Regression
+#+AUTHOR: M. Yas. Davoodeh
+
+#+PROPERTY: header-args:python :session lr :results output
+
+This file is my first practice in ML field.
+
+* Preprocessing
+:PROPERTIES:
+:header-args:python: :session lr :results none
+:END:
+
+#+begin_src python
+import numpy as np
+import pandas as pd
+from math import ceil
+import matplotlib.pyplot as plt
+#+end_src
+
+#+begin_src python
+import quandl
+quandl.get("WIKI/GOOGL").to_csv("wikigoogl.csv")
+#+end_src
+
+#+begin_src python
+df = pd.read_csv('wikigoogl.csv')
+df['Delta'] = (df['Adj. High'] - df['Adj. Close']) / df['Adj. Close']
+df['Daily Delta'] = (df['Adj. Close'] - df['Adj. Open']) / df['Adj. Open']
+
+df = df[['Adj. Close', 'Delta', 'Daily Delta', 'Adj. Volume']]
+
+forcast = int(ceil(.01*len(df))) # gets number of wanted data (forcast) based on the last 1% of data
+
+df['label'] = df['Adj. Close'].shift(-forcast) # shifts forcast# up and assigns it as a label(what happens in 30 days for our data)
+df.dropna(inplace=True)
+
+X = np.array(df.drop('label', 'columns'))
+y = np.array(df['label'])
+#+end_src
+
+#+begin_src python
+# from sklearn import preprocessing
+# X = preprocessing.scale(X)
+X = (X - np.mean(X, axis=0)) / np.std(X, axis=0)
+#+end_src
+
+* Training
+:PROPERTIES:
+:header-args:python: :session lr :results none
+:END:
+
+#+begin_src python
+from sklearn.model_selection import train_test_split
+# TODO implement train_test_split by yourself
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2)
+#+end_src
+
+#+begin_src python
+import time
+class MyLinearRegression:
+    def __init__(self, biased=False):
+        self.biased = biased
+        self.Theta = np.nan
+        self.X = np.nan
+        self.y = np.nan
+        self.mse_history = np.nan
+
+    def h(self, X):
+        return X @ self.Theta
+    
+    def loss(self, X, y):
+        """Calculate (H - y, Mean Square Error)"""
+        gradient = self.h(X) - y
+        return (gradient, np.mean((gradient)**2) / 2)
+         
+    def __manage(self, X):
+        # Manage dimensions, bias and stuff
+        # If biased, leave it. If not biased, bias it.
+        X = np.array(X)
+        if not self.biased and X.ndim == 1:
+            X = np.transpose([X])
+        X = np.hstack((np.transpose([np.ones(len(X))]), X))
+        return X
+    
+    def __descent(self, alpha=.0005, min_change=10**-3, max_iterations=100000):
+        """Minimize cost function via minor tweaks.
+        loss = h - y
+        First it calculates the loss, then it calculates theta - alpha * X' * loss / m
+        Then it calculates the gradient = X'.loss / m
+        At last it updates the Theta like Theta = Theta - alpha * gradient
+        Keeps doing the process above until convergence is declared (improvement is less than min_change) or
+        the number of iterations is more than max_iterations"""
+        iterations = 0
+        XT = self.X.T
+        mse_history = np.array([np.inf, np.inf])
+        mse = np.inf
+        import warnings
+        warnings.filterwarnings("ignore")
+        while iterations < max_iterations and not mse_history[-2] - mse_history[-1] < min_change:
+            mse_history = np.append(mse_history, mse)
+            gradient, mse = self.loss(self.X, self.y)
+            self.Theta = self.Theta - alpha * (XT @ gradient / len(self.X))
+            iterations += 1
+        self.mse_history = mse_history
+        return mse
+
+    def fit(self, X, y):
+        self.X = self.__manage(X)
+        self.y = y
+        self.Theta = np.ones(self.X.shape[1])
+        return self.__descent()
+        
+    def predict(self, X):
+        # In case the number of features is not equal to the number of features used in training, it will add zeros.
+        X = self.__manage(X)
+        extra_col = self.X.shape[1] - X.shape[1]
+        if 0 < extra_col:
+            zs = np.zeros((len(X), extra_col), dtype=X.dtype)
+            X = np.hstack((X, zs))
+        # Calculate values for X
+        return self.h(X)
+        
+    def score(self, X, y):
+        """An abstract way of scoring"""
+        # TODO implement something real
+        X = self.__manage(X)
+        ssr = 0
+        sst = 0
+        for i in range(0,len(X)):
+            sst += (y[i] - np.mean(y))**2
+            ssr += (y[i] - self.h(X)[i])**2
+        return 1 - (ssr/sst)
+        # return -self.loss(X, y)[1]
+#+end_src
+
+* Execute and draw (represent)
+
+#+begin_src python
+clf = MyLinearRegression()
+
+
+def represent(i):
+    clf.fit(X_train[:, i], y_train)
+    # TODO Plot for 2d samples
+    try:
+        if 0 <= i:
+            # Plot for 1d samples
+            plt.scatter(X_train[:, i], clf.y)
+            plt.plot(
+                np.linspace(-5, 5, 100),
+                clf.Theta[0] + clf.Theta[1] * np.linspace(-5, 5, 100),
+                "-r",
+            )
+            plt.show()
+            # Plot for comparing 1d samples and predictions
+            pred_y = clf.predict(X_test[:, i])
+            plt.scatter(X_test[:, i], y_test)
+            plt.scatter(X_test[:, i], pred_y)
+            plt.show()
+    except TypeError:
+        pass
+
+    # Cost plot
+    plt.plot(clf.mse_history)
+    plt.show()
+    score = clf.score(X_test[:, i], y_test)
+    print("The score of your model is: {}".format(score))
+    return score
+
+
+print("Printing learning curve for all the features")
+my_score = represent(...)  # For all features use ...
+# Only feature 0 is really good for testing with such a basic implementation
+print("Now printing all features one by one (why not?)")
+for i in range(0, X_train.shape[1]):
+    represent(i)
+#+end_src
+
+#+RESULTS:
+: Printing learning curve for all the features
+: The score of your model is: 0.9787069678834638
+: Now printing all features one by one (why not?)
+: The score of your model is: 0.9786696462254381
+: The score of your model is: 0.06047363363728797
+: The score of your model is: -0.00022860105204980385
+: The score of your model is: 0.2547786883298706
+
+* Compare to Scikit
+
+#+begin_src python
+from sklearn.linear_model import LinearRegression
+
+clf = LinearRegression()
+clf.fit(X_train, y_train)
+sk_score = clf.score(X_test, y_test)
+
+print(
+    "Your score using all features was {} and Sklearn's was {} which is {:f}% different".format(
+        my_score, sk_score, -(my_score - sk_score) / my_score
+    )
+)
+#+end_src
+
+#+RESULTS:
+: Your score using all features was 0.9787069678834638 and Sklearn's was 0.9786974028559039 which is -0.000010% different

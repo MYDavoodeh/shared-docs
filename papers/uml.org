@@ -1,0 +1,399 @@
+# -*- eval: (add-to-list 'org-latex-minted-langs '(plantuml "text")); org-beamer-outline-frame-title: "کلیات"; -*-
+#+TITLE: مقدمه‌ای بر UML
+* Preamble :noexport:
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+#+AUTHOR: ​@@latex:{@@​محمدیاسین داوده و علیرضا سلطانی​@@latex:}@@​
+
+** TeX
+#+LATEX_HEADER: \usepackage{svg}
+
+#+OPTIONS: H:2; num:t;
+# #+LATEX_HEADER: \setmainfont{XB Roya}\setmonofont{Iosevka}
+#+LATEX_HEADER: \def\UrlBreaks{\do\/\do-}
+
+*** Persian
+#+LANGUAGE: fa
+#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+
+#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
+#+LATEX_HEADER: \captionsetup[table]{name=جدول}
+#+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}\captionsetup[table]{labelformat=empty}\captionsetup[listing]{labelformat=empty}
+
+#+LATEX_HEADER: \setLTRbibitems
+
+**** Minted
+#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{latin}}{}{} \xapptocmd{\endminted}{\end{latin}}{}{}
+#+LATEX_HEADER: \LetLtxMacro{\oldmintinline}{\mintinline}\renewcommand{\mintinline}[3][]{\lr{\oldmintinline[#1]{#2}{#3}}}
+#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
+
+*** Beamer
+#+LATEX_CLASS: beamer
+
+**** RTL
+#+LATEX_HEADER: \usepackage{beamertl}
+#+LATEX_HEADER: \captionsetup{justification=raggedleft} % right aligns multiline captions
+
+**** Theme
+#+LATEX_HEADER: \beamertemplatenavigationsymbolsempty % removes navigation buttons clashing with the defined slide numbers
+#+LATEX_HEADER: \setbeamertemplate{footline}{\raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[20pt]{\color{gray}\scriptsize\insertframenumber}}}\hspace*{5pt}} % proper slide number
+#+LATEX_HEADER: \setbeamertemplate{bibliography item}{\insertbiblabel} % numbers bibliography
+
+**** Color scheme
+#+LATEX_HEADER: \definecolor{foreground}{RGB}{0,0,50}
+#+LATEX_HEADER: \definecolor{background}{RGB}{24,24,24}
+#+LATEX_HEADER: \definecolor{title}{RGB}{107,174,214}
+#+LATEX_HEADER: \definecolor{gray}{RGB}{155,155,155}
+#+LATEX_HEADER: \definecolor{subtitle}{RGB}{102,255,204}
+#+LATEX_HEADER: \definecolor{hilight}{RGB}{102,255,204}
+#+LATEX_HEADER: \definecolor{vhilight}{RGB}{255,111,207}
+
+#+LATEX_HEADER: \setbeamercolor{titlelike}{fg=title}
+#+LATEX_HEADER: \setbeamercolor{subtitle}{fg=subtitle}
+#+LATEX_HEADER: \setbeamercolor{normal text}{fg=foreground}
+#+LATEX_HEADER: \setbeamercolor{item}{fg=foreground} % color of bullets
+# #+LATEX_HEADER: \setbeamercolor{subitem}{fg=gray}
+# #+LATEX_HEADER: \setbeamercolor{itemize/enumerate subbody}{fg=gray}
+# #+LATEX_HEADER: \setbeamercolor{section in toc}{fg=foreground}
+# #+LATEX_HEADER: \setbeamercolor{subsection in toc}{fg=gray}
+
+# #+INCLUDE: beamer_dark_theme.org
+
+** Macros
+#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
+#+MACRO: lt @@latex:\lr{@@​~$1~​@@latex:}@@
+#+MACRO: fn [fn::$1]
+#+MACRO: fn [fn::@@latex:\lr{@@​$1​@@latex:}@@]
+
+* معرفی UML
+** UML چیست؟
+[[file:images/uml-logo.svg]]
+
+** تاریخچه
+file:images/uml-oohist2.svg
+
+** کاربردها
+برای بصری‌سازی:
+- هر فعالیتی
+- اجزای سیستم‌ها و نحوه تعامل آنها با یکدیگر
+- نحوه کارکرد سیستم
+- نحوه تعامل موجودیت‌ها
+- مستندسازی
+# *** Sketch
+# **** forward Design 
+# **** Backward Design
+# *** Blueprint
+# *** Pseudo Programming Language
+** شمایه کلی UML
+file:images/uml-overview.png
+** نمودارهای رفتاری
+نمودارهای پویا یا رفتاری روی رفتار سیستم‌ها بوسیلهٔ نمایش همکاری و تعامل اجزا تمرکز دارد.
+** انواع نمودارهای رفتاری
+- Activity
+- Communication
+- Interaction
+- Sequence
+- State
+- Timing
+- Usecase
+** نمودارهای ساختاری
+نمودار ایستا یا ساختاری روی ساختار ایستای سیستم تمرکز می‌کند.
+
+شامل:
+- اشیا
+- صفات
+- عملیات‌ها
+- ارتباطات
+** انواع نمودارهای ساختاری
+نمودارهای ساختاری مختلف:
+- Class
+- Component 
+- Composite 
+- Deployment 
+- Object
+- Package
+- Profile
+* نمودارهای رفتاری
+
+** Activity
+#+begin_src plantuml
+@startuml
+skinparam ConditionEndStyle hline
+start
+while (فرم ثبت‌نام پر شد؟) is (نه)
+   :برای فرم کمک بخواه;
+endwhile (بله)
+:در دانشگاه ثبت‌نام کن;
+if (قبول شد؟) then (بله)
+   fork
+      :در افتتاحیه حضور پیدا کن;
+   fork again
+      :به طور مجازی دروس را بردار;
+   end fork
+   :شهریه را پرداخت کن;
+else (خیر)
+endif
+end
+@enduml
+#+end_src
+
+#+CAPTION: نمودار ثبت‌نام دانشگاه
+#+ATTR_LATEX: :height .7\textheight
+#+RESULTS:
+: /tmp/babel-zMIiCg/plantuml-WCPxW3.png
+** COMMENT Communication
+** COMMENT Interaction
+** COMMENT Sequence
+** COMMENT State
+** COMMENT Timing
+** Usecase
+#+begin_src plantuml :file images/uml-d_usecase.png
+@startuml
+skinparam rectangleBorderColor lightgray
+frame Usecases #FFF {
+    actor Waiter
+    actor Client
+    actor Cashier
+    actor Chef
+    
+    rectangle "System boundaries" #FFF {
+        together {
+            "Order food" as (order)        
+            "Order drink" as (orderdrink)
+        }
+        "Serve food" as (serve)
+        "Cook food" as (cook)
+        together {
+            "Eat food" as (eat)
+            "Drink" as (drink)
+        }
+        "Pay for food" as (pay)
+    }
+    
+    order <. orderdrink : <<extends>>
+    eat <. drink : <<extends>>
+    order -[hidden]-> serve
+    serve -[hidden]-> eat
+    serve -[hidden]> cook
+    cook -[hidden]> Chef
+    eat -[hidden]-> pay
+    order -[hidden]-> Client
+    
+    Waiter - order : recieve
+    Waiter - serve
+    Waiter - pay : facilitate
+    Chef - cook
+    Chef - order : confirm 
+    Client - eat
+    Client - order : place
+    Client - pay
+    Cashier - pay : accept
+}
+@enduml
+#+end_src
+
+#+ATTR_LATEX: :height .7\textheight
+#+CAPTION: یوزکیس‌های یک رستوران
+#+RESULTS:
+[[file:images/uml-d_usecase.png]]
+
+* نمودارهای ساختاری
+
+** ارتباطات
+
+#+begin_src plantuml
+@startuml
+class Parent {
+    - name : String
+}
+class Partner {
+    - name : String
+}
+
+Parent - Partner : "Associated with"
+Parent <|-- Child
+@enduml
+#+end_src
+
+#+CAPTION: ارتباطات ارث‌بری و معمولی
+#+RESULTS:
+[[file:/tmp/babel-F1FXtT/plantuml-x6WnYc.png]]
+
+** ارتباطات سیستمی (نمودار کلاس)
+
+#+begin_src plantuml
+@startuml
+Cow --o Cattle
+
+Person *-- Organ
+
+Vehicle "1" *-- "2..*" Wheel
+@enduml
+#+end_src
+
+#+CAPTION: ارتباطات کامپوزیت و اگرگیشن 
+#+RESULTS:
+[[file:/tmp/babel-F1FXtT/plantuml-fCxgux.png]]
+
+** حوزه‌ها (نمودار کلاس)
+
+#+begin_src plantuml
+@startuml
+class Scopes {
+    - -private
+    + +public
+    ~ ~package
+    # #protected
+    - private_method(int x) : string
+}
+@enduml
+#+end_src
+
+#+CAPTION: حوزه‌های ویژگی‌ها و متدهای مختلف یک کلاس
+#+RESULTS:
+[[file:/tmp/babel-F1FXtT/plantuml-Pm9pOD.png]]
+
+** COMMENT Component 
+** COMMENT Composite 
+** COMMENT Deployment 
+** COMMENT Object
+** COMMENT Package
+** COMMENT Profile
+* PlantUML
+** PlantUML
+یک DSL برای رسم گراف و UML است.
+
+#+CAPTION: قالب یک PlantUML
+#+begin_src plantuml :exports code :results none
+@startuml
+   ' Content
+@enduml
+#+end_src
+** رابطه موجودیت‌ها
+#+begin_src plantuml
+@startuml
+entity Customer {
+    * id : <<generated>>
+    --
+    * fname : String
+    * lname : String
+    * address : String
+      phone : String  
+}
+entity Order {
+    * id : <<generated>>
+    --
+    * customer_id : <<FK>>
+    * created_at : Timestamp
+}
+entity Product {
+    * id : <<generated>>
+    --
+    * Quantity : Unsigned integer
+}
+
+Customer ||-o{ Order : > places
+Order }o--|{ Product : > includes
+@enduml
+#+end_src
+
+#+CAPTION: نمونه نمودار رابطه موجودیت‌های یک فروشگاه
+#+RESULTS:
+[[file:/tmp/babel-F1FXtT/plantuml-NLM5ud.png]]
+** کد مثال موجودیت
+#+begin_src plantuml :exports code :results none
+@startuml
+entity Customer {
+    * id : <<generated>>
+    --
+    * fname : String
+    * lname : String
+    * address : String
+      phone : String  
+}
+entity Order {...}
+entity Product {...}
+
+Customer ||-o{  Order   : > places
+Order    }o--|{ Product : > includes
+@enduml
+#+end_src
+** مثال Activity
+#+begin_src plantuml :exports code :results none
+@startuml
+start
+while (Filled form?) is (No)
+   :Ask for help;
+endwhile (Yes)
+:Register;
+if (Accpeted?) then (Yes)
+   fork
+      :Attend celebration;
+   fork again
+      :Take classes online;
+   end fork
+   :Pay the fee;
+else (No)
+endif
+end
+@enduml
+#+end_src
+** مثال Class
+#+begin_src plantuml :exports code :results none
+@startuml
+class Parent {
+    - name : String
+}
+class Partner {
+    - name
+}
+
+Parent - Partner : "Associated with"
+Parent <|-- Child
+@enduml
+#+end_src
+** مثال دوم Class
+#+begin_src plantuml :exports code :results none
+@startuml
+Cow --o Cattle
+
+Person *-- Organ
+
+Vehicle "1" *-- "2..*" Wheel
+@enduml
+#+end_src
+** دیتا
+#+begin_src plantuml
+@startuml
+ditaa
++--------+   +-------+    +-------+
+|        +---+ ditaa +--> |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+@enduml
+#+end_src
+
+#+ATTR_LATEX: :width .4\textwidth
+#+RESULTS:
+[[file:/tmp/babel-F1FXtT/plantuml-Jw7xZq.png]]
+
+#+begin_src plantuml :exports code :results none
+@startuml
+ditaa
++--------+   +-------+    +-------+
+|        +---+ ditaa +--> |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+@enduml
+#+end_src

@@ -1,4 +1,9 @@
-\ProvidesPackage{shamsi}
+\ProvidesPackage{titlingpage1}
+
+% A modified copied template from overleaf
+% (if you find a link to the original file please make a P/R).
+
+% Use after `xepersian`.
 
 \RequirePackage{xepersian}
 \RequirePackage{graphicx}
@@ -12,13 +17,13 @@
 
 \renewcommand*{\maketitle}{%
 \begin{titlepage}
-\IfFileExists{shamsi-logo.png}{{\raggedright%
-  \includegraphics[width=3cm]{shami-logo.png}\par
+\IfFileExists{titling-logo.png}{{\raggedright%
+  \includegraphics[width=3cm]{titling-logo.png}\par
 }
 }{}
 \vspace{1cm}
     \centering
-{\scshape\large دانشکده شهید شمسی‌پور \par}
+{\scshape\large دانشکده شهید شمسی‌پور \par} % FIXME remove the name
 \vspace{1cm}
 {\scshape\Large\@project\unskip\strut\par}
 \vspace{1.5cm}
@@ -26,6 +31,7 @@
 \vspace{2cm}
 {\Large\itshape\@author\unskip\strut\par}
 \vfill
+% FIXME replace with مدرس
 استاد \@supervisor\unskip\strut\par
 
 \vfill

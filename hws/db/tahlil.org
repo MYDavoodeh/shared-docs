@@ -1,0 +1,168 @@
+#+TITLE: تحلیل پایگاه داده دانشگاه
+* Preamble :noexport:
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+#+AUTHOR: ​@@latex:{@@​محمدیاسین داوده​@@latex:}@@​
+
+** TeX
+#+PROPERTY: header-args:latex :exports results :results file graphics replace output :imagemagick yes :iminoptions -density 250 :fit yes
+
+#+OPTIONS: toc:nil;
+#+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}\captionsetup[table]{labelformat=empty}
+
+*** Persian
+#+LANGUAGE: fa
+#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+#+LATEX_HEADER: \usepackage{titlingpage1} \project{گزارشات مرتبط با درس آزمایشگاه پایگاه داده} \supervisor{بابک فرهادی}
+
+#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
+#+LATEX_HEADER: \captionsetup[table]{name=جدول}
+
+#+LATEX_HEADER: \setLTRbibitems
+
+**** Minted
+#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{latin}}{}{} \xapptocmd{\endminted}{\end{latin}}{}{}
+#+LATEX_HEADER: \LetLtxMacro{\oldmintinline}{\mintinline}\renewcommand{\mintinline}[3][]{\lr{\oldmintinline[#1]{#2}{#3}}}
+#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
+
+** Macros
+#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
+#+MACRO: lt @@latex:\lr{@@​~$1~​@@latex:}@@
+#+MACRO: fn [fn::@@latex:\lr{@@​$1​@@latex:}@@]
+#+MACRO: filename (eval (concat "[[file:" (file-name-sans-extension (buffer-name)) $1 "]]"))
+
+
+** Bibliography
+#+LATEX_HEADER: \def\UrlBreaks{\do\/\do-}
+[[bibliographystyle:unsrtnat]]
+
+
+
+* توضیحات
+در این بخش سعی می‌شود تا فرضیاتی دربارهٔ دانشگاه درنظر گرفته شود تا بتوان بر اساس آن طراحی را انجام داد.[fn:orgnote:این فایل خروجی اتوماتیک فایل {{{filename(.org)}}} است. برای اجرای تعاملی کدها فایل را با اورگ-مد ایمکس باز کرده هر بخش آنرا ویرایش کنید یا از کدها خروجی گرفته آنها را به یک فایل واحد قابل اجرا تبدیل کنید.]
+
+به جای لیست از رشته استفاده می‌شود. در صورت نیاز می‌توان رشته‌ها را به صورت CSV{{{fn(Comma Separated Values)}}} نوشت.
+
+دانشگاه را محیطی شامل موجودیت‌های زیر فرض می‌کنیم:
+- دانشجو
+- کارمندان
+- مکان (فیزیکی یا مجازی شامل دفاتر، کلاس‌ها، سالن‌های سلف و...)
+- واحد
+- رویداد
+- پرداخت (شامل هزینه‌های دانشگاه از جلمه فیش حقوقی اساتید)
+
+توضیحات:
+- کد پستی هر فرد شامل آدرس او نیز هست.
+- هر دانشجو نمایانگر یک «عضویت» در یک دانشگاه است که توسط ثبت‌احوال یا نهاد دیگری ارائه می‌شود.
+  این موجودیت فقط اطلاعاتی را که قطعاً مورد نیاز را نگه می‌دارد.
+  به این طریق یک فرد می‌تواند دانشجوی دو دانشگاه یا مهمان باشد.
+- کد هر دانشجو شامل ترم ورودی وی نیز هست.
+- از آنجایی که دروس ثابت هستند و لیست آنها از دانشگاه‌های مرکزی/وزارت‌ها گرفته می‌شود، اطلاعات آن‌ها را نیز از بیرون می‌گیریم.
+- رویدادها شامل سایر اتفاقات دانشگاه مانند جلسات، پخش غذا، برگزاری مراسم‌ها، کنفرانس‌ها و... است.
+- مدرسین کارمندانی با نقش «مدرس»‌ هستند.
+
+* نمودارها
+
+#+begin_src plantuml :file .tahlil-erd.png
+package University <<rectangle>> #FFF {
+    entity Student {
+        ,* id : integer
+        --
+        ,* person_national_id : <<FK>>
+        is_guest : bool
+    }
+
+    entity Employee {
+        ,* id : integer
+        --
+        ,* person_national_id : <<FK>>
+        ,* role : string
+        major : string
+        ,* joined_at : timestamp
+    }
+
+    entity Payment {
+        ,* id : integer <<generated>>
+        --
+        ,* amount : number
+        ,* for : string
+        created_at : timestamp
+    }
+    
+    entity Location {
+        ,* id : integer <<generated>>
+        --
+        name : string
+        capacity : integer
+    }
+
+    entity Unit {
+        ,* id : integer <<generated>>
+        --
+        ,* lesson_id : <<FK>>
+        ,* tutor : <<FK>>
+        location_id : <<FK>>
+        ,* starts_at : time
+        ,* ends_at : time
+    }
+    
+    entity Event {
+        ,* id : integer <<generated>>
+        --
+        ,* title : string
+        atendees : string
+        location_id : <<FK>>
+    }
+
+    entity Student_Unit {
+        ,* id : integer <<generated>>
+        --
+        ,* student_id : <<FK>>
+        ,* unit : <<FK>>
+    }
+}
+
+entity Lecture {
+    ,* id : integer
+    --
+    ,* name
+    ,* target_audiences : string
+    ,* allowed_majors : string
+    recommended_resources : string
+}
+
+entity Person {
+    ,* national_id : string
+    --
+    ,* fname : string
+    ,* lname : string
+    ,* postal_code (includes "address") : string
+    ,* born_at : timestamp
+    mother_id : <<FK>>
+    father_id : <<FK>>
+}
+
+entity Phone_number {
+    ,* id
+    --
+    ,* owner_id : <<FK>>
+    ,* number
+    ...
+}
+
+Unit }- Lecture
+Student }--{ Student_Unit
+Student_Unit }--{ Unit
+Student -[hidden]--> Unit
+Unit }--o| Location
+Event -o| Location
+Employee }-{ Unit
+Student }- Person
+Person -o{ Person
+Person --{ Phone_number
+#+end_src  
+
+#+CAPTION: نمودار رابطه موجودیت‌ها
+#+RESULTS:
+[[file:.tahlil-erd.png]]

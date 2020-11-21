@@ -30,7 +30,6 @@
 *** Persian
 #+LANGUAGE: fa
 #+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
-# #+LATEX_HEADER: \usepackage{shamsi} \project{} \supervisor{}
 
 #+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
 #+LATEX_HEADER: \captionsetup[table]{name=جدول}
