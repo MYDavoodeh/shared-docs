@@ -3,35 +3,19 @@
 :PROPERTIES:
 :VISIBILITY: folded
 :END:
-#+AUTHOR: ​@@latex:{@@​محمدیاسین داوده​@@latex:}@@​
+#+AUTHOR: ​محمدیاسین داوده
 
 ** TeX
 #+PROPERTY: header-args:latex :exports results :results file graphics replace output :imagemagick yes :iminoptions -density 250 :fit yes
 
 #+OPTIONS: toc:nil;
 #+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}\captionsetup[table]{labelformat=empty}
+#+LATEX_HEADER: \usepackage{fullpage}
 
 *** Persian
 #+LANGUAGE: fa
-#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
+#+LATEX_HEADER: \usepackage[ltr={tabular}]{facro}
 #+LATEX_HEADER: \usepackage{titlingpage1} \project{گزارشات مرتبط با درس آزمایشگاه پایگاه داده} \supervisor{بابک فرهادی}
-
-#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
-#+LATEX_HEADER: \captionsetup[table]{name=جدول}
-
-#+LATEX_HEADER: \setLTRbibitems
-
-**** Minted
-#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{latin}}{}{} \xapptocmd{\endminted}{\end{latin}}{}{}
-#+LATEX_HEADER: \LetLtxMacro{\oldmintinline}{\mintinline}\renewcommand{\mintinline}[3][]{\lr{\oldmintinline[#1]{#2}{#3}}}
-#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
-
-** Macros
-#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
-#+MACRO: lt @@latex:\lr{@@​~$1~​@@latex:}@@
-#+MACRO: fn [fn::@@latex:\lr{@@​$1​@@latex:}@@]
-#+MACRO: filename (eval (concat "[[file:" (file-name-sans-extension (buffer-name)) $1 "]]"))
-
 
 ** Bibliography
 #+LATEX_HEADER: \def\UrlBreaks{\do\/\do-}
@@ -40,7 +24,7 @@
 
 
 * توضیحات
-در این بخش سعی می‌شود تا فرضیاتی دربارهٔ دانشگاه درنظر گرفته شود تا بتوان بر اساس آن طراحی را انجام داد.[fn:orgnote:این فایل خروجی اتوماتیک فایل {{{filename(.org)}}} است. برای اجرای تعاملی کدها فایل را با اورگ-مد ایمکس باز کرده هر بخش آنرا ویرایش کنید یا از کدها خروجی گرفته آنها را به یک فایل واحد قابل اجرا تبدیل کنید.]
+در این بخش سعی می‌شود تا فرضیاتی دربارهٔ دانشگاه درنظر گرفته شود تا بتوان بر اساس آن طراحی را انجام داد.[fn:orgnote:این فایل خروجی اتوماتیک فایل {{{thislink(.org)}}} است. برای اجرای تعاملی کدها فایل را باز کرده هر بخش آنرا ویرایش کنید یا از کدها خروجی گرفته آنها را به یک فایل واحد قابل اجرا تبدیل کنید. فایل ~.org~ فایلی متنی است که با اورگ-مد ایمکس باز می‌شود.]
 
 به جای لیست از رشته استفاده می‌شود. در صورت نیاز می‌توان رشته‌ها را به صورت CSV{{{fn(Comma Separated Values)}}} نوشت.
 
@@ -64,7 +48,7 @@
 
 * نمودارها
 
-#+begin_src plantuml :file .tahlil-erd.png
+#+begin_src plantuml :file tahlil-erd.png
 package University <<rectangle>> #FFF {
     entity Student {
         ,* id : integer
@@ -165,4 +149,4 @@ Person --{ Phone_number
 
 #+CAPTION: نمودار رابطه موجودیت‌ها
 #+RESULTS:
-[[file:.tahlil-erd.png]]
+[[file:tahlil-erd.png]]

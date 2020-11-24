@@ -1,0 +1,34 @@
+#+begin_src plantuml :file q4_lib.png
+entity Customer {
+    national_id
+    --
+    name
+    lname
+    reserved_at
+    borrowed_at
+    returned_at
+}
+entity Book {
+    ISBN
+    --
+    name
+    author
+    edition
+    total_num
+    publication
+    language
+    genre
+}
+entity Customer_book {
+    id
+    --
+    customer_id : <<FK>>
+    ISBN : <<FK>>
+}
+
+Customer - Customer_book
+Customer_book -- Book
+#+end_src
+
+#+RESULTS:
+[[file:q4_lib.png]]

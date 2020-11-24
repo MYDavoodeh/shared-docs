@@ -1,0 +1,16 @@
+#+TITLE: تکلیف جلسه پنجم
+#+AUTHOR: ​محمدیاسین داوده
+#+OPTIONS: toc:nil;
+#+LATEX_HEADER: \usepackage{nopageno,fullpage,facro}
+#+LANGUAGE: fa
+
+کوئری انتخاب مشتریانی که ماه قبل ثبت‌نام کردند.
+
+#+begin_src sql
+SELECT fname,
+       lname
+  FROM customer
+  JOIN account
+    ON customer.id = account.customer_id
+ WHERE account.registered_at <= ($prev_month);
+#+end_src

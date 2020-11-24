@@ -1,21 +1,12 @@
 # -*- eval: (add-hook 'after-save-hook 'org-babel-tangle nil t); org-latex-default-figure-position: H; -*-
-#+TITLE: تمرین کلاسی ص ۹۷ تا ۱۲۴
-#+AUTHOR: @@latex:\rl{@@محمدیاسین داوده@@latex:}@@
-#+PROPERTY: header-args:sql :engine mysql :exports both :tangle "97-124.sql" :comments link :session sql :var db="hw_db_97124" :database sakila
-#+STARTUP: fold
-#+LANGUAGE: fa
-#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
-#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
-#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
-#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
-#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
-#+MACRO: lt @@latex:\lr{@@​~$1~​@@latex:}@@
-#+MACRO: filename (eval (concat "[[file:" (file-name-sans-extension (buffer-name)) $1 "]]"))
+#+TITLE: تمرین کلاسی فصل سه
+#+AUTHOR: محمدیاسین داوده
+#+PROPERTY: header-args:sql :exports both :engine mysql :session mysql :tangle ch3.sql :database sakila
+#+LATEX_HEADER: \usepackage{fullpage}
+#+LATEX_HEADER: \usepackage[ltr={tabular}]{facro}
 
 * جزئیات و توضیحات
-
-این برگه به شامل کوئری‌های کتاب از صفحه ۹۷ تا ۱۲۴ شامل تمارین آخر فصل سه می‌باشد.[fn:org]
-[fn:org] این فایل خروجی اتوماتیک فایل {{{filename(.org)}}} است. برای اجرای تعاملی کدها ویرایش هر بخش آنرا ویرایش کنید. فایل ~.org~ با اورگ-مد ایمکس باز می‌شود. فایل حاصل دیگری که از این اورگ فایل این فایل بوجود آمده است کدهای مهم هستند که به طور اتوماتیک به {{{filename(.sql)}}} برای سورس شدن در MySQL اضافه شده‌اند.
+این برگه به شامل کوئری‌های کتاب از صفحه ۹۷ تا ۱۲۴ شامل تمارین آخر فصل سه می‌باشد.[fn:orgnote:این فایل خروجی اتوماتیک فایل {{{thislink(.org)}}} است. برای اجرای تعاملی کدها فایل را باز کرده هر بخش آنرا ویرایش کنید یا از کدها خروجی گرفته آنها را به یک فایل واحد قابل اجرا تبدیل کنید. فایل ~.org~ فایلی متنی است که با اورگ-مد ایمکس باز می‌شود.]
 
 #+CAPTION: انتخاب پایگاه داده پیش از آغاز
 #+begin_src sql :results none :exports code

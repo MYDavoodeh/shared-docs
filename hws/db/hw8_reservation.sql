@@ -1,13 +1,7 @@
--- [[file:reservation.org::*شمایه][شمایه:1]]
-DROP DATABASE hw_db_reservation;
--- شمایه:1 ends here
+DROP DATABASE IF EXISTS hw8_reservation;
+CREATE DATABASE hw8_reservation;
+USE hw8_reservation;
 
--- [[file:reservation.org::*شمایه][شمایه:2]]
-CREATE DATABASE hw_db_reservation;
-USE hw_db_reservation;
--- شمایه:2 ends here
-
--- [[file:reservation.org::*شمایه][شمایه:3]]
 CREATE TABLE employees (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     fname VARCHAR(20) NOT NULL,
@@ -44,13 +38,9 @@ CREATE TABLE reservations (
     FOREIGN KEY (voted_for) REFERENCES foods(id),
     FOREIGN KEY (food_id) REFERENCES foods(id)
 );
--- شمایه:3 ends here
 
--- [[file:reservation.org::show_tables][show_tables]]
 SHOW TABLES;
--- show_tables ends here
 
--- [[file:reservation.org::*مقداردهی][مقداردهی:1]]
 INSERT INTO foods (name, ingredients)
 VALUES ('Burger', 'meat,cheese,tomato'), ('Cheese sandwich', 'cheese,tomato');
 
@@ -59,14 +49,10 @@ VALUES ('Ali', 'Alipour'), ('Mamad', 'Mamadi');
 
 INSERT INTO halls (name, capacity)
 VALUES ('Western', 30), ('Eastern', 40);
--- مقداردهی:1 ends here
 
--- [[file:reservation.org::*مقداردهی][مقداردهی:2]]
 INSERT INTO reservations (employee_id, voted_for)
 VALUES (1, 1), (2, 1);
--- مقداردهی:2 ends here
 
--- [[file:reservation.org::*کوئری][کوئری:1]]
 UPDATE foods
    SET available=(
         SELECT COUNT(*)
@@ -76,39 +62,26 @@ UPDATE foods
            AND created_at BETWEEN now() - INTERVAL 1 WEEK AND now()
        )
  WHERE id=2;
--- کوئری:1 ends here
 
--- [[file:reservation.org::*کوئری][کوئری:2]]
 SELECT *
   FROM foods;
--- کوئری:2 ends here
 
--- [[file:reservation.org::*کوئری][کوئری:3]]
 UPDATE reservations
    SET food_id=2
  WHERE voted_for IN (1,2)
    AND food_id IS NULL
    AND created_at BETWEEN now() - INTERVAL 1 WEEK AND now();
--- کوئری:3 ends here
 
--- [[file:reservation.org::*کوئری][کوئری:4]]
 SELECT *
   FROM reservations;
--- کوئری:4 ends here
 
--- [[file:reservation.org::*کوئری][کوئری:5]]
 SELECT *
   FROM halls;
--- کوئری:5 ends here
 
--- [[file:reservation.org::*کوئری][کوئری:6]]
 SELECT *
   FROM employees;
--- کوئری:6 ends here
 
--- [[file:reservation.org::*کوئری][کوئری:8]]
 DESCRIBE employees;
 DESCRIBE foods;
 DESCRIBE halls;
 DESCRIBE reservations;
--- کوئری:8 ends here

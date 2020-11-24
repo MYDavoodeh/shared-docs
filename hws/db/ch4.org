@@ -1,20 +1,13 @@
 # -*- eval: (add-hook 'after-save-hook 'org-babel-tangle nil t); org-latex-default-figure-position: H; -*-
 #+TITLE: تمرین کلاسی فصل چهار
-#+AUTHOR: @@latex:\rl{@@محمدیاسین داوده@@latex:}@@
-#+PROPERTY: header-args:sql :engine mysql :exports both :tangle "ch4.sql" :comments link :session sql :database sakila
+#+AUTHOR: محمدیاسین داوده
+#+PROPERTY: header-args:sql :exports both :engine mysql :session mysql :tangle ch4.sql :database sakila
 #+STARTUP: fold
-#+LANGUAGE: fa
-#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
-#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{LTR}}{}{} \xapptocmd{\endminted}{\end{LTR}}{}{}
-#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
-#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
-#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
-#+MACRO: lt @@latex:\lr{@@​~$1~​@@latex:}@@
-#+MACRO: filename (eval (concat "[[file:" (file-name-sans-extension (buffer-name)) $1 "]]"))
+#+LATEX_HEADER: \usepackage{fullpage}
+#+LATEX_HEADER: \usepackage[ltr={tabular}]{facro}
 
 * جزئیات و توضیحات
-
-این برگه به شامل کوئری‌های کتاب و تمارین فصل چهار می‌باشد.[fn:orgnote:این فایل خروجی اتوماتیک فایل {{{filename(.org)}}} است. برای اجرای تعاملی کدها فایل را باز کرده هر بخش آنرا ویرایش کنید یا از کدها خروجی گرفته آنها را به یک فایل واحد قابل اجرا تبدیل کنید. فایل ~.org~ فایلی متنی است که با اورگ-مد ایمکس باز می‌شود.]
+این برگه به شامل کوئری‌های کتاب و تمارین فصل چهار می‌باشد.[fn:orgnote:این فایل خروجی اتوماتیک فایل {{{thislink(.org)}}} است. برای اجرای تعاملی کدها فایل را باز کرده هر بخش آنرا ویرایش کنید یا از کدها خروجی گرفته آنها را به یک فایل واحد قابل اجرا تبدیل کنید. فایل ~.org~ فایلی متنی است که با اورگ-مد ایمکس باز می‌شود.]
 
 #+CAPTION: انتخاب پایگاه داده پیش از آغاز
 #+begin_src sql :results none :exports code
@@ -250,4 +243,4 @@ SELECT title,
  | AFRICAN EGG      | G      |
  | AGENT TRUMAN     | PG     |
 
- شامل وایلدکارت‌ها نیست (کامل شود).
+ # TODO شامل وایلدکارت‌ها نیست (کامل شود).

@@ -1,0 +1,262 @@
+# -*- eval: (add-hook 'after-save-hook 'org-babel-tangle nil t); org-latex-default-figure-position: H; -*-
+#+TITLE: پایگاه دادهٔ یک فروشگاه اینترنتی
+#+AUTHOR: محمدیاسین داوده
+#+PROPERTY: header-args:sql :engine mysql :session mysql :exports both :tangle hw10_store.sql :database hw10_store :var db="hw10_store"
+#+LATEX_HEADER: \usepackage{fullpage,svg}
+#+LATEX_HEADER: \usepackage[ltr={tabular}]{facro}
+
+* جزئیات و توضیحات
+این برگه به شرح طراحی اولیهٔ پایگاه داده‌ای برای یک فروشگاه اینترنتی می‌پردازد.[fn:orgnote:این فایل خروجی اتوماتیک فایل {{{thislink(.org)}}} است. برای اجرای تعاملی کدها فایل را باز کرده هر بخش آنرا ویرایش کنید یا از کدها خروجی گرفته آنها را به یک فایل واحد قابل اجرا تبدیل کنید. فایل ~.org~ فایلی متنی است که با اورگ-مد ایمکس باز می‌شود.]
+
+فیلدهایی که به صورت ~x_at~ هستند تاریخ/تایم‌استمپ را نشان می‌دهند.
+فیلدهایی که به صورت ~x_id~ هستند به عنوان کلید خارجی عمل می‌کنند.
+
+موجودیت‌های اولیه به شرح زیر است:
+- محصول
+- دسته‌بندی
+- کاربر
+- سفارش
+- محصولات هر سفارش
+  
+** دیاگرام‌ها
+#+CAPTION: نمودار موجودیت‌ها
+#+RESULTS:
+[[file:hw10_store-eer.svg]]
+
+* پیاده‌سازی
+** شمایه
+
+#+CAPTION: بررسی و انتخاب پایگاه داده پیش از آغاز
+#+begin_src sql :exports code :results none :database
+DROP DATABASE IF EXISTS $db;
+CREATE DATABASE $db;
+USE $db;
+#+end_src
+
+#+CAPTION: ساخت جداول
+#+begin_src sql :exports code :results none
+CREATE TABLE users (
+    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(64), -- for hashing algorithms
+    address VARCHAR(100),
+    phone VARCHAR(9)
+);
+CREATE TABLE categories (
+    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20),
+    parent SMALLINT UNSIGNED,
+
+    FOREIGN KEY (parent) REFERENCES categories(id)
+);
+CREATE TABLE products (
+    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20),
+    category_id SMALLINT UNSIGNED,
+    stock SMALLINT UNSIGNED,
+    price INT,
+    description VARCHAR(100),
+    updated_at TIMESTAMP NULL,
+
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+CREATE TABLE orders (
+    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id SMALLINT UNSIGNED,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL,
+    approved_at TIMESTAMP NULL,
+
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE order_products (
+    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_id SMALLINT UNSIGNED NOT NULL,
+    order_id SMALLINT UNSIGNED NOT NULL,
+    qty SMALLINT UNSIGNED DEFAULT 1,
+
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+#+end_src
+
+#+NAME: show_tables
+#+CAPTION: خروجی جداول ساخته شده
+#+begin_src sql :exports both
+SHOW TABLES;
+#+end_src
+
+#+RESULTS: show_tables
+| Tables_in_hw10_store |
+|----------------------|
+| categories           |
+| order_products       |
+| orders               |
+| products             |
+| users                |
+
+** داده‌ها
+*** مقداردهی
+
+#+CAPTION: داده‌های اولیه
+#+begin_src sql :results none
+INSERT INTO users (email, password, address, phone) VALUES
+(
+    'mamad@site.ext',
+    '$2y$12$LcIiLu8e2vr97RAp.LUOLuOKz9D5yA5PmT5r4ste0X6OKwNz.6Mfe',
+    'Iran, Tehran',
+    '303456789'
+),
+(
+    'ali@site.ext',
+    '$2y$12$k4P4K07CgEQBV0i2LO3KGuFrDGx9MVLvbE8F9XYBNF6q/jvdvOepe',
+    'Iran, Sistan',
+    '303456789'
+);
+INSERT INTO categories (name, parent) VALUES
+('Self-care', NULL),
+('Shampoo', 1),
+('Electronics', NULL),
+('Keyboard', 3);
+INSERT INTO orders (user_id) VALUES (1), (1), (1), (2), (2);
+INSERT INTO products (name, category_id, stock, price, description) VALUES
+('Xcare', 2, 3, 15000, 'For men'),
+('Kplus Keyboard', 4, 8, 200000, 'For pros');
+INSERT INTO order_products (product_id, order_id, qty) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(1, 3, 1),
+(2, 3, 1),
+(1, 4, 1),
+(2, 5, 1);
+#+end_src
+
+*** لیست
+
+#+CAPTION: جدول کاربران
+#+begin_src sql
+SELECT id,
+       email,
+       address,
+       phone
+  FROM users;
+#+end_src
+
+#+RESULTS:
+| id | email          | address      |     phone |
+|----+----------------+--------------+-----------|
+|  1 | mamad@site.ext | Iran, Tehran | 303456789 |
+|  2 | ali@site.ext   | Iran, Sistan | 303456789 |
+
+#+CAPTION: جدول دسته‌بندی‌ها
+#+begin_src sql
+SELECT *
+  FROM categories;
+#+end_src
+
+#+RESULTS:
+| id | name        | parent |
+|----+-------------+--------|
+|  1 | Self-care   | NULL   |
+|  2 | Shampoo     | 1      |
+|  3 | Electronics | NULL   |
+|  4 | Keyboard    | 3      |
+
+#+CAPTION: جدول سفارشات
+#+begin_src sql
+SELECT *
+  FROM orders;
+#+end_src
+
+#+RESULTS:
+| id | user_id | created_at          | updated_at | approved_at |
+|----+---------+---------------------+------------+-------------|
+|  1 |       1 | 2020-11-25 02:11:32 | NULL       | NULL        |
+|  2 |       1 | 2020-11-25 02:11:32 | NULL       | NULL        |
+|  3 |       1 | 2020-11-25 02:11:32 | NULL       | NULL        |
+|  4 |       2 | 2020-11-25 02:11:32 | NULL       | NULL        |
+|  5 |       2 | 2020-11-25 02:11:32 | NULL       | NULL        |
+
+#+CAPTION: جدول محصولات
+#+begin_src sql
+SELECT *
+  FROM products;
+#+end_src
+
+#+RESULTS:
+| id | name           | category_id | stock |  price | description | updated_at |
+|----+----------------+-------------+-------+--------+-------------+------------|
+|  1 | Xcare          |           2 |     3 |  15000 | For men     | NULL       |
+|  2 | Kplus Keyboard |           4 |     8 | 200000 | For pros    | NULL       |
+
+#+CAPTION: جدول سفارشات محصولات
+#+begin_src sql
+SELECT *
+  FROM order_products;
+#+end_src
+
+#+RESULTS:
+| id | product_id | order_id | qty |
+|----+------------+----------+-----|
+|  1 |          1 |        1 |   1 |
+|  2 |          1 |        2 |   2 |
+|  3 |          1 |        3 |   1 |
+|  4 |          2 |        3 |   1 |
+|  5 |          1 |        4 |   1 |
+|  6 |          2 |        5 |   1 |
+
+*** جوین
+
+#+CAPTION: محصولاتی که کاربری با ایمیل =ali@site.ext= خریده است.
+#+begin_src sql
+SELECT products.id,
+       products.name
+  FROM products
+  JOIN order_products
+    ON products.id=order_products.product_id
+  JOIN orders
+    ON orders.id=order_products.order_id
+ WHERE user_id = (
+        SELECT id
+          FROM users
+         WHERE email='ali@site.ext'
+       );
+#+end_src
+
+#+RESULTS:
+| id | name           |
+|----+----------------|
+|  1 | Xcare          |
+|  2 | Kplus Keyboard |
+
+#+CAPTION: محصولات اولین خرید چند محصولهٔ کاربر اول سایت
+#+begin_src sql
+SELECT order_id,
+       products.id,
+       products.name,
+       order_products.qty
+  FROM products
+  JOIN categories
+    ON categories.id=products.category_id
+  JOIN order_products
+    ON order_products.product_id=products.id
+  JOIN orders
+    ON order_products.order_id=orders.id
+ WHERE user_id=1
+   AND orders.id IN (
+        SELECT order_id -- only take order_id
+          FROM (
+                SELECT count(*) AS product_count,
+                       order_id
+                  FROM order_products
+                 GROUP BY order_id
+                HAVING product_count>=2
+               ) AS counter
+       );
+#+end_src
+
+#+RESULTS:
+| order_id | id | name           | qty |
+|----------+----+----------------+-----|
+|        3 |  1 | Xcare          |   1 |
+|        3 |  2 | Kplus Keyboard |   1 |

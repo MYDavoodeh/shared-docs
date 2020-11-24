@@ -1,0 +1,85 @@
+# -*- eval: (add-hook 'after-save-hook 'org-babel-tangle nil t); org-latex-default-figure-position: H; -*-
+#+TITLE: تمرین کلاسی فصل پنج
+#+AUTHOR: محمدیاسین داوده
+#+PROPERTY: header-args:sql :exports both :engine mysql :session mysql :tangle ch5.sql :database sakila
+#+LATEX_HEADER: \usepackage[ltr={tabular}]{facro}
+
+* جزئیات و توضیحات
+این برگه به شامل کوئری‌های کتاب و تمارین فصل پنج می‌باشد.[fn:orgnote:این فایل خروجی اتوماتیک فایل {{{thislink(.org)}}} است. برای اجرای تعاملی کدها فایل را باز کرده هر بخش آنرا ویرایش کنید یا از کدها خروجی گرفته آنها را به یک فایل واحد قابل اجرا تبدیل کنید. فایل ~.org~ فایلی متنی است که با اورگ-مد ایمکس باز می‌شود.]
+
+#+CAPTION: انتخاب پایگاه داده پیش از آغاز
+#+begin_src sql :results none :exports code
+USE sakila;
+#+end_src
+
+* تمرین‌ها
+
+#+CAPTION: تمرین ۱
+#+begin_src sql
+SELECT c.first_name,
+       c.last_name,
+       a.address,
+       ct.city
+  FROM customer c
+ INNER JOIN address a
+    ON c.address_id = a.address_id
+ INNER JOIN city ct
+    ON a.city_id = ct.city_id
+ WHERE a.district = 'California';   
+#+end_src
+
+#+RESULTS:
+| first_name | last_name | address                | city           |
+|------------+-----------+------------------------+----------------|
+| PATRICIA   | JOHNSON   | 1121 Loja Avenue       | San Bernardino |
+| BETTY      | WHITE     | 770 Bydgoszcz Avenue   | Citrus Heights |
+| ALICE      | STEWART   | 1135 Izumisano Parkway | Fontana        |
+| ROSA       | REYNOLDS  | 793 Cam Ranh Avenue    | Lancaster      |
+| RENEE      | LANE      | 533 al-Ayn Boulevard   | Compton        |
+| KRISTIN    | JOHNSTON  | 226 Brest Manor        | Sunnyvale      |
+| CASSANDRA  | WALTERS   | 920 Kumbakonam Loop    | Salinas        |
+| JACOB      | LANCE     | 1866 al-Qatif Avenue   | El Monte       |
+| RENE       | MCALISTER | 1895 Zhezqazghan Drive | Garden Grove   |
+
+#+CAPTION: تمرین ۲
+#+begin_src sql
+SELECT f.title
+  FROM film f
+ INNER JOIN film_actor fa
+    ON f.film_id = fa.film_id
+ INNER JOIN actor a
+    ON fa.actor_id = a.actor_id
+ LIMIT 5;
+#+end_src
+
+#+RESULTS:
+| title               |
+|---------------------|
+| BACKLASH UNDEFEATED |
+| BETRAYED REAR       |
+| CAPER MOTIONS       |
+| CATCH AMISTAD       |
+| CHANCE RESURRECTION |
+
+#+CAPTION: تمرین ۳
+#+begin_src sql
+SELECT a1.address addr1,
+       a2.address addr2,
+       a1.city_id
+  FROM address a1
+ INNER JOIN address a2
+ WHERE a1.city_id = a2.city_id
+   AND a1.address_id != a2.address_id;
+#+END_SRC
+
+#+RESULTS:
+| addr1                | addr2                | city_id |
+|----------------------+----------------------+---------|
+| 47 MySakila Drive    | 23 Workhaven Lane    |     300 |
+| 28 MySQL Boulevard   | 1411 Lillydale Drive |     576 |
+| 23 Workhaven Lane    | 47 MySakila Drive    |     300 |
+| 1411 Lillydale Drive | 28 MySQL Boulevard   |     576 |
+| 1497 Yuzhou Drive    | 548 Uruapan Street   |     312 |
+| 587 Benguela Manor   | 43 Vilnius Manor     |      42 |
+| 548 Uruapan Street   | 1497 Yuzhou Drive    |     312 |
+| 43 Vilnius Manor     | 587 Benguela Manor   |      42 |

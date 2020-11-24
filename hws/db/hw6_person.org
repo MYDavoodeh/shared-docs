@@ -1,0 +1,70 @@
+# -*- eval: (add-hook 'after-save-hook 'org-babel-tangle nil t); -*-
+#+TITLE: جدول =persons=
+#+AUTHOR: ​محمدیاسین داوده
+#+PROPERTY: header-args:sql :engine mysql :session mysql :tangle hw6_person.sql :database hw6_person :var db="hw6_person"
+#+OPTIONS: toc:nil
+#+LANGUAGE: fa
+#+LATEX_HEADER: \usepackage{fullpage}
+#+LATEX_HEADER: \usepackage[ltr={tabular}]{facro}
+
+جدولی برای نگه‌داری اطلاعات افراد مختلف
+
+#+CAPTION: بررسی و انتخاب پایگاه داده پیش از آغاز
+#+begin_src sql :results none :exports code :database
+DROP DATABASE IF EXISTS $db;
+CREATE DATABASE $db;
+USE $db;
+#+end_src
+
+#+CAPTION: ساخت جدول
+#+BEGIN_SRC sql :results none
+DROP TABLE IF EXISTS persons;
+CREATE TABLE persons
+(
+    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    national_id CHAR(10) UNIQUE,
+    fname VARCHAR(20),
+    lname VARCHAR(20),
+    eye_color CHAR(2),
+    bd DATE,
+    postal_code CHAR(10) -- hazfe address con az postal_code qaabele xaandan ast
+);
+#+END_SRC
+
+#+CAPTION: پر کردن
+#+BEGIN_SRC sql :results none
+TRUNCATE TABLE persons;
+INSERT INTO persons (national_id, fname, lname, eye_color, bd, postal_code)
+VALUES ("1924567890", "Ali", "Alipour", "BR", "2000-12-31", "1234567890"),
+       ("2924567890", "Faride", "Elaahipour", "BL", "1981-12-31", "1234567890");
+#+END_SRC
+
+#+CAPTION: کوئری‌ها
+#+BEGIN_SRC sql :exports both
+SELECT *
+  FROM persons;
+#+END_SRC
+
+#+RESULTS:
+| id | national_id | fname  | lname      | eye_color |         bd | postal_code |
+|----+-------------+--------+------------+-----------+------------+-------------|
+|  1 |  1924567890 | Ali    | Alipour    | BR        | 2000-12-31 |  1234567890 |
+|  2 |  2924567890 | Faride | Elaahipour | BL        | 1981-12-31 |  1234567890 |
+
+#+BEGIN_SRC plantuml :file hw6_person-entity.png
+entity persons {
+    * id : SMALLINT
+    --
+    * **national_id** : CHAR(10)
+    fname : VARCHAR(20)
+    lname : VARCHAR(20)
+    eye_color : CHAR(2)
+    bd : DATE
+    postal_code : CHAR(10)
+}
+#+END_SRC
+
+#+CAPTION: کلاس دیاگرام
+#+RESULTS:
+[[file:hw6_person-entity.png]]
+

@@ -1,38 +1,21 @@
 # -*- eval: (add-to-list 'org-latex-minted-langs '(plantuml "text")); org-beamer-outline-frame-title: "کلیات"; -*-
 #+TITLE: مقدمه‌ای بر UML
 * Preamble :noexport:
-:PROPERTIES:
-:VISIBILITY: folded
-:END:
-#+AUTHOR: ​@@latex:{@@​محمدیاسین داوده و علیرضا سلطانی​@@latex:}@@​
+#+AUTHOR: ​محمدیاسین داوده و علیرضا سلطانی
 
 ** TeX
-#+LATEX_HEADER: \usepackage{svg}
-
 #+OPTIONS: H:2; num:t;
-# #+LATEX_HEADER: \setmainfont{XB Roya}\setmonofont{Iosevka}
 #+LATEX_HEADER: \def\UrlBreaks{\do\/\do-}
+
+#+LATEX_HEADER: \usepackage{svg}
 
 *** Persian
 #+LANGUAGE: fa
-#+LATEX_HEADER: \usepackage{xepersian}\settextfont{XB Roya}\setlatintextfont{XB Roya}\setmonofont{Iosevka}
-
-#+LATEX_HEADER: \xpretocmd{\tabular}{\begin{latin}}{}{} \xapptocmd{\endtabular}{\end{latin}}{}{}
-#+LATEX_HEADER: \captionsetup[table]{name=جدول}
+#+LATEX_HEADER: \usepackage{facro}
 #+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}\captionsetup[table]{labelformat=empty}\captionsetup[listing]{labelformat=empty}
-
-#+LATEX_HEADER: \setLTRbibitems
-
-**** Minted
-#+LATEX_HEADER: \xpretocmd{\verbatim}{\begin{LTR}}{}{} \xapptocmd{\endverbatim}{\end{LTR}}{}{} \xpretocmd{\minted}{\VerbatimEnvironment\begin{latin}}{}{} \xapptocmd{\endminted}{\end{latin}}{}{}
-#+LATEX_HEADER: \LetLtxMacro{\oldmintinline}{\mintinline}\renewcommand{\mintinline}[3][]{\lr{\oldmintinline[#1]{#2}{#3}}}
-#+LATEX_HEADER: \SetupFloatingEnvironment{listing}{name=کد}
 
 *** Beamer
 #+LATEX_CLASS: beamer
-
-**** RTL
-#+LATEX_HEADER: \usepackage{beamertl}
 #+LATEX_HEADER: \captionsetup{justification=raggedleft} % right aligns multiline captions
 
 **** Theme
@@ -59,12 +42,6 @@
 # #+LATEX_HEADER: \setbeamercolor{subsection in toc}{fg=gray}
 
 # #+INCLUDE: beamer_dark_theme.org
-
-** Macros
-#+MACRO: lr @@latex:\lr{@@​$1​@@latex:}@@
-#+MACRO: lt @@latex:\lr{@@​~$1~​@@latex:}@@
-#+MACRO: fn [fn::$1]
-#+MACRO: fn [fn::@@latex:\lr{@@​$1​@@latex:}@@]
 
 * معرفی UML
 ** UML چیست؟
