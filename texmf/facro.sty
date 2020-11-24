@@ -1,11 +1,77 @@
-\ProvidesPackage{beamertl}
+\ProvidesPackage{facro}
 
-% Fixes Beamer's issues with RTL languages such as Persian.
-% Use after `xepersian`.
+% Summarizes Farsi codes used in nearly every document.
+% Just use this package with some args instead.
+%
+% Adds keys to switch all options with one line.
+% ***Fixes Beamer automatically.***
+% Fixes Minted and undefined fonts.
+% Adds missing translations for Table and Listings.
+% Makes bib and verbatim environments LTR by default.
+%
+% Example configurations:
+% \usepackage[ltr={bib,verbatim,tabular}]{facro}
+% \usepackage[tlisting=عبارت]{facro}
+%
+% TODO:
+% Automatically fix Farsi not rendering in minted with certain fonts.
 
-\usefonttheme{serif} % (Required for Persian)
+\RequirePackage{xkeyval}
+\RequirePackage{caption}
+\RequirePackage{xpatch}
+\RequirePackage{letltxmacro}
+\RequirePackage{xepersian}
 
 \makeatletter
+% -----
+% BEGIN Options
+% -----
+\DeclareOptionX<fa>{text}[XB Roya]{\settextfont{#1}}
+\DeclareOptionX<fa>{ltext}{\setlatintextfont{#1}}
+\DeclareOptionX<fa>{lmono}[Iosevka]{\setlatinmonofont{#1}}
+\DeclareOptionX<fa>{fmono}[XB Roya]{\setpersianmonofont{#1}}
+\DeclareOptionX<fa>{mdigit}[XB Roya]{\setmathdigitfont{#1}}
+\DeclareOptionX<fa>{ttable}[جدول]{\def\fa@ttable{#1}}
+\DeclareOptionX<fa>{tlisting}[کد]{\def\fa@tlisting{#1}}
+\DeclareOptionX<fa>{ltr}{\setkeys{ltr}{#1}}
+
+\DeclareOptionX<ltr>{tabular}{%
+  \xpretocmd{\tabular}{\begin{latin}}{}{}
+  \xapptocmd{\endtabular}{\end{latin}}{}{}
+  \captionsetup[table]{name=\fa@ttable} % translates table
+}
+\DeclareOptionX<ltr>{bib}{\setLTRbibitems}
+
+\ExecuteOptionsX<fa>{text,lmono,ttable,tlisting}
+\ProcessOptionsX<fa>
+% -----
+% END Options
+% -----
+
+\xpatchcmd{\author}{#1}{\rl{#1}}{}{} % fixes broken author name in LTR'ed table docs
+
+% -----
+% BEGIN Minted fix
+% -----
+\ifx\minted\undefined\else % edits minted when available
+  \xpretocmd{\verbatim}{\begin{LTR}}{}{}
+  \xapptocmd{\endverbatim}{\end{LTR}}{}{}
+  \xpretocmd{\minted}{\VerbatimEnvironment\begin{latin}}{}{}
+  \xapptocmd{\endminted}{\end{latin}}{}{}
+  \LetLtxMacro{\oldmintinline}{\mintinline}
+  \renewcommand{\mintinline}[3][]{\lr{\oldmintinline[#1]{#2}{#3}}}
+  \SetupFloatingEnvironment{listing}{name=\fa@tlisting} % translates listing comments (minted codes)
+\fi
+% -----
+% END Minted fix
+% -----
+
+% till the end of file
+% -----
+% BEGIN Beamer fix
+% -----
+\@ifclassloaded{beamer}{%
+\usefonttheme{serif} % (Required for Persian)
 % Originally from http://qa.parsilatex.com/14100
 % -----
 % BEGIN List fix
@@ -61,6 +127,11 @@
 % -----
 % END TOC fix
 % -----
+}{}
+% -----
+% END Beamer fix
+% -----
+
 \makeatother
 
 \endinput
