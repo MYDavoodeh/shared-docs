@@ -2,7 +2,7 @@
 #+TITLE: List of useful resources for students of computer-related majors
 #+AUTHOR: M. Yas. Davoodeh
 #+EMAIL: MYDavoodeh@gmail.com
-#+LATEX_HEADER: \setmonofont{Iosevka}
+#+LATEX_HEADER: \usepackage{fullpage,fontspec}\setmonofont{Iosevka}
 
 * Contents :TOC_3:noexport:
 - [[#notes][Notes]]
@@ -166,6 +166,24 @@ With all being said, if you wait long enough, everything will be replaced by a v
 - [[https://reddit.com][Reddit]]: A hub for any community. Noob friendly and great for asking questions or finding resources.
 - *[[https://trello.com][Trello]]: Manage your life (Later replaced by your planner of choice Org-mode in Emacs)
 
+* Practices
+** Typing
+If you type a source code with numbers and symbols in it (something like C++) in less than 100WPM then you need to practice typing.
+If your type speed in such text is less than your handwritten speed you should /seriously/ consider practicing before entering the uni.
+
+*** Websites
+- [[https://www.typingclub.com/][TypingClub]]: Zero-to-hero typing course. Try starting from level 1 and focus on achieving "silver stars" in every level.
+  I suggest not to go ahead if you cannot achieve silver stars.
+- [[https://www.keybr.com/][KeyBR]]: Best to go site for practicing your weaknesses and learning the hard way
+- [[https://10fastfingers.com/][10FastFingers.com]]: Time to test your skills.
+  Also you can practice there to be one of those cheap typists who only learn typical words and struggle with numbers for their whole life.
+
+*** Software
+- [[https://klavaro.sourceforge.io/en/][Klavaro]]: Pick up every language or layout fast and easily with Klavaro. Maybe not the best for practicing, but for learning new layout outs it's the best.
+  It's also a FOSS cross-platform application.
+- [[https://rapidtyping.com/downloads.html][RapidTyping]]: The middle ground. Perfect for beginners, extensive practices and countless layouts but not the best in any of the fields individually.
+  Freeware - Windows only (can be run on Linux via Wine)
+
 * Youtube channels
 ** Educational
 These Youtube channels are serious, educational and have awesome quality.
@@ -249,23 +267,6 @@ Awesome for learning how to play games, work in a team and experiment with softw
   awesome free of charge, noob friendly tour on computer science and programs in Lisp. [[https://www.youtube.com/watch?v=-J_xL4IGhJA&list=PLE18841CABEA24090][Video course is on MIT OpenCourseWare]].
 - /Artificial Intelligence: A Modern Approach/ by Stuart Russell and Peter Norvig: A good starting point for theory of AI.
   At least it's fun in history chapter.
+- /Hands-on Machine Learning with Scikit-Learn, Keras & TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems/ by Aurélien Géron: Suggested starting point of AI
 
-* Roadmaps
-* Practices
-** Typing
-If you type a source code with numbers and symbols in it (something like C++) in less than 100WPM then you need to practice typing.
-If your type speed in such text is less than your handwritten speed you should /seriously/ consider practicing before entering the uni.
-
-*** Websites
-- [[https://www.typingclub.com/][TypingClub]]: Zero-to-hero typing course. Try starting from level 1 and focus on achieving "silver stars" in every level.
-  I suggest not to go ahead if you cannot achieve silver stars.
-- [[https://www.keybr.com/][KeyBR]]: Best to go site for practicing your weaknesses and learning the hard way
-- [[https://10fastfingers.com/][10FastFingers.com]]: Time to test your skills.
-  Also you can practice there to be one of those cheap typists who only learn typical words and struggle with numbers for their whole life.
-
-*** Software
-- [[https://klavaro.sourceforge.io/en/][Klavaro]]: Pick up every language or layout fast and easily with Klavaro. Maybe not the best for practicing, but for learning new layout outs it's the best.
-  It's also a FOSS cross-platform application.
-- [[https://rapidtyping.com/downloads.html][RapidTyping]]: The middle ground. Perfect for beginners, extensive practices and countless layouts but not the best in any of the fields individually.
-  Freeware - Windows only (can be run on Linux via Wine)
-
+* COMMENT Roadmaps
