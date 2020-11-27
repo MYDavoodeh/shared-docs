@@ -8,21 +8,24 @@
 \RequirePackage{xepersian}
 \RequirePackage{graphicx}
 
-\newcommand*{\project}[1]{\gdef\@project{#1}%
-}
+\newif\ifcount%
+\DeclareOption{count}{\counttrue}
+\DeclareOption{nocount}{\countfalse}
+\ExecuteOptions{count}
+\ProcessOptions\relax
+
+\newcommand*{\project}[1]{\gdef\@project{#1}}
 \newcommand*{\@project}{Final Year Project}
-\newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}%
-}
+\newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
 \newcommand*{\@supervisor}{\texttt{\string\supervisor} پر نیست.}
 
 \renewcommand*{\maketitle}{%
 \begin{titlepage}
 \IfFileExists{titling-logo.png}{{\raggedright%
-  \includegraphics[width=3cm]{titling-logo.png}\par
-}
+    \includegraphics[width=3cm]{titling-logo.png}\par}
 }{}
 \vspace{1cm}
-    \centering
+\centering
 {\scshape\large دانشکده شهید شمسی‌پور \par} % FIXME remove the name
 \vspace{1cm}
 {\scshape\Large\@project\unskip\strut\par}
@@ -33,11 +36,10 @@
 \vfill
 % FIXME replace with مدرس
 استاد \@supervisor\unskip\strut\par
-
 \vfill
-
 {\large \@date\par}
 \end{titlepage}
 }
+\ifcount\apptocmd{\maketitle}{\setcounter{page}{2}}{}{}\fi
 
 \endinput
